@@ -4,6 +4,7 @@
 angular.module('cloudEinkaufszettel.config', [
     'ngRoute',
     'einkaufsliste',
+    'login',
     'ui.bootstrap',
     'jens.accordion',
     'jens.accordion.tpls'
@@ -11,7 +12,8 @@ angular.module('cloudEinkaufszettel.config', [
 )
 .constant('NAV_ITEMS', [
     {title: 'listen', index: 'listen', hash: '#listen', icon: ''},
-    {title: 'editListe', index: 'editListe', hash: '#editListe', icon: ''}
+    {title: 'editListe', index: 'editListe', hash: '#editListe', icon: ''},
+    {title: 'login', index: 'login', hash: '#login', icon: ''}
 ])
 
 .config(function ($routeProvider) {
