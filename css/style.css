@@ -1,0 +1,32 @@
+
+@import "../vendor/bootstrap/css/bootstrap.css";
+
+
+
+.panel-heading-right {
+    float: right;
+    padding: 10px 15px;
+    cursor: pointer;
+    border-left: 1px solid #ddd ;
+    height: 38px;
+    min-width:50px;
+}
+
+.panel-heading-right .panel-title {
+
+    text-align: right;
+    width: 20px;
+}
+
+.pointer{
+    cursor: pointer;
+}
+
+.del{
+    text-decoration: line-through;
+}
+
+.marg{
+    margin-top: 20px;
+    margin-bottom: 10px;
+}

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html ng-app="cloudEinkaufszettel">
+<head lang="de">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title></title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <!-- ng-cloak -->
+    <style>
+        [ng-cloak] {
+            display: none;
+        }
+    </style>
+
+</head>
+<body>
+    <div class="container main">
+        <div ng-controller="home" class="row main-content">
+            <div ng-view=""></div>
+        </div>
+    </div>
+
+
+    <!-- Vendor JS -->
+    <script src="vendor/angular/angular.js"></script>
+    <script src="vendor/angular-route/angular-route.js"></script>
+
+    <script src="vendor/ui-bootstrap/ui-bootstrap-tpls-0.11.2.js"></script>
+
+    <!-- my JS -->
+    <script type="text/javascript" src="app.js"></script>
+    <script type="text/javascript" src="config/config.js"></script>
+    <script type="text/javascript" src="module/einkaufsliste/einkaufsliste.js"></script>
+    <script type="text/javascript" src="module/einkaufsliste/config/config.js"></script>
+    <script type="text/javascript" src="module/einkaufsliste/service/storage.js"></script>
+    <script type="text/javascript" src="module/login/login.js"></script>
+    <script type="text/javascript" src="module/login/config/config.js"></script>
+
+    <script type="text/javascript" src="directive/accordionJens.js"></script>
+</body>
+
+</html>

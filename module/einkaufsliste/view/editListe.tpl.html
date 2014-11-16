@@ -1,0 +1,88 @@
+<div collapse="!isCollapsedHead" class="row">
+    <div class="col-xs-8">
+        <h1>{{liste.titel}}</h1>
+    </div>
+
+    <div class="col-xs-2">
+        <h1>
+        <span ng-click="isCollapsedHead = !isCollapsedHead" class="pointer glyphicon glyphicon-edit" </span>
+        </h1>
+
+    </div>
+    <div class="col-xs-2">
+        <h1>
+        <span ng-click="removeListeById()" class=" pointer glyphicon glyphicon-remove"></span>
+            </h1>
+    </div>
+</div>
+
+
+<div collapse="isCollapsedHead" class="row">
+    <div class="col-xs-10">
+        <input ng-model="liste.titel" type="artikel" class="form-control" id="formtitel" placeholder="neue Liste">
+
+    </div>
+
+    <div class="col-xs-2">
+        <h1>
+        <span ng-click="isCollapsedHead = !isCollapsedHead" class=" pointer glyphicon glyphicon-ok"></span>
+        </h1>
+    </div>
+</div>
+
+
+
+
+<accordion-jens close-others=true>
+    <accordion-group-jens ng-repeat="artikel in liste.artikel">
+
+
+        <accordion-heading-jens>
+            <div class="row">
+                <div class="col-xs-1">
+                    <span ng-class=" {
+                    'glyphicon glyphicon-check': artikel.status === 'check',
+                    'glyphicon glyphicon-unchecked': artikel.status === 'uncheck'
+                    }"></span>
+                </div>
+                <div class="col-xs-6">
+                    <h3 ng-class="{'del': artikel.status === 'check'}" class="panel-title">{{artikel.name}}</h3>
+                </div>
+                <div class="col-xs-3">
+                    <h3 ng-class="{'del': artikel.status === 'check'}" class="panel-title"> Anzahl: {{artikel.anzahl}}</h3>
+                </div>
+
+                <div class="col-xs-2 pointer" ng-click="toggleOpen()">
+                   <span class="glyphicon glyphicon-edit"></span>
+                </div>
+
+
+            </div>
+        </accordion-heading-jens>
+
+        <div class="panel-body">
+            <input ng-model="artikel.name" type="artikel" class="form-control" id="formtitel" placeholder="Artikel...">
+
+            <div class="row">
+                <div class="col-xs-3">
+                    <h3 class="pointer  glyphicon glyphicon-remove" ng-click="remArtikel(artikel.name)"></h3>
+                </div>
+                <div class="col-xs-1">
+                    <h3 class="pointer glyphicon glyphicon-minus" ng-click="minus(artikel.name)"></h3>
+                </div>
+                <div class="col-xs-4">
+                    <input ng-model="artikel.anzahl" type="artikel" class="form-control marg" id="formtitel" placeholder="1">
+                </div>
+                <div class="col-xs-2">
+                    <h3 class="pointer glyphicon glyphicon-plus" ng-click="plus(artikel.name)"></h3>
+                </div>
+                <div class="col-xs-1"></div>
+                <div class="col-xs-1">
+                    <h3 class="pointer glyphicon glyphicon-ok" ng-click="checkArtikel(artikel.name)"></h3>
+                </div>
+            </div>
+        </div>
+    </accordion-group-jens>
+</accordion-jens>
+
+
