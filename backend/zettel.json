@@ -1,11 +1,11 @@
 {
-    "Lists" : [
+    "lists" : [
         {
             "id" : 1,
             "owner" : 1,
             "shared_with" : [],
-            "titel" : "Lebensmittel",
-            "artikel" : [
+            "title" : "Lebensmittel",
+            "article" : [
                 {
                     "id" : 1,
                     "name" : "Tee",
@@ -30,8 +30,8 @@
             "id" : 2,
             "owner" : 2,
             "shared_with" : [ 1 ],
-            "titel" : "Baumarkt",
-            "artikel" : [
+            "title" : "Baumarkt",
+            "article" : [
                 {
                     "id" : 4,
                     "name" : "Axt",
@@ -53,7 +53,7 @@
             ]
         }
     ],
-    "known_artikels" : [
+    "known_articles" : [
         "Tee",
         "Wurst",
         "Sahne 100ml",

@@ -13,56 +13,180 @@ var SERVER = {};
 // define fs
 var fs = require('fs');
 
-// define some default Zettel
-SERVER._liste= [
-    {
-        titel: 'Lebensmittel',
-        id:'01',
-        artikel: [{
-            //'092380' ,'092380' ,'092380' ,'092380' ,'092380' ,
-            name: 'Tee', anzahl: '2', status:'check'}, {
-            name: 'Sprudel', anzahl: '5', status:'uncheck'}, {
-            name: 'Bier', anzahl: '10', status:'check'}]
-    },
-    {
-        titel: 'Büro',
-        id:'02',
-        artikel: [{
-            name: 'Kugelschreiber', anzahl: '5', status:'check'}, {
-            name: 'Papier', anzahl: '200', status:'uncheck'}]
-    },
-    {
-        titel: 'Bücher',
-        id:'03',
-        artikel: [{
-            name: 'AngularJS', anzahl: '1', status:'uncheck'}, {
-            name: 'PhoneGap', anzahl: '1', status:'uncheck'}]
-    },
-    {
-        titel: 'Kosmetik',
-        id:'04',
-        artikel: [{
-            name: 'Mascara', anzahl: '1', status:'uncheck'}, {
-            name: 'Wattepads', anzahl: '1', status:'check'}]
-    }];
+
+//list in code for better auto correct
+SERVER._data = {
+    lists : [
+        {
+            id : 1,
+            owner : 1,
+            shared_with : [],
+            title : "Lebensmittel",
+            article : [
+                {
+                    id : 1,
+                    name : "Tee",
+                    count : 5,
+                    purchased : false
+                },
+                {
+                    id : 2,
+                    name : "Wurst",
+                    count : 3,
+                    purchased : false
+                },
+                {
+                    id : 3,
+                    name : "Sahne 100ml",
+                    count : 2,
+                    purchased : true
+                }
+            ]
+        },
+        {
+            id : 2,
+            owner : 2,
+            shared_with : [ 1 ],
+            title : "Baumarkt",
+            article : [
+                {
+                    id : 1,
+                    name : "Axt",
+                    count : 1,
+                    purchased : false
+                },
+                {
+                    id : 2,
+                    name : "Hammer",
+                    count : 2,
+                    purchased : false
+                },
+                {
+                    id : 3,
+                    name : "Nägel",
+                    count : 100,
+                    purchased : true
+                }
+            ]
+        }
+    ],
+    known_articles : [
+        "Tee",
+        "Wurst",
+        "Sahne 100ml",
+        "Axt",
+        "Hammer",
+        "Nägel"
+    ]
+}
 
 
+/*
 
-SERVER.updateList = function (list) {
-    for (var i = 0, n = SERVER._liste.length; i < n; i++) {
-        if (parseInt(list.id) === SERVER._liste[i].id) {
-            SERVER._liste[i] = list;
-            //return list;
+ getLists(userId) -> done ?
+ getListItemsById(listID) -> done ?
+ addList(list) -> done ?
+ addArticleToList(listId,article) done ?
+ updateListById(listId,attr) -> was für attr?
+ updateArticleInList(listId, article)
+ delArticleInList(listId,articleId)
+ delList(listId)
+
+*/
+
+SERVER.getLists = function(userId){
+
+    var visibleLists = [];
+    for(var i=0; i < SERVER._data.lists.length; i++){
+        if(SERVER._data.lists[i].owner === userId || SERVER._data.lists[i].shared_with.indexOf(userId) > -1){
+            visibleLists.push(SERVER._data.lists[i]);
         }
     }
-    return null;
+    return visibleLists;
 };
 
+SERVER.getListItemsById = function(listId){
+    var article = {};
+    for(var i=0; i < SERVER._data.lists.length; i++){
+        if(SERVER._data.lists[i].id === listId){
+            article = SERVER._data.lists[i].article;
+            break;
+        }
+    }
+    return article;
+};
+
+SERVER.addList = function(list){
+
+    list.id = (SERVER._data.lists.length + 1);
+    SERVER._data.lists.push(list);
+
+    return list.id;
+};
+
+SERVER.addArticleToList = function(listId,article){
+    for(var i=0; i < SERVER._data.lists.length; i++){
+        if(SERVER._data.lists[i].id === listId){
+            SERVER._data.lists[i].article.push(article);
+            break;
+        }
+    }
+};
+
+SERVER.updateListById = function(listId,attr){
+    for(var i=0; i < SERVER._data.lists.length; i++){
+        if(SERVER._data.lists[i].id === listId){
+            SERVER._data.lists[i].title = attr.title;
+            SERVER._data.lists[i].shared_with = attr.shared_with;
+            break;
+        }
+    }
+};
+
+SERVER.updateArticleInList = function(listId, article){
+    for(var i=0; i < SERVER._data.lists.length; i++){
+        if(SERVER._data.lists[i].id === listId){
+            for(var j = 0; j < SERVER._data.lists[i].article.length; j++){
+                if(SERVER._data.lists[i].article[j].id = article.id){
+                    SERVER._data.lists[i].article[j] = article;
+                    break;
+                }
+            }
+            break;
+        }
+    }
+};
+
+SERVER.delArticleInList = function(listId,articleId){
+    for(var i=0; i < SERVER._data.lists.length; i++){
+        if(SERVER._data.lists[i].id === listId){
+            for(var j = 0; j < SERVER._data.lists[i].article.length; j++){
+                if(SERVER._data.lists[i].article[j].id = articleId){
+                    SERVER._data.lists[i].article.splice(j, 1);
+                    break;
+                }
+            }
+            break;
+        }
+    }
+};
+
+SERVER.delList = function(listId){
+    for(var i=0; i < SERVER._data.lists.length; i++){
+        if(SERVER._data.lists[i].id === listId){
+            SERVER._data.lists.splice(i, 1);
+            break;
+        }
+    }
+};
+
+/*
+
 SERVER.deleteListeById = function (id) {
-    var i = SERVER._liste.length;
+    var i = SERVER._data.length;
     while (i--) {
-        if (parseInt(id) === SERVER._liste[i].id) {
-            return SERVER._liste.splice(i, 1);
+        if (parseInt(id) === SERVER._data[i].id) {
+            return SERVER._data.splice(i, 1);
         }
     }
     return null;
@@ -73,10 +197,10 @@ SERVER.getNewId = function () {
     var highest = Number.NEGATIVE_INFINITY;
     var tmp;
 
-    if (SERVER._liste.length > 0) {
+    if (SERVER._data.length > 0) {
 
-        for (var i = SERVER._liste.length - 1; i >= 0; i--) {
-            tmp = SERVER._liste[i].id;
+        for (var i = SERVER._data.length - 1; i >= 0; i--) {
+            tmp = SERVER._data[i].id;
             if (tmp < lowest) lowest = tmp;
             if (tmp > highest) highest = tmp;
         }
@@ -86,6 +210,7 @@ SERVER.getNewId = function () {
         return 0;
 }
 
+*/
 
 // set cors headers for all requests
 app.all('*', function (req, res, next) {
@@ -102,7 +227,7 @@ app.get('/api/newId', function (req, res) {
 });
 
 app.get('/api/listen', function (req, res) {
-    res.json(SERVER._liste);
+    res.json(SERVER._data);
 });
 
 app.get('/api/liste/:id', function (req, res) {
@@ -118,7 +243,7 @@ app.get('/api/liste/:id', function (req, res) {
 });
 
 app.post('/api/liste', function (req, res) {
-    SERVER._liste.push(req.body);
+    SERVER._data.push(req.body);
     res.json(true);
 });
 
@@ -148,12 +273,12 @@ app.delete('/api/liste/:id', function (req, res) {
 
 //save
 app.save = function() {
-    fs.writeFile(__dirname + '/zettel.json',JSON.stringify(SERVER._liste))
+    fs.writeFile(__dirname + '/zettel.json',JSON.stringify(SERVER._data))
 }
 
 // read
 try{
-    SERVER._liste = require(__dirname + '/zettel.json');
+    SERVER._data = require(__dirname + '/zettel.json');
 }
 catch (e){
     app.save();
