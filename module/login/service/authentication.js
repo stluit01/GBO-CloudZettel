@@ -3,7 +3,7 @@
  */
 
 angular.module('service.login', [])
-    .factory('authInterceptor', function ($rootScope, $q, $window) {
+    .factory('authInterceptor', function ($rootScope, $q, $window ,$location) {
     return {
         request: function (config) {
             config.headers = config.headers || {};
@@ -15,7 +15,7 @@ angular.module('service.login', [])
         responseError: function (rejection) {
             if (rejection.status === 401) {
                 // handle the case where the user is not authenticated
-                console.log("401")
+                $location.path("/login")
             }
             return $q.reject(rejection);
         }

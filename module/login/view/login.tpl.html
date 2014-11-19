@@ -1,10 +1,11 @@
 <div class="col-sm-6 col-md-4 col-md-offset-4">
     <div class="panel panel-default">
         <div class="panel-body">
-            <form ng-submit="login(username, passwort)" role="form" action="#" method="POST">
+            <form role="form" action="#" method="POST">
                 <fieldset>
                     <div class="center-block">
                         <h1>Cloud Korb</br></h1>
+
                         <h3>-Die mobile Einkaufsliste-</br></h3>
                         <trans>
                             <span class="glyphicon glyphicon-cloud" aria-hidden="true"></span>
@@ -22,30 +23,33 @@
                         <div class="form-group">
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                                <input  ng-model="email" class="form-control" placeholder="E-Mail" name="loginname" type="text"
+                                <input ng-model="user.email" class="form-control" placeholder="E-Mail" name="loginname"
+                                       type="text"
                                        autofocus>
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                                <input ng-model="passwort" class="form-control" placeholder="Passwort" name="password" type="password"
+                                <input ng-model="user.password" class="form-control" placeholder="Passwort"
+                                       name="password" type="password"
                                        value="">
                             </div>
                         </div>
-                        <div class="form-group">
-                            <!-- Submitbutton-->
-                            <input type="submit" class="btn btn-lg btn-primary btn-block" value="Login">
-                        </div>
+                        <!-- Submitbutton-->
                     </div>
                 </fieldset>
             </form>
+            <div class="col-sm-12 col-md-10  col-md-offset-1 ">
+            <!-- Submitbutton-->
+            <button ng-click="submit()"  class="btn btn-lg btn-primary btn-block" value="">Login</button>
+                </div>
         </div>
         <div class="panel-footer">
-            <p style="text-align: left" class="text-muted">Kein Account? <a href="#registrate"
-                                                                                     class="btn btn-default btn-sm navbar-btn"
-                                                                                     role="button">Registrieren</a>
-            </p></div>
+            <p style="text-align: left" class="text-muted">Kein Account?
+                <a href="#registrate" class="btn btn-default btn-sm navbar-btn" role="button">Registrieren</a>
+            </p>
+        </div>
     </div>
     </fieldset> </form>
 </div>

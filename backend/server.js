@@ -1,9 +1,15 @@
-// import express
+// import express,....
 var express = require('express');
+var bodyParser = require('body-parser');
+
+var jwt = require('jsonwebtoken');  //https://npmjs.org/package/node-jsonwebtoken
+var expressJwt = require('express-jwt'); //https://npmjs.org/package/express-jwt
+
+//secret
+var secret = 'this is the secret secret secret 12356';
 
 // init express app
 var app = express();
-
 
 // define a global application object
 var SERVER = {};
@@ -11,80 +17,15 @@ var SERVER = {};
 // define fs
 var fs = require('fs');
 
-var jwt = require('express-jwt');
-var bodyParser = require('body-parser'); //bodyparser + json + urlencoder
-var morgan  = require('morgan'); // logger
-var tokenManager = require('./config/token_manager');
-var secret = require('./config/secret');
+// We are going to protect /api routes with JWT
+app.use('/api', expressJwt({secret: secret}));
+
+app.use(bodyParser.json());
+app.use('/', express.static(__dirname + '/../'));
 
 
 //list in code for better auto correct
-SERVER._data = {
-    lists : [
-        {
-            id : 1,
-            owner : 1,
-            shared_with : [],
-            title : "Lebensmittel",
-            article : [
-                {
-                    id : 1,
-                    name : "Tee",
-                    count : 5,
-                    purchased : false
-                },
-                {
-                    id : 2,
-                    name : "Wurst",
-                    count : 3,
-                    purchased : false
-                },
-                {
-                    id : 3,
-                    name : "Sahne 100ml",
-                    count : 2,
-                    purchased : true
-                }
-            ]
-        },
-        {
-            id : 2,
-            owner : 2,
-            shared_with : [ 1 ],
-            title : "Baumarkt",
-            article : [
-                {
-                    id : 1,
-                    name : "Axt",
-                    count : 1,
-                    purchased : false
-                },
-                {
-                    id : 2,
-                    name : "Hammer",
-                    count : 2,
-                    purchased : false
-                },
-                {
-                    id : 3,
-                    name : "Nägel",
-                    count : 100,
-                    purchased : true
-                }
-            ]
-        }
-    ],
-    known_articles : [
-        "Tee",
-        "Wurst",
-        "Sahne 100ml",
-        "Axt",
-        "Hammer",
-        "Nägel"
-    ]
-}
-
-
+SERVER._data = {}
 /*
 
  getLists(userId) -> done ?
@@ -99,7 +40,6 @@ SERVER._data = {
 */
 
 SERVER.getLists = function(userId){
-
     var visibleLists = [];
     for(var i=0; i < SERVER._data.lists.length; i++){
         if(SERVER._data.lists[i].owner === userId || SERVER._data.lists[i].shared_with.indexOf(userId) > -1){
@@ -124,7 +64,7 @@ SERVER.addList = function(list){
 
     list.id = (SERVER._data.lists.length + 1);
     SERVER._data.lists.push(list);
-
+    SERVER.save();
     return list.id;
 };
 
@@ -132,6 +72,7 @@ SERVER.addArticleToList = function(listId,article){
     for(var i=0; i < SERVER._data.lists.length; i++){
         if(SERVER._data.lists[i].id === listId){
             SERVER._data.lists[i].article.push(article);
+            SERVER.save();
             break;
         }
     }
@@ -142,6 +83,7 @@ SERVER.updateListById = function(listId,attr){
         if(SERVER._data.lists[i].id === listId){
             SERVER._data.lists[i].title = attr.title;
             SERVER._data.lists[i].shared_with = attr.shared_with;
+            SERVER.save();
             break;
         }
     }
@@ -156,6 +98,7 @@ SERVER.updateArticleInList = function(listId, article){
                     break;
                 }
             }
+            SERVER.save();
             break;
         }
     }
@@ -170,6 +113,7 @@ SERVER.delArticleInList = function(listId,articleId){
                     break;
                 }
             }
+            SERVER.save();
             break;
         }
     }
@@ -177,44 +121,13 @@ SERVER.delArticleInList = function(listId,articleId){
 
 SERVER.delList = function(listId){
     for(var i=0; i < SERVER._data.lists.length; i++){
-        if(SERVER._data.lists[i].id === listId){
+        if(SERVER._data.lists[i].id === parseInt(listId)){
             SERVER._data.lists.splice(i, 1);
+            SERVER.save();
             break;
         }
     }
 };
-
-/*
-
-SERVER.deleteListeById = function (id) {
-    var i = SERVER._data.length;
-    while (i--) {
-        if (parseInt(id) === SERVER._data[i].id) {
-            return SERVER._data.splice(i, 1);
-        }
-    }
-    return null;
-};
-
-SERVER.getNewId = function () {
-    var lowest = Number.POSITIVE_INFINITY;
-    var highest = Number.NEGATIVE_INFINITY;
-    var tmp;
-
-    if (SERVER._data.length > 0) {
-
-        for (var i = SERVER._data.length - 1; i >= 0; i--) {
-            tmp = SERVER._data[i].id;
-            if (tmp < lowest) lowest = tmp;
-            if (tmp > highest) highest = tmp;
-        }
-        return ++highest;
-    }
-    else
-        return 0;
-}
-
-*/
 
 // set cors headers for all requests
 app.all('*', function (req, res, next) {
@@ -224,74 +137,105 @@ app.all('*', function (req, res, next) {
     next();
 });
 
-
 // define REST resources
-app.get('/api/newId', function (req, res) {
-    res.json(SERVER.getNewId());
-});
-
 app.get('/api/listen', function (req, res) {
     res.json(SERVER._data.lists);
 });
 
-app.get('/api/liste/:id', function (req, res) {
-    var liste = SERVER.getById(req.params.id);
-
-    if (liste) {
-        res.json(liste);
-    }
-    else {
-        res.statusCode = 404;
-        res.send('liste not found!');
-    }
-});
-
-app.post('/api/liste', function (req, res) {
-    SERVER._data.push(req.body);
-    res.json(true);
-});
-
-app.put('/api/liste/:id', function (req, res) {
-    var liste = SERVER.updateListe(req.body);
-
-    if (liste) {
-        res.json(true);
-    }
-    else {
-        res.statusCode = 404;
-        res.send('liste not found!');
-    }
-});
-
 app.delete('/api/liste/:id', function (req, res) {
-    var liste = SERVER.deleteListeById(req.params.id);
-
-    if (liste) {
-        res.json(true);
-    }
-    else {
-        res.statusCode = 404;
-        res.send('Liste not found!');
-    }
+    SERVER.delList(req.params.id);
+    res.json(true);
+    //if (liste) { //FIXME:404?!?!?
+    //
+    //    res.json(true);
+    //}
+    //else {
+    //    res.statusCode = 404;
+    //    res.send('liste not found!');
+    //}
 });
+
+
+
+//TODO REST!!!!!
+//
+//app.get('/api/liste/:id', function (req, res) {
+//    var liste = SERVER.getById(req.params.id);
+//
+//    if (liste) {
+//        res.json(liste);
+//    }
+//    else {
+//        res.statusCode = 404;
+//        res.send('liste not found!');
+//    }
+//});
+//
+//app.post('/api/liste', function (req, res) {
+//    SERVER._data.push(req.body);
+//    res.json(true);
+//});
+//
+//app.put('/api/liste/:id', function (req, res) {
+//    var liste = SERVER.updateListe(req.body);
+//
+//    if (liste) {
+//        res.json(true);
+//    }
+//    else {
+//        res.statusCode = 404;
+//        res.send('liste not found!');
+//    }
+//});
+//
+//
+
 
 /*
  Login
  */
-app.post('/login', routes.users.login);
+app.use(function(err, req, res, next){
+    if (err.constructor.name === 'UnauthorizedError') {
+        res.status(401).send('Unauthorized');
+    }
+});
+
+app.post('/login', function (req, res) {
+    console.log("login.. "+ "email: " + req.body.email + " : password: " + req.body.password);
+    for(var i=0; i < SERVER._data.user.length; i++){
+        console.log(SERVER._data.user[i].email+" : "+req.body.email)
+        if(SERVER._data.user[i].email == req.body.email){
+            //console.log("user  gefunden");
+            //if is invalid, return 401
+            if (!(req.body.password === SERVER._data.user[i].passwort)) {
+                //console.log("passwort falsch");
+                res.status(401).send('Wrong user or password');
+                return;
+            }
+            // We are sending the profile inside the token
+            //console.log("passwort richtig");
+            var token = jwt.sign(SERVER._data.user[i], secret, { expiresInMinutes: 60*5 });
+            return res.json({ token: token });
+        }
+    }
+    res.status(401).send('user not found');
+});
 
 //save
-app.save = function() {
+SERVER.save = function() {
     fs.writeFile(__dirname + '/zettel.json',JSON.stringify(SERVER._data))
 }
 
 // read
-try{
-    SERVER._data = require(__dirname + '/zettel.json');
-}
-catch (e){
-    app.save();
+SERVER.read = function() {
+    try {
+        SERVER._data = require(__dirname + '/zettel.json');
+    }
+    catch (e) {
+        SERVER.save();
+    }
 }
 
+SERVER.read();
 // start listening
-app.listen(process.env.PORT || 4730);
+app.listen(process.env.PORT || 8080);

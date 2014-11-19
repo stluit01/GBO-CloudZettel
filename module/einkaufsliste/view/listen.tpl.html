@@ -3,17 +3,17 @@
 <div ng-repeat="liste in einkaufslisten" class="panel panel-default">
 
     <div class="panel-heading-right">
-        <h3 class="panel-title glyphicon glyphicon-remove" ng-click="remListe($index)"></h3>
+        <h3 class="panel-title glyphicon glyphicon-remove" ng-click="remListe(liste.id)"></h3>
 
     </div>
     <div class="pointer panel-heading" ng-click="edit(liste.id)">
-            <h3 class="panel-title">{{liste.titel}} </h3>
+            <h3 class="panel-title">{{liste.title}} </h3>
         </div>
 
 
 
     <div class="pointer panel-body" ng-click="edit(liste.id)">
-        <h4 ng-repeat="ein in liste.artikel">{{ein.name}} : {{ein.anzahl}}</h4>
+        <h4 ng-repeat="ein in liste.article">{{ein.name}} : {{ein.count}}</h4>
     </div>
 </div>
 

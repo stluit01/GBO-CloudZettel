@@ -7,7 +7,8 @@ angular.module('cloudEinkaufszettel.config', [
     'login',
     'ui.bootstrap',
     'jens.accordion',
-    'jens.accordion.tpls'
+    'jens.accordion.tpls',
+    'service.login'
 ]
 )
 .constant('NAV_ITEMS', [
@@ -26,19 +27,14 @@ angular.module('cloudEinkaufszettel.config', [
         .when('/', {
             redirectTo: '/listen'
         })
+        .when('/404', {
+            templateUrl: 'view/404.tpl.html'
+        })
         .otherwise({
             redirectTo: '/404'
         });
 })
 
-app.config(function ($httpProvider) {
-    $httpProvider.interceptors.push('TokenInterceptor');
-});
-
-app.run(function($rootScope, $location, AuthenticationService) {
-    $rootScope.$on("$routeChangeStart", function(event, nextRoute, currentRoute) {
-        if (nextRoute.access.requiredLogin && !AuthenticationService.isLogged) {
-            $location.path("/login");
-        }
-    });
+.config(function ($httpProvider) {
+    $httpProvider.interceptors.push('authInterceptor');
 });

@@ -6,11 +6,10 @@
 angular.module('einkaufsliste', ['einkaufsliste.config'])
     .controller('listenCtrl', function ($scope, storage, $location) {
         'use strict';
-        $scope.einkaufslisten = storage.getListen();
+        $scope.einkaufslisten = storage.lists;
 
-
-        $scope.remListe = function (item) {
-            storage.removeListe(item);
+        $scope.remListe = function (id) {
+            storage.removeListe(id);
         }
 
         $scope.edit = function (id) {

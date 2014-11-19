@@ -14,7 +14,12 @@ angular.module('einkaufsliste.config', [
                 templateUrl: 'module/einkaufsliste/view/listen.tpl.html',
                 controller: 'listenCtrl',
                 index: 'listen',
-                access: { requiredLogin: true }
+                access: { requiredLogin: true },
+                resolve: {
+                    postPromise: ['storage', function (storage) {
+                        return storage.getListen();
+                    }]
+                }
             })
             .when('/editListe', {
                 templateUrl: 'module/einkaufsliste/view/editListe.tpl.html',
