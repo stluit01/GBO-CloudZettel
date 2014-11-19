@@ -1,4 +1,16 @@
 {
+    "user":[
+        {
+            "id": 1,
+            "email": "jescit02@hs-esslingen.de",
+            "passwort":"hsesws14"
+        },
+        {
+            "id":2,
+            "email": "luruit00@hs-esslingen.de",
+            "passwort":"bulb"
+        }
+    ],
     "lists" : [
         {
             "id" : 1,
