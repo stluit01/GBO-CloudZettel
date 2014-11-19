@@ -4,14 +4,18 @@ var express = require('express');
 // init express app
 var app = express();
 
-// tell express to use body parser
-app.use(express.bodyParser());
 
 // define a global application object
 var SERVER = {};
 
 // define fs
 var fs = require('fs');
+
+var jwt = require('express-jwt');
+var bodyParser = require('body-parser'); //bodyparser + json + urlencoder
+var morgan  = require('morgan'); // logger
+var tokenManager = require('./config/token_manager');
+var secret = require('./config/secret');
 
 
 //list in code for better auto correct
@@ -227,7 +231,7 @@ app.get('/api/newId', function (req, res) {
 });
 
 app.get('/api/listen', function (req, res) {
-    res.json(SERVER._data);
+    res.json(SERVER._data.lists);
 });
 
 app.get('/api/liste/:id', function (req, res) {
@@ -270,6 +274,11 @@ app.delete('/api/liste/:id', function (req, res) {
         res.send('Liste not found!');
     }
 });
+
+/*
+ Login
+ */
+app.post('/login', routes.users.login);
 
 //save
 app.save = function() {

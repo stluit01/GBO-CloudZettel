@@ -13,13 +13,13 @@ angular.module('einkaufsliste.config', [
             .when('/listen', {
                 templateUrl: 'module/einkaufsliste/view/listen.tpl.html',
                 controller: 'listenCtrl',
-                index: 'listen'
-
+                index: 'listen',
+                access: { requiredLogin: true }
             })
             .when('/editListe', {
                 templateUrl: 'module/einkaufsliste/view/editListe.tpl.html',
                 controller: 'editListeCtrl',
-                index: 'editListe'
-
+                index: 'editListe',
+                access: { requiredLogin: true }
             })
     })

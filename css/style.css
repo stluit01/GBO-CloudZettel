@@ -30,3 +30,39 @@
     margin-top: 20px;
     margin-bottom: 10px;
 }
+
+
+trans
+{
+    text-align: center;
+    color: #85C1E9;
+    display: block;
+    width: 100px;
+    height: 50px;
+    margin-top: 20px;
+    margin-bottom: 5px;
+    margin-right: 35%;
+    margin-left: 35%;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+}
+span.glyphicon-pencil
+{
+    font-size: 2em;
+}
+span.glyphicon-cloud
+{
+    font-size: 3em;
+}
+h3
+{
+    text-align: center;
+    color: #85C1E9;
+}
+h1
+{
+    text-align: center;
+    color: #85C1E9;
+    text-shadow: 2px 2px #C2E0F4;
+}
