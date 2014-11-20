@@ -60,6 +60,20 @@ SERVER.getListItemsById = function(listId){
     return article;
 };
 
+SERVER.getListById = function(listId){
+    var list = {};
+    for(var i=0; i < SERVER._data.lists.length; i++){
+        if(SERVER._data.lists[i].id === parseInt(listId)){
+            list = SERVER._data.lists[i];
+            break;
+        }
+    }
+    return list;
+};
+
+
+
+
 SERVER.addList = function(list){
 
     list.id = (SERVER._data.lists.length + 1);
@@ -78,7 +92,7 @@ SERVER.addArticleToList = function(listId,article){
     }
 };
 
-SERVER.updateListById = function(listId,attr){
+SERVER.updateListById = function(listId,attr){ // ganze liste
     for(var i=0; i < SERVER._data.lists.length; i++){
         if(SERVER._data.lists[i].id === listId){
             SERVER._data.lists[i].title = attr.title;
@@ -155,6 +169,9 @@ app.delete('/api/liste/:id', function (req, res) {
     //}
 });
 
+app.get('/api/liste/:id', function(req, res) {
+    res.json(SERVER.getListById(req.params.id));
+})
 
 
 //TODO REST!!!!!
@@ -203,7 +220,7 @@ app.use(function(err, req, res, next){
 app.post('/login', function (req, res) {
     console.log("login.. "+ "email: " + req.body.email + " : password: " + req.body.password);
     for(var i=0; i < SERVER._data.user.length; i++){
-        console.log(SERVER._data.user[i].email+" : "+req.body.email)
+        //console.log(SERVER._data.user[i].email+" : "+req.body.email)
         if(SERVER._data.user[i].email == req.body.email){
             //console.log("user  gefunden");
             //if is invalid, return 401
