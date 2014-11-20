@@ -21,7 +21,11 @@ function url_base64_decode(str) {
 angular.module('login', ['login.config'])
 
 .controller('loginCtrl', function ($scope, $http, $window, $location) {
-        $scope.user = {email: '', password: ''};
+
+        $scope.email = "admin@admin.de";
+        $scope.password = "";
+
+        $scope.user = {email: $scope.email, password: $scope.password};
         $scope.isAuthenticated = false;
         $scope.submit = function () {
             //console.log($scope.user);
@@ -49,7 +53,7 @@ angular.module('login', ['login.config'])
             $scope.isAuthenticated = false;
             delete $window.sessionStorage.token;
         };
-})
+    })
 
 .controller('registrateCtrl', function ($scope ) {
 
