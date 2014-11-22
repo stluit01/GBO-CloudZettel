@@ -1,0 +1,78 @@
+<div ng-swipe-right="back()">
+    <div >
+        <div collapse="!isCollapsedHead" class="row">
+            <div class="col-xs-8">
+                <h1>{{liste.title}}</h1>
+            </div>
+            <div class="col-xs-2">
+                <h1>
+                    <span ng-click="isCollapsedHead = false" class="pointer glyphicon glyphicon-edit"></span>
+                </h1>
+            </div>
+            <div class="col-xs-2">
+                <h1>
+                    <span ng-click="remListe(liste.id)" class=" pointer glyphicon glyphicon-remove"></span>
+                </h1>
+            </div>
+        </div>
+        <div collapse="isCollapsedHead" class="row">
+            <div class="col-xs-10">
+                <input ng-model="liste.title" type="artikel" class="form-control" placeholder="neue Liste">
+            </div>
+            <div class="col-xs-2">
+                <h1>
+                    <span ng-click="updateListe()" class=" pointer glyphicon glyphicon-ok"></span>
+                </h1>
+            </div>
+        </div>
+    </div>
+
+    <accordion-jens close-others=true>
+        <accordion-group-jens click-anywhere-but-here="status.open = false" is-open="status.open"
+                              ng-repeat="article in liste.article">
+            <accordion-heading-jens>
+                <div class="row">
+                    <div class="col-xs-1">
+                    <span ng-class=" {
+                    'glyphicon glyphicon-check': article.purchased,
+                    'glyphicon glyphicon-unchecked': !article.purchased
+                    }"></span>
+                    </div>
+                    <div class="col-xs-6">
+                        <h3 ng-class="{'del': article.purchased}" class="panel-title">{{article.name}}</h3>
+                    </div>
+                    <div class="col-xs-3">
+                        <h3 ng-class="{'del': article.purchased }" class="panel-title"> Anzahl: {{article.count}}</h3>
+                    </div>
+
+                    <div class="col-xs-2 pointer" ng-click="toggleOpen()">
+                        <span class="glyphicon glyphicon-edit"></span>
+                    </div>
+                </div>
+            </accordion-heading-jens>
+            <div class="panel-body">
+                <input ng-model="article.name" type="artikel" class="form-control" placeholder="Artikel...">
+                <div class="row">
+                    <div class="col-xs-3">
+                        <h3 class="pointer  glyphicon glyphicon-remove" ng-click="remArtikel(article.name)"></h3>
+                    </div>
+                    <div class="col-xs-1">
+                        <h3 class="pointer glyphicon glyphicon-minus" ng-click="minus(article.name)"></h3>
+                    </div>
+                    <div class="col-xs-4">
+                        <input ng-model="article.count" type="artikel" class="form-control marg"
+                               placeholder="1">
+                    </div>
+                    <div class="col-xs-2">
+                        <h3 class="pointer glyphicon glyphicon-plus" ng-click="plus(article.name)"></h3>
+                    </div>
+                    <div class="col-xs-1"></div>
+                    <div class="col-xs-1">
+                        <h3 class="pointer glyphicon glyphicon-ok" ng-click="status.open = !status.open"></h3>
+                    </div>
+                </div>
+            </div>
+        </accordion-group-jens>
+    </accordion-jens>
+</div>
+

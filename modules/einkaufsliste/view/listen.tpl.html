@@ -1,4 +1,4 @@
-<button type="button" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span> neue Einkaufsliste</button>
+<a href="#/editListe" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span> neue Einkaufsliste</a>
 
 <div ng-repeat="liste in einkaufslisten" class="panel panel-default">
 
@@ -7,14 +7,17 @@
 
     </div>
     <div class="pointer panel-heading" ng-click="edit(liste.id)">
-            <h3 class="panel-title">{{liste.title}} </h3>
-        </div>
+        <h3 class="panel-title">{{liste.title}} </h3>
+    </div>
 
 
 
     <div class="pointer panel-body" ng-click="edit(liste.id)">
         <h4 ng-repeat="ein in liste.article">{{ein.name}} : {{ein.count}}</h4>
     </div>
+
 </div>
+
+
 
 

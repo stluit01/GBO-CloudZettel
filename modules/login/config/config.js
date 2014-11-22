@@ -10,13 +10,13 @@ angular.module('login.config', [
 
         $routeProvider
             .when('/login', {
-                templateUrl: 'module/login/view/login.tpl.html',
+                templateUrl: 'modules/login/view/login.tpl.html',
                 controller: 'loginCtrl',
                 index: 'login',
                 access: { requiredLogin: false }
             })
             .when('/registrate', {
-                templateUrl: 'module/login/view/registrate.tpl.html',
+                templateUrl: 'modules/login/view/registrate.tpl.html',
                 controller: 'registrateCtrl',
                 index: 'registrate',
                 access: { requiredLogin: false }

@@ -11,7 +11,7 @@ angular.module('einkaufsliste.config', [
 
         $routeProvider
             .when('/listen', {
-                templateUrl: 'module/einkaufsliste/view/listen.tpl.html',
+                templateUrl: 'modules/einkaufsliste/view/listen.tpl.html',
                 controller: 'listenCtrl',
                 index: 'listen',
                 access: { requiredLogin: true },
@@ -22,7 +22,7 @@ angular.module('einkaufsliste.config', [
                 }
             })
             .when('/editListe', {
-                templateUrl: 'module/einkaufsliste/view/editListe.tpl.html',
+                templateUrl: 'modules/einkaufsliste/view/editListe.tpl.html',
                 controller: 'editListeCtrl',
                 index: 'editListe',
                 access: { requiredLogin: true }

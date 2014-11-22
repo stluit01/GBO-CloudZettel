@@ -20,7 +20,7 @@
                         <div class="form-group">
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                                <input type="email" name="email" ng-model="email" class="form-control" placeholder="E-Mail" required>
+                                <input autofocus="true" type="email" name="email" ng-model="email" class="form-control" placeholder="E-Mail" required>
 
                         </div>
                             <span style="color:red" ng-show="myForm.email.$error.required">Email fehlt.</span>
@@ -29,7 +29,6 @@
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
                                 <input ng-model="password" class="form-control" placeholder="Passwort" name="password" type="password" value="" required>
-
                             </div>
                             <span style="color:red" ng-show="myForm.password.$error.required">Passwort fehlt.</span>
                         </div>
@@ -48,9 +47,11 @@
 
 
           <div class="col-sm-12 col-md-10  col-md-offset-1 ">
-                <!--Submitbutton-->
-                <button ng-click="submit()"  ng-disabled="myForm.password.$dirty ||
+                <!--Submitbutton
+                ng-disabled="myForm.password.$dirty ||
                         myForm.email.$dirty || myForm.email.$invalid"
+                -->
+                <button ng-click="submit()"
                         class="btn btn-lg btn-primary btn-block" value="">Login</button>
             </div>
         </div>
