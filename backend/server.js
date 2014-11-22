@@ -18,7 +18,7 @@ var SERVER = {};
 var fs = require('fs');
 
 // We are going to protect /api routes with JWT
-app.use('/api', expressJwt({secret: secret}));
+// app.use('/api', expressJwt({secret: secret}));
 
 app.use(bodyParser.json());
 app.use('/', express.static(__dirname + '/../'));
@@ -28,14 +28,18 @@ app.use('/', express.static(__dirname + '/../'));
 SERVER._data = {}
 /*
 
- getLists(userId) -> done ?
- getListItemsById(listID) -> done ?
- addList(list) -> done ?
- addArticleToList(listId,article) done ?
- updateListById(listId,attr) -> was für attr?
- updateArticleInList(listId, article)
- delArticleInList(listId,articleId)
- delList(listId)
+ To-Do:
+
+ Done:
+ - getLists(userId)
+ - getListItemsById(userId)
+ - getListById(listId)
+ - addList(list)
+ - addArticleToList(listId,article)
+ - updateListById(listId,articleId)
+ - updateArticleInList(listId, article)
+ - delArticleInList(listId,articleId)
+ - delList(listId)
 
 */
 
@@ -70,8 +74,6 @@ SERVER.getListById = function(listId){
     }
     return list;
 };
-
-
 
 
 SERVER.addList = function(list){
