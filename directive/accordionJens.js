@@ -139,9 +139,16 @@ angular.module('jens.accordion', ['ui.bootstrap.collapse'])
 angular.module("template/accordion/accordion-group-jens.html", []).run(["$templateCache", function($templateCache) {
     $templateCache.put("template/accordion/accordion-group-jens.html",
         "<div class=\"panel panel-default\">\n" +
-        "  <div collapse=\"isOpen\" class=\"panel-heading\">\n" +
+        "  <div collapse=\"isOpen\" class=\"pointer panel-heading\">\n" +
         "    <h4 class=\"panel-title\">\n" +
-        "      <a class=\"accordion-toggle\" ng-click=\"toggleOpen()\" accordion-transclude-jens=\"heading\"><span ng-class=\"{'text-muted': isDisabled}\">{{heading}}</span></a>\n" +
+        "       <div class=\"row\">      \n" +
+        "       <div class=\"col-xs-10\">      \n" +
+        "           <a class=\"accordion-toggle\" accordion-transclude-jens=\"heading\"><span ng-class=\"{'text-muted': isDisabled}\">{{heading}}</span></a>\n" +
+        "       </div>      \n" +
+        "        <div class=\"col-xs-2 pointer\"\n" +
+        "           <a class=\"accordion-toggle\" ng-click=\"toggleOpen()\" ><span class=\"editbutton glyphicon glyphicon-edit \"></span></a>\n" +
+        "       </div>      \n" +
+        "       </div>      \n" +
         "    </h4>\n" +
         "  </div>\n" +
         "  <div class=\"panel-collapse\" collapse=\"!isOpen\">\n" +

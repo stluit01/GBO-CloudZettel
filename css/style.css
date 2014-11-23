@@ -12,6 +12,14 @@
     min-width:50px;
 }
 
+.editTitel{
+    margin-top: 25px;
+}
+
+.editbutton{
+    margin-left: 80%;
+}
+
 .panel-heading-right .panel-title {
 
     text-align: right;
