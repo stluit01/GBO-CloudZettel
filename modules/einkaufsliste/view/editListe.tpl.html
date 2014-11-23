@@ -1,5 +1,7 @@
-<div ng-swipe-right="back()">
-    <div >
+<div ng-swipe-right="back()"> <!-- touch  -- >
+
+    <!-- List title -->
+    <div>
         <div collapse="!isCollapsedHead" class="row">
             <div class="col-xs-8">
                 <h1>{{liste.title}}</h1>
@@ -17,7 +19,7 @@
         </div>
         <div collapse="isCollapsedHead" class="row">
             <div class="col-xs-10">
-                <input ng-model="liste.title" type="artikel" class="form-control" placeholder="neue Liste">
+                <input ng-model="liste.title" type="text" class="form-control" placeholder="neue Liste">
             </div>
             <div class="col-xs-2">
                 <h1>
@@ -27,8 +29,9 @@
         </div>
     </div>
 
-    <accordion-jens close-others=true>
-        <accordion-group-jens click-anywhere-but-here="status.open = false" is-open="status.open"
+    <!-- Articles -->
+    <accordion-jens ng-click="showNew = false" close-others=true>
+        <accordion-group-jens id="article" click-anywhere-but-here="status.open = false" is-open="status.open"
                               ng-repeat="article in liste.article">
             <accordion-heading-jens>
                 <div class="row">
@@ -52,19 +55,20 @@
             </accordion-heading-jens>
             <div class="panel-body">
                 <input ng-model="article.name" type="artikel" class="form-control" placeholder="Artikel...">
+
                 <div class="row">
                     <div class="col-xs-3">
-                        <h3 class="pointer  glyphicon glyphicon-remove" ng-click="remArtikel(article.name)"></h3>
+                        <h3 class="pointer  glyphicon glyphicon-remove" ng-click="remArticle(article.id)"></h3>
                     </div>
                     <div class="col-xs-1">
-                        <h3 class="pointer glyphicon glyphicon-minus" ng-click="minus(article.name)"></h3>
+                        <h3 class="pointer glyphicon glyphicon-minus" ng-click="minus(article.id)"></h3>
                     </div>
                     <div class="col-xs-4">
                         <input ng-model="article.count" type="artikel" class="form-control marg"
                                placeholder="1">
                     </div>
                     <div class="col-xs-2">
-                        <h3 class="pointer glyphicon glyphicon-plus" ng-click="plus(article.name)"></h3>
+                        <h3 class="pointer glyphicon glyphicon-plus" ng-click="plus(article.id)"></h3>
                     </div>
                     <div class="col-xs-1"></div>
                     <div class="col-xs-1">
@@ -74,5 +78,38 @@
             </div>
         </accordion-group-jens>
     </accordion-jens>
+
+
+    <!-- newArticle -->
+    <div collapse="showNew||!isCollapsedHead" lass="panel-body">
+        <button ng-click="showNew=true" type="button" class="btn btn-success btn-lg btn-block">
+            <span class="glyphicon glyphicon-plus" aria-hidden="true" aria-label="Left Align"></span>Artikel hinzufügen
+        </button>
+    </div>
+
+    <div collapse="!showNew" class="panel-body">
+        <input ng-model="newArtikelName" type="text" class="form-control" placeholder="Artikel...">
+        <div class="row">
+            <div class="col-xs-3">
+                <h3 class="pointer  glyphicon glyphicon-remove" ng-click="abortNewArtikel()"></h3>
+            </div>
+            <div class="col-xs-1">
+                <h3 class="pointer glyphicon glyphicon-minus" ng-click="newArtikelCount=newArtikelCount-1"></h3>
+            </div>
+            <div class="col-xs-4">
+                <input ng-model="newArtikelCount" type="text" value="1" class="form-control marg">
+            </div>
+            <div class="col-xs-2">
+                <h3 class="pointer glyphicon glyphicon-plus" ng-click="newArtikelCount=newArtikelCount+1"></h3>
+            </div>
+            <div class="col-xs-1"></div>
+            <div class="col-xs-1">
+                <h3 class="pointer glyphicon glyphicon-ok" ng-click="newArtikel(newArtikelName,newArtikelCount)"
+                    ng-click="status.open = !status.open"></h3>
+            </div>
+        </div>
+    </div>
+
+
 </div>
 
