@@ -16,6 +16,7 @@
             "passwort":"bulb"
         }
     ],
+    "global_Id_Counter" : 3,
     "lists" : [
         {
             "id" : 1,
