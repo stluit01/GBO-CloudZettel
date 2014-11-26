@@ -19,18 +19,18 @@
                         <!-- Loginfelder -->
                         <div class="form-group">
                             <div class="input-group">
-                                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+						<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
                                 <input autofocus="true" type="email" name="email" ng-model="email" class="form-control" placeholder="E-Mail" required>
 
                         </div>
-                            <span style="color:red" ng-show="myForm.email.$error.required">Email fehlt.</span>
-                            <span style="color:red" ng-show="myForm.email.$error.email">Invalide Email-Adresse.</span></div>
+                            <span style="color:red" ng-show="myForm.email.$error.required && myForm.email.$invalid">Email fehlt.</span>
+                            <span style="color:red" ng-show="myForm.email.$error.email && myForm.email.$invalid">Invalide Email-Adresse.</span></div>
                         <div class="form-group">
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
                                 <input ng-model="password" class="form-control" placeholder="Passwort" name="password" type="password" value="" required>
                             </div>
-                            <span style="color:red" ng-show="myForm.password.$error.required">Passwort fehlt.</span>
+                            <span style="color:red" ng-show="myForm.password.$error.required && myForm.password.$invalid">Passwort fehlt.</span>
                         </div>
                       <!--  &lt;!&ndash; Submitbutton&ndash;&gt;
                         <div class="form-group">
@@ -63,3 +63,4 @@
     </div>
     </fieldset> </form>
 </div>
+
