@@ -21,18 +21,14 @@ function url_base64_decode(str) {
 angular.module('login', ['login.config'])
 
 .controller('loginCtrl', function ($scope, $http, $window, $location) {
-
-        $scope.email = "admin@admin.de";
-        $scope.password = "";
-
-        $scope.user = {email: $scope.email, password: $scope.password};
         $scope.isAuthenticated = false;
         $scope.submit = function () {
             //console.log($scope.user);
-            $http.post('/login', $scope.user)
+            $http.post('/login', {email: $scope.email, password: $scope.password})
                 .success(function (data, status, headers, config) {
                     console.log("success");
-                    $window.sessionStorage.token = data.token;
+                    $window.localStorage.token = data.token;
+                    //$window.sessionStorage.token = data.token;
                     $scope.isAuthenticated = true;
                     var encodedProfile = data.token.split('.')[1];
                     var profile = JSON.parse(url_base64_decode(encodedProfile));

@@ -7,8 +7,12 @@ angular.module('service.login', [])
     return {
         request: function (config) {
             config.headers = config.headers || {};
-            if ($window.sessionStorage.token) {
-                config.headers.Authorization = 'Bearer ' + $window.sessionStorage.token;
+
+            //if ($window.sessionStorage.token) {
+            //    config.headers.Authorization = 'Bearer ' + $window.sessionStorage.token;
+            //}
+            if ($window.localStorage.token) {
+                config.headers.Authorization = 'Bearer ' + $window.localStorage.token;
             }
             return config;
         },

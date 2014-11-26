@@ -18,7 +18,7 @@ var SERVER = {};
 var fs = require('fs');
 
 // We are going to protect /api routes with JWT
-// app.use('/api', expressJwt({secret: secret}));
+app.use('/api', expressJwt({secret: secret}));
 
 app.use(bodyParser.json());
 app.use('/', express.static(__dirname + '/../'));
@@ -181,7 +181,10 @@ app.all('*', function (req, res, next) {
 
 // define REST resources
 app.get('/api/listen', function (req, res) {
-    var lists = SERVER.getLists(req.params.owner);
+    var decoded =  jwt.decode(req.headers.authorization.split(" ")[1]);
+    var userId = decoded.id
+
+    var lists = SERVER.getLists(userId);
     if (lists) {
         res.json(lists);
     }
