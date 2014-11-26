@@ -27,8 +27,7 @@ app.use('/', express.static(__dirname + '/../'));
 //list in code for better auto correct
 SERVER._data = {}
 /*
-
- To-Do:
+ SERVER...
 
  Done:
  - getLists(userId)
@@ -40,6 +39,7 @@ SERVER._data = {}
  - updateArticleInList(listId, article)
  - delArticleInList(listId,articleId)
  - delList(listId)
+ createNewArticleInList(listId)
 
 */
 
@@ -53,16 +53,16 @@ SERVER.getLists = function(userId){
     return visibleLists;
 };
 
-SERVER.getListItemsById = function(listId){
-    var article = {};
-    for(var i=0; i < SERVER._data.lists.length; i++){
-        if(SERVER._data.lists[i].id === listId){
-            article = SERVER._data.lists[i].article;
-            break;
-        }
-    }
-    return article;
-};
+//SERVER.getListItemsById = function(listId){
+//    var article = {};
+//    for(var i=0; i < SERVER._data.lists.length; i++){
+//        if(SERVER._data.lists[i].id === listId){
+//            article = SERVER._data.lists[i].article;
+//            break;
+//        }
+//    }
+//    return article;
+//};
 
 SERVER.getListById = function(listId){
     var list = {};
@@ -78,11 +78,19 @@ SERVER.getListById = function(listId){
 
 SERVER.addList = function(list){
 
-    list.id = (SERVER._data.lists.length + 1);
+    list.id = SERVER._data.global_Id_Counter;
+    global_Id_Counter++;
     SERVER._data.lists.push(list);
     SERVER.save();
     return list.id;
 };
+
+SERVER.getNewId = function(listId) {
+    var articleId = global_Id_Counter;
+    global_Id_Counter++;
+    return articleId;
+
+}
 
 SERVER.addArticleToList = function(listId,article){
     for(var i=0; i < SERVER._data.lists.length; i++){
@@ -145,6 +153,24 @@ SERVER.delList = function(listId){
     }
 };
 
+
+/*
+ Interfaces...
+
+
+ - getLists(userId) gmacht
+ - getListItemsById(userId) brauchmer grad ed
+ - getListById(listId) gmacht
+ - addList(list)
+ - addArticleToList(listId,article)
+ - updateListById(listId,articleId)
+ - updateArticleInList(listId, article)
+ - delArticleInList(listId,articleId)
+ - delList(listId) gmacht
+
+ */
+
+
 // set cors headers for all requests
 app.all('*', function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
@@ -155,8 +181,15 @@ app.all('*', function (req, res, next) {
 
 // define REST resources
 app.get('/api/listen', function (req, res) {
-    res.json(SERVER._data.lists);
-});
+    var lists = SERVER.getLists(req.params.owner);
+    if (lists) {
+        res.json(lists);
+    }
+    else {
+        res.statusCode = 404;
+        res.send('lists not found!');
+    }
+})
 
 app.delete('/api/liste/:id', function (req, res) {
     SERVER.delList(req.params.id);
@@ -172,8 +205,27 @@ app.delete('/api/liste/:id', function (req, res) {
 });
 
 app.get('/api/liste/:id', function(req, res) {
-    res.json(SERVER.getListById(req.params.id));
+    var list = SERVER.getListById(req.params.id);
+    if (list) {
+        res.json(list);
+    }
+    else {
+        res.statusCode = 404;
+        res.send('list not found!');
+    }
 })
+
+//app.get('/api/lists/article/:id', function (req, res) {
+//    var listItems = SERVER.getListItemsById(req.params.id);
+//    if (listItems) {
+//        res.json(listItems);
+//    }
+//    else {
+//        res.statusCode = 404;
+//        res.send('lists not found!');
+//    }
+//})
+
 
 
 //TODO REST!!!!!
