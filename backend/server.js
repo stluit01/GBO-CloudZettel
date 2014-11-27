@@ -18,7 +18,7 @@ var SERVER = {};
 var fs = require('fs');
 
 // We are going to protect /api routes with JWT
-app.use('/api', expressJwt({secret: secret}));
+//app.use('/api', expressJwt({secret: secret}));
 
 app.use(bodyParser.json());
 app.use('/', express.static(__dirname + '/../'));
@@ -77,17 +77,16 @@ SERVER.getListById = function(listId){
 
 
 SERVER.addList = function(list){
-
-    list.id = SERVER._data.global_Id_Counter;
-    global_Id_Counter++;
     SERVER._data.lists.push(list);
     SERVER.save();
     return list.id;
 };
 
-SERVER.getNewId = function(listId) {
-    var articleId = global_Id_Counter;
-    global_Id_Counter++;
+SERVER.getNewId = function() {
+    console.log("kasjdhk");
+    var articleId = SERVER._data.global_Id_Counter;
+    SERVER._data.global_Id_Counter++;
+    SERVER.save();
     return articleId;
 
 }
@@ -102,11 +101,13 @@ SERVER.addArticleToList = function(listId,article){
     }
 };
 
-SERVER.updateListById = function(listId,attr){ // ganze liste
+SERVER.updateList = function(list){ // ganze liste
+    console.log(list);
     for(var i=0; i < SERVER._data.lists.length; i++){
-        if(SERVER._data.lists[i].id === listId){
-            SERVER._data.lists[i].title = attr.title;
-            SERVER._data.lists[i].shared_with = attr.shared_with;
+        console.log(SERVER._data.lists[i].id + " : "+ list.id);
+        if(SERVER._data.lists[i].id === list.id){
+
+            SERVER._data.lists[i] = list;
             SERVER.save();
             break;
         }
@@ -157,16 +158,16 @@ SERVER.delList = function(listId){
 /*
  Interfaces...
 
-
- - getLists(userId) gmacht
- - getListItemsById(userId) brauchmer grad ed
- - getListById(listId) gmacht
- - addList(list)
- - addArticleToList(listId,article)
+ - getNewId() done
+ - getLists(userId) done
+ - getListItemsById(userId) unused
+ - getListById(listId) done
+ - addList(list) done
+ - addArticleToList(listId,article) done
  - updateListById(listId,articleId)
  - updateArticleInList(listId, article)
  - delArticleInList(listId,articleId)
- - delList(listId) gmacht
+ - delList(listId) done
 
  */
 
@@ -192,7 +193,7 @@ app.get('/api/lists', function (req, res) {
         res.statusCode = 404;
         res.send('lists not found!');
     }
-})
+});
 
 app.delete('/api/list/:id', function (req, res) {
     SERVER.delList(req.params.id);
@@ -207,6 +208,34 @@ app.delete('/api/list/:id', function (req, res) {
     //}
 });
 
+// untested,
+app.get('/api/newid', function(req, res) {
+    var id = SERVER.getNewId();
+    res.json(id);
+
+    //if(id) {
+    //    res.json(id)
+    //}
+    //else{
+    //    res.statusCode = 404;
+    //    res.send('no valid id');
+    //}
+});
+
+// untested
+app.put('/api/addlist', function (req, res) {
+    SERVER.addList(req.data);
+    res.json(true);
+
+});
+
+// untested
+app.put('/api/addarticeltolist/:listid', function (req, res) {
+    SERVER.addArticleToList(req.params.listid, req.data);
+    res.json(true);
+
+});
+
 app.get('/api/list/:id', function(req, res) {
     var list = SERVER.getListById(req.params.id);
     if (list) {
@@ -216,7 +245,14 @@ app.get('/api/list/:id', function(req, res) {
         res.statusCode = 404;
         res.send('list not found!');
     }
-})
+});
+
+//untested
+app.put('/api/updateList', function (req, res) {
+    SERVER.updateList(req.body);
+    res.json(true);
+
+});
 
 //app.get('/api/lists/article/:id', function (req, res) {
 //    var listItems = SERVER.getListItemsById(req.params.id);
@@ -298,7 +334,7 @@ app.post('/login', function (req, res) {
 //save
 SERVER.save = function() {
     fs.writeFile(__dirname + '/zettel.json',JSON.stringify(SERVER._data))
-}
+};
 
 // read
 SERVER.read = function() {
@@ -308,7 +344,7 @@ SERVER.read = function() {
     catch (e) {
         SERVER.save();
     }
-}
+};
 
 SERVER.read();
 // start listening
