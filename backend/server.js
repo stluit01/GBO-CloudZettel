@@ -180,7 +180,7 @@ app.all('*', function (req, res, next) {
 });
 
 // define REST resources
-app.get('/api/listen', function (req, res) {
+app.get('/api/lists', function (req, res) {
     var decoded =  jwt.decode(req.headers.authorization.split(" ")[1]);
     var userId = decoded.id
 
@@ -194,7 +194,7 @@ app.get('/api/listen', function (req, res) {
     }
 })
 
-app.delete('/api/liste/:id', function (req, res) {
+app.delete('/api/list/:id', function (req, res) {
     SERVER.delList(req.params.id);
     res.json(true);
     //if (liste) { //FIXME:404?!?!?
@@ -207,7 +207,7 @@ app.delete('/api/liste/:id', function (req, res) {
     //}
 });
 
-app.get('/api/liste/:id', function(req, res) {
+app.get('/api/list/:id', function(req, res) {
     var list = SERVER.getListById(req.params.id);
     if (list) {
         res.json(list);
@@ -233,27 +233,27 @@ app.get('/api/liste/:id', function(req, res) {
 
 //TODO REST!!!!!
 //
-//app.get('/api/liste/:id', function (req, res) {
-//    var liste = SERVER.getById(req.params.id);
+//app.get('/api/list/:id', function (req, res) {
+//    var list = SERVER.getById(req.params.id);
 //
-//    if (liste) {
-//        res.json(liste);
+//    if (list) {
+//        res.json(list);
 //    }
 //    else {
 //        res.statusCode = 404;
-//        res.send('liste not found!');
+//        res.send('list not found!');
 //    }
 //});
 //
-//app.post('/api/liste', function (req, res) {
+//app.post('/api/list', function (req, res) {
 //    SERVER._data.push(req.body);
 //    res.json(true);
 //});
 //
-//app.put('/api/liste/:id', function (req, res) {
-//    var liste = SERVER.updateListe(req.body);
+//app.put('/api/list/:id', function (req, res) {
+//    var list = SERVER.updateList(req.body);
 //
-//    if (liste) {
+//    if (list) {
 //        res.json(true);
 //    }
 //    else {

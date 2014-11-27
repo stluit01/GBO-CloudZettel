@@ -9,7 +9,7 @@ angular.module('einkaufsliste', ['einkaufsliste.config'])
         $scope.einkaufslisten = storage.lists;
 
         $scope.remListe = function (id) {
-            storage.removeListe(id);
+            storage.removeList(id);
         }
 
         $scope.edit = function (id) {
@@ -31,13 +31,13 @@ angular.module('einkaufsliste', ['einkaufsliste.config'])
         }
 
         $scope.remListe = function (id) {
-            storage.removeListe(id);
+            storage.removeList(id);
             $location.path('/listen');
         }
 
         if (!$routeParams.id){ //new List
             $scope.isCollapsedHead = false;
-            var id = storage.addListe();
+            var id = storage.addList();
             $scope.liste = {
                 "id": id,
                 "owner": "",
@@ -49,7 +49,7 @@ angular.module('einkaufsliste', ['einkaufsliste.config'])
 
         else { //edit List
             $scope.liste = {};
-            storage.getListe($routeParams.id, $scope.liste);
+            storage.getList($routeParams.id, $scope.liste);
             $scope.isCollapsedHead = true;
         }
 
@@ -80,9 +80,9 @@ angular.module('einkaufsliste', ['einkaufsliste.config'])
             }
         }
 
-        $scope.updateListe = function () {
+        $scope.updateList = function () {
             $scope.isCollapsedHead = true
-            storage.updateListe( $scope.liste);
+            storage.updateList( $scope.liste);
         }
 
         $scope.newArtikelName = "";

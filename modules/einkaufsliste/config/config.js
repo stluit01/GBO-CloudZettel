@@ -17,7 +17,7 @@ angular.module('einkaufsliste.config', [
                 access: { requiredLogin: true },
                 resolve: {
                     postPromise: ['storage', function (storage) {
-                        return storage.getListen();
+                        return storage.getLists();
                     }]
                 }
             })

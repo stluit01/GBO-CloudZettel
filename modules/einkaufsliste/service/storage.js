@@ -13,25 +13,25 @@ angular.module('service.storage', [])
 
         o._baseUrl = '';
 
-        o.getListen = function () {
-            return $http.get(o._baseUrl + '/api/listen').success(function (data) {
+        o.getLists = function () {
+            return $http.get(o._baseUrl + '/api/lists').success(function (data) {
                 angular.copy(data, o.lists);
             });
         };
 
-        o. getListe = function (id,liste){
-            o.getListeById(id).then(function (res) {
+        o. getList = function (id,liste){
+            o.getListById(id).then(function (res) {
                 angular.copy(res,liste);
             });
         };
 
-        o.getListeById = function (id) {
+        o.getListById = function (id) {
             return $http.get(o._baseUrl + '/api/liste/' + id).then(function (res) {
                 return res.data;
             });
         };
 
-        o.removeListe= function(id){
+        o.removeList= function(id){
             return $http.delete(o._baseUrl + '/api/liste/' + id).then(function () {
                 var i = o.lists.length;
                 while (i--) {
@@ -42,7 +42,7 @@ angular.module('service.storage', [])
             });
         };
 
-        o.updateListe= function(liste){ //TODO REST
+        o.updateList= function(liste){ //TODO REST
             //return $http.post(o._baseUrl + '/api/liste/' + id).then(function () {
                 var i = o.lists.length;
                 while (i--) {
@@ -53,7 +53,7 @@ angular.module('service.storage', [])
             //});
         }
 
-        o.addListe= function(){ // gibt neue ID zurück //TODO REST
+        o.addList= function(){ // gibt neue ID zurück //TODO REST
             id++;
             var item ={
                 "id": id
