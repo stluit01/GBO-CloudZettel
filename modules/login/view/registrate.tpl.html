@@ -1,7 +1,7 @@
 <div class="col-sm-6 col-md-4 col-md-offset-4">
     <div class="panel panel-default">
         <div class="panel-body">
-            <form role="form" action="#" method="POST">
+            <form id="regForm" role="form" name="regisform" novalidate>
                 <fieldset>
                     <div class="center-block">
                         <h1>Cloud Korb</br></h1>
@@ -21,31 +21,65 @@
                     <div class="col-sm-12 col-md-10  col-md-offset-1 ">
                         <!-- Loginfelder -->
                         <div class="form-group">
-                            <div class="input-group">
-                                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                                <input autofocus="true" ng-model="email" class="form-control" placeholder="Email" name="email" type="email">
-                            </div>
-                        </div>
+                            <div class="input-group" ng-class="{
+							'inputgreen': erroremail==''&& error=='',
+							'inputred': erroremail||error
+							}">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span> 
+                                <input ng-change="emailtrue()" autofocus="true" type="text" name="emailreg" ng-model="emailreg" class="form-control" placeholder="E-Mail">
+							 <span ng-show="erroremail=='' && error==''" class="glyphicon glyphicon-ok infoicon"></span>
+							<span ng-show="erroremail||error" class="glyphicon glyphicon-remove infoicon"></span>
+                        
+							</div>
+							<span style="color:red" ng-show="regisform.emailreg.$error.emailreg && regisform.emailreg.$invalid">Invalide Email-Adresse.</span>
+							<small class="error">
+									Pflichtfeld
+									</small>
+									 <span style="color:red">{{erroremail}}</span>
+						
+						</div>
                         <div class="form-group">
-                            <div class="input-group">
+                        <div class="input-group" ng-class="{
+							'inputgreen': errorpass=='',
+							'inputred': error
+							}">
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                                <input ng-model="passwort" class="form-control" placeholder="Passwort" name="password" type="password"
-                                       value="">
+						<input ng-change="pwvergleich()" ng-model="passwort" class="form-control" placeholder="Passwort" name="passwort" type="password" value="">
+                           <span ng-show="errorpass==''" class="glyphicon glyphicon-ok infoicon"></span>
+							<span ng-show="error" class="glyphicon glyphicon-remove infoicon"></span>
+                          
                             </div>
+								<small class="error">
+									Pflichtfeld
+									</small>
                         </div>
                         <div class="form-group">
-                            <div class="input-group">
+                            <div class="input-group" ng-class="{
+							'inputgreen': errorpass=='',
+							'inputred': errorpass||error
+							}">
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                                <input ng-model="passwortvalidate" class="form-control" placeholder="Passwort erneut eingeben" name="password" type="password"
-                                       value="">
+                                <input ng-change="pwvergleich()" ng-model="passwortvalidate" class="form-control" placeholder="Passwort" name="passwortvalidate" type="password" value="">
+                            <span ng-show="errorpass==''" class="glyphicon glyphicon-ok infoicon"></span>
+							<span ng-show="errorpass||error" class="glyphicon glyphicon-remove infoicon"></span>
+                        
                             </div>
+								<small class="error">
+									Pflichtfeld
+									</small>
+									<span style="color:red">{{errorpass}}</span>
                         </div>
-                        <div class="form-group">
-                            <!-- Submitbutton-->
-                            <input type="submit" class="btn btn-lg btn-primary btn-block" value="Registrieren">
-                        </div>
+									
+               <span style="color:red">{{error}}</span>
+						<button ng-click="register()" class="btn btn-lg btn-primary btn-block" value="">Registrieren</button>
+						</div>
+					
                     </div>
+					<!--<div class="ui error message"></div>-->
+					
         </div>
     </div>
     </fieldset> </form>
+	
+		
 </div>

@@ -1,11 +1,25 @@
 
 @import "../vendor/bootstrap/css/bootstrap.css";
 
-input.ng-invalid {
-  border: 1px solid red;
+.input-group .form-control:not(:first-child):not(:last-child) {
+border-radius: 0px 5px 5px 0px;
 }
-input.ng-valid {
+
+
+.infoicon{
+position: absolute;
+top: 10px;
+right: 10px;
+z-index: 10;
+}
+
+.inputred {
+  border: 1px solid red;
+  border-radius: 5px;
+}
+.inputgreen {
   border: 1px solid green;
+  border-radius: 5px;
 }
 
 .panel-heading-right {
@@ -67,6 +81,14 @@ span.glyphicon-pencil
 span.glyphicon-cloud
 {
     font-size: 3em;
+}
+.infoicon.glyphicon-remove
+{
+     color: red;
+}
+.infoicon.glyphicon-ok
+{
+     color: green;
 }
 h3
 {

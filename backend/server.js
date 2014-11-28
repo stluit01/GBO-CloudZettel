@@ -18,7 +18,7 @@ var SERVER = {};
 var fs = require('fs');
 
 // We are going to protect /api routes with JWT
-//app.use('/api', expressJwt({secret: secret}));
+app.use('/api', expressJwt({secret: secret}));
 
 app.use(bodyParser.json());
 app.use('/', express.static(__dirname + '/../'));
@@ -319,7 +319,7 @@ app.post('/login', function (req, res) {
             //if is invalid, return 401
             if (!(req.body.password === SERVER._data.user[i].passwort)) {
                 //console.log("passwort falsch");
-                res.status(401).send('Wrong user or password');
+                res.status(401).send('Passwort falsch!');
                 return;
             }
             // We are sending the profile inside the token
@@ -328,7 +328,7 @@ app.post('/login', function (req, res) {
             return res.json({ token: token });
         }
     }
-    res.status(401).send('user not found');
+    res.status(401).send('Benutzer nicht gefunden.');
 });
 
 //save
