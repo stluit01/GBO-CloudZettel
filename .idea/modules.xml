@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/Cloud_Einkaufszettel_bootstrap.iml" filepath="$PROJECT_DIR$/.idea/Cloud_Einkaufszettel_bootstrap.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/GBO-CloudZettel.iml" filepath="$PROJECT_DIR$/.idea/GBO-CloudZettel.iml" />
     </modules>
   </component>
 </project>
+
