@@ -14,8 +14,8 @@ angular.module('cloudEinkaufszettel.config', [
     ]
 )
     .constant('NAV_ITEMS', [
-        {title: 'listen', index: 'listen', hash: '#listen', icon: ''},
-        {title: 'editListe', index: 'editListe', hash: '#editListe', icon: ''},
+        {title: 'lists', index: 'lists', hash: '#lists', icon: ''},
+        {title: 'editList', index: 'editList', hash: '#editList', icon: ''},
         {title: 'login', index: 'login', hash: '#login', icon: ''},
         {title: 'registrate', index: 'registrate', hash: '#registrate', icon: ''},
 
@@ -27,7 +27,7 @@ angular.module('cloudEinkaufszettel.config', [
 
         $routeProvider
             .when('/', {
-                redirectTo: '/listen'
+                redirectTo: '/lists'
             })
             .when('/404', {
                 templateUrl: 'view/404.tpl.html'

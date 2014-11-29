@@ -76,14 +76,15 @@ SERVER.getListById = function(listId){
 };
 
 
-SERVER.addList = function(list){
+SERVER.addList = function(list, ownerId){
+    list.id = parseInt(list.id);
+    list.owner = parseInt(ownerId);
     SERVER._data.lists.push(list);
     SERVER.save();
-    return list.id;
 };
 
 SERVER.getNewId = function() {
-    console.log("kasjdhk");
+    //console.log("new id: " +  SERVER._data.global_Id_Counter );
     var articleId = SERVER._data.global_Id_Counter;
     SERVER._data.global_Id_Counter++;
     SERVER.save();
@@ -102,9 +103,9 @@ SERVER.addArticleToList = function(listId,article){
 };
 
 SERVER.updateList = function(list){ // ganze liste
-    console.log(list);
+    //console.log(list);
     for(var i=0; i < SERVER._data.lists.length; i++){
-        console.log(SERVER._data.lists[i].id + " : "+ list.id);
+        //console.log(SERVER._data.lists[i].id + " : "+ list.id);
         if(SERVER._data.lists[i].id === list.id){
 
             SERVER._data.lists[i] = list;
@@ -208,7 +209,6 @@ app.delete('/api/list/:id', function (req, res) {
     //}
 });
 
-// untested,
 app.get('/api/newid', function(req, res) {
     var id = SERVER.getNewId();
     res.json(id);
@@ -224,14 +224,14 @@ app.get('/api/newid', function(req, res) {
 
 // untested
 app.put('/api/addlist', function (req, res) {
-    SERVER.addList(req.data);
+    var decoded =  jwt.decode(req.headers.authorization.split(" ")[1]);
+    SERVER.addList(req.body, decoded.id );
     res.json(true);
-
 });
 
 // untested
 app.put('/api/addarticeltolist/:listid', function (req, res) {
-    SERVER.addArticleToList(req.params.listid, req.data);
+    SERVER.addArticleToList(req.params.listid, req.body);
     res.json(true);
 
 });

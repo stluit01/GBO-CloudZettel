@@ -4,7 +4,7 @@
     <div class="panel-body">
         <div collapse="!isCollapsedHead" class="row">
             <div class="col-xs-8">
-                <h1>{{liste.title}}</h1>
+                <h1>{{list.title}}</h1>
             </div>
             <div class="col-xs-2">
                 <h1>
@@ -13,17 +13,17 @@
             </div>
             <div class="col-xs-2">
                 <h1>
-                    <span ng-click="remListe(liste.id)" class=" pointer glyphicon glyphicon-trash"></span>
+                    <span ng-click="remList(list.id)" class=" pointer glyphicon glyphicon-trash"></span>
                 </h1>
             </div>
         </div>
         <div collapse="isCollapsedHead" class="row">
             <div class="col-xs-10">
-                <input ng-model="liste.title" type="text" class="editTitel form-control" placeholder="neue Liste">
+                <input ng-model="list.title" type="text" class="editTitel form-control" placeholder="neue Liste">
             </div>
             <div class="col-xs-2">
                 <h1>
-                    <span ng-click="updateListe()" class=" pointer glyphicon glyphicon-ok"></span>
+                    <span ng-click="updateList()" class=" pointer glyphicon glyphicon-ok"></span>
                 </h1>
             </div>
         </div>
@@ -32,28 +32,26 @@
     <!-- Articles -->
     <accordion-jens ng-click="showNew = false" close-others=true>
         <accordion-group-jens id="article" click-anywhere-but-here="status.open = false" is-open="status.open"
-                              ng-repeat="article in liste.article">
+                              ng-repeat="article in list.article">
             <accordion-heading-jens>
-                <div ng-click="article.purchased=!article.purchased" class="row" ng-class="{'panel-success':article.purchased=== 'true',
+                <div ng-click="article.purchased=!article.purchased ; updateArticle(article.id)" class="row" ng-class="{'panel-success':article.purchased=== 'true',
                                 'panel-info':article.purchased=== 'false'}">
-                    <div class="col-xs-1">
+                    <div class="col-md-1 col-xs-1">
                     <span ng-class=" {
                     'glyphicon glyphicon-check': article.purchased,
                     'glyphicon glyphicon-unchecked': !article.purchased
                     }"></span>
                     </div>
-                    <div class="col-xs-8">
+                    <div class="col-md-9 col-xs-6">
                         <h3 ng-class="{'del': article.purchased}" class="panel-title">{{article.name}}</h3>
                     </div>
-                    <div class="col-xs-2">
+                    <div class="col-md-2 col-xs-4">
                         <h3 ng-class="{'del': article.purchased }" class="panel-title"> Anzahl: {{article.count}}</h3>
                     </div>
-
-
                 </div>
             </accordion-heading-jens>
             <div class="panel-body">
-                <input ng-model="article.name" type="artikel" class="form-control" placeholder="Artikel...">
+                <input ng-change="updateArticle(article.id)" ng-model="article.name" type="text" class="form-control" placeholder="Artikel...">
 
                 <div class="row">
                     <div class="col-xs-3">
@@ -63,7 +61,7 @@
                         <h3 class="pointer glyphicon glyphicon-minus" ng-click="minus(article.id)"></h3>
                     </div>
                     <div class="col-xs-4">
-                        <input ng-model="article.count" type="artikel" class="form-control marg"
+                        <input ng-change="updateArticle(article.id)" ng-model="article.count" type="number" class="form-control marg"
                                placeholder="1">
                     </div>
                     <div class="col-xs-2">
@@ -89,7 +87,6 @@
     <div collapse="!showNew" class="panel-body">
         <div class="panel-body">
             <input ng-model="newArtikelName" type="text" class="form-control" placeholder="Artikel...">
-
             <div class="row">
                 <div class="col-xs-3">
                     <h3 class="pointer  glyphicon glyphicon-remove" ng-click="abortNewArtikel()"></h3>
@@ -98,14 +95,14 @@
                     <h3 class="pointer glyphicon glyphicon-minus" ng-click="newArtikelCount=newArtikelCount-1"></h3>
                 </div>
                 <div class="col-xs-4">
-                    <input ng-model="newArtikelCount" type="text" value="1" class="form-control marg">
+                    <input ng-model="newArtikelCount" type="number" value="1" class="form-control marg">
                 </div>
                 <div class="col-xs-2">
                     <h3 class="pointer glyphicon glyphicon-plus" ng-click="newArtikelCount=newArtikelCount+1"></h3>
                 </div>
                 <div class="col-xs-1"></div>
                 <div class="col-xs-1">
-                    <h3 class="pointer glyphicon glyphicon-ok" ng-click="newArtikel(newArtikelName,newArtikelCount)"
+                    <h3 class="pointer glyphicon glyphicon-ok" ng-click="newArtikel()"
                         ng-click="status.open = !status.open"></h3>
                 </div>
             </div>
