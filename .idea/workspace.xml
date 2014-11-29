@@ -2,14 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="46abea5c-dbff-4917-bc44-5aff79b12078" name="Default" comment="">
-      <change type="DELETED" beforePath="F:\git\GBO-CloudZettel\.idea\Cloud_Einkaufszettel_bootstrap.iml" afterPath="" />
-      <change type="DELETED" beforePath="F:\git\GBO-CloudZettel\.idea\jsLibraryMappings.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\git\GBO-CloudZettel\.idea\.name" afterPath="" />
+      <change type="DELETED" beforePath="F:\git\GBO-CloudZettel\.idea\encodings.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\git\GBO-CloudZettel\.idea\misc.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\git\GBO-CloudZettel\.idea\modules.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\git\GBO-CloudZettel\.idea\scopes\scope_settings.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\git\GBO-CloudZettel\.idea\vcs.xml" afterPath="" />
       <change type="DELETED" beforePath="F:\git\GBO-CloudZettel\.idea\workspace.xml" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/.name" afterPath="$PROJECT_DIR$/.idea/.name" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/encodings.xml" afterPath="$PROJECT_DIR$/.idea/encodings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
     </list>
     <ignored path="GBO-CloudZettel.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -148,12 +147,18 @@
       <created>1417262798228</created>
       <updated>1417262798228</updated>
     </task>
+    <task id="LOCAL-00001" summary="rm .idea">
+      <created>1417263455723</created>
+      <updated>1417263455723</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="-1928" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="false" />
     <layout>
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -188,6 +193,8 @@
     <option name="myTodoPanelSettings">
       <TodoPanelSettings />
     </option>
+    <MESSAGE value="rm .idea" />
+    <option name="LAST_COMMIT_MESSAGE" value="rm .idea" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
