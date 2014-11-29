@@ -1,7 +1,7 @@
-<div class="col-sm-6 col-md-4 col-md-offset-4">
+<div class="col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4">
     <div class="panel panel-default">
         <div class="panel-body">
-            <form id="registrationForm" role="form" action="#" method="POST" name="myForm" novalidate>
+            <form id="registrationForm" role="form" name="myForm" novalidate>
                 <fieldset>
                     <div class="center-block">
                         <h1>Cloud Korb</br></h1>
@@ -49,29 +49,21 @@
                                       ng-show="myForm.password.$error.required && myForm.password.$invalid">Passwort fehlt.</br></span>
                                 <span style="color:red">{{pwerror}}</span>
                             </div>
-                            <!--  &lt;!&ndash; Submitbutton&ndash;&gt;
-                              <div class="form-group">
-                                  <div class="">
-                                      &lt;!&ndash; Do NOT use name="submit" or id="submit" for the Submit button &ndash;&gt;
-
-                                      <button type="submit"  ng-click="submit()"  class="btn btn-lg btn-primary btn-block" value="">Login</button>
-                                  </div>
-                              </div>-->
+                            <!-- Submitbutton-->
+                            <div class="form-group">
+                                <div class="">
+                                    <!-- Do NOT use name="submit" or id="submit" for the Submit button -->
+                                    <span style="color:red">{{error}}</span>
+                                    <button ng-disabled="usererror || erroremail || pwerror || myForm.password.$error.required && myForm.password.$invalid"
+                                            type="submit" ng-click="submit()" class="btn btn-lg btn-primary btn-block"
+                                            value="">Login
+                                    </button>
+                                </div>
+                            </div>
                         </div>
+                    </div>
                 </fieldset>
             </form>
-
-
-            <div class="col-sm-12 col-md-10  col-md-offset-1 ">
-                <!--Submitbutton
-                ng-disabled="myForm.password.$dirty ||
-                        myForm.email.$dirty || myForm.email.$invalid"
-                -->
-                <span style="color:red">{{error}}</span>
-                <button ng-click="submit()"
-                        class="btn btn-lg btn-primary btn-block" value="">Login
-                </button>
-            </div>
         </div>
         <div class="panel-footer">
             <p style="text-align: left" class="text-muted">Kein Account?

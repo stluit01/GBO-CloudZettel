@@ -18,8 +18,6 @@ angular.module('cloudEinkaufszettel.config', [
         {title: 'editList', index: 'editList', hash: '#editList', icon: ''},
         {title: 'login', index: 'login', hash: '#login', icon: ''},
         {title: 'registrate', index: 'registrate', hash: '#registrate', icon: ''},
-
-
     ])
 
     .config(function ($routeProvider) {

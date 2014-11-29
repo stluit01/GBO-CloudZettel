@@ -1,11 +1,27 @@
 
 @import "../vendor/bootstrap/css/bootstrap.css";
 
+/*navbar*/
+.navbar-rightCK {
+    float: right !important;
+}
+.navbarCK {
+    position: relative;
+    min-height: 50px;
+    margin-bottom: 0px;
+    border: 1px solid transparent;
+}
+.navbarCK:hover{
+background-color: #777777;
+}
+
+
+/*login input radius*/
 .input-group .form-control:not(:first-child):not(:last-child) {
 border-radius: 0px 5px 5px 0px;
 }
 
-
+/*login icon*/
 .infoicon{
 position: absolute;
 top: 10px;

@@ -11,13 +11,14 @@
 
     <!-- ng-cloak -->
     <style>
-        [ng-cloak] {
+        ng-cloak {
             display: none;
         }
     </style>
 
 </head>
 <body>
+    <div ng-include="'view/navbar.tpl.html'"></div>
     <div class="container main">
         <div ng-controller="home" class="row main-content">
             <div ng-view=""></div>
@@ -51,6 +52,11 @@
     <script type="text/javascript" src="directive/clickoutside.js"></script>
     <script type="text/javascript" src="directive/accordionJens.js"></script>
 
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
 
 </body>
 

@@ -35,9 +35,8 @@ login.controller('loginCtrl', function ($scope, $http, $window, $location) {
                 $location.path("/lists")
             })
             .error(function (data, status, headers, config) {
-
                 // Erase the token if the user fails to log in
-                delete $window.localeStorage.token;
+                delete $window.localStorage.token;
                 $scope.isAuthenticated = false;
                 // Handle login errors here
                 if (data == "Passwort falsch!") {
@@ -46,12 +45,8 @@ login.controller('loginCtrl', function ($scope, $http, $window, $location) {
                 else {
                     $scope.usererror = data;
                 }
+
             }
         );
-    };
-
-    $scope.logout = function () {
-        $scope.isAuthenticated = false;
-        delete $window.localeStorage.token;
     };
 })

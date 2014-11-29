@@ -12,13 +12,11 @@ angular.module('login.config', [
             .when('/login', {
                 templateUrl: 'modules/login/view/login.tpl.html',
                 controller: 'loginCtrl',
-                index: 'login',
-                access: { requiredLogin: false }
+                index: 'login'
             })
             .when('/registrate', {
                 templateUrl: 'modules/login/view/registrate.tpl.html',
                 controller: 'registrateCtrl',
-                index: 'registrate',
-                access: { requiredLogin: false }
+                index: 'registrate'
             })
     })
