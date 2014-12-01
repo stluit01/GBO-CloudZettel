@@ -324,7 +324,7 @@ app.post('/login', function (req, res) {
             }
             // We are sending the profile inside the token
             //console.log("passwort richtig");
-            var token = jwt.sign(SERVER._data.user[i], secret, { expiresInMinutes: 60*5 });
+            var token = jwt.sign(SERVER._data.user[i], secret, { expiresInMinutes: 60*24*100 });
             return res.json({ token: token });
         }
     }
@@ -349,3 +349,4 @@ SERVER.read = function() {
 SERVER.read();
 // start listening
 app.listen(process.env.PORT || 8080);
+console.log("Server gestartet auf Port: " +(process.env.PORT || 8080 ));
