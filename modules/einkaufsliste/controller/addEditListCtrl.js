@@ -146,4 +146,13 @@ einkaufsliste.controller('addEditListCtrl', function ($scope, listsDataService, 
         }
         $scope.updateArticle(id);
     };
+
+    $scope.known_articles=  [ //TODO REST !!
+        "Tee",
+        "Wurst",
+        "Sahne 100ml",
+        "Axt",
+        "Hammer",
+        "Nägel"
+    ]
 });
