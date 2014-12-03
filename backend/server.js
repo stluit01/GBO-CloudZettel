@@ -39,8 +39,9 @@ SERVER._data = {}
  - updateArticleInList(listId, article)
  - delArticleInList(listId,articleId)
  - delList(listId)
- createNewArticleInList(listId)
-
+ - createNewArticleInList(listId)
+ - getKnownArticles()
+ - addArticleToKnownArticles(article);
 */
 
 SERVER.getLists = function(userId){
@@ -89,9 +90,12 @@ SERVER.getNewId = function() {
     SERVER.save();
     return articleId;
 
-}
+};
 
 SERVER.addArticleToList = function(listId,article){
+    //add article to known articles
+    SERVER.addArticleToKnownArticles(article);
+
     for(var i=0; i < SERVER._data.lists.length; i++){
         if(SERVER._data.lists[i].id === listId){
             SERVER._data.lists[i].article.push(article);
@@ -115,6 +119,9 @@ SERVER.updateList = function(list){ // ganze liste
 };
 
 SERVER.updateArticleInList = function(listId, article){
+    //add article to known articles
+    SERVER.addArticleToKnownArticles(article);
+
     for(var i=0; i < SERVER._data.lists.length; i++){
         if(SERVER._data.lists[i].id === listId){
             for(var j = 0; j < SERVER._data.lists[i].article.length; j++){
@@ -154,19 +161,32 @@ SERVER.delList = function(listId){
     }
 };
 
+SERVER.getKnownArticles = function(){
+    return SERVER._data.known_articles;
+}
+
+SERVER.addArticleToKnownArticles = function(article) {
+    if (SERVER._data.known_articles.indexOf(article.toString()) >= 0) {
+        SERVER._data.known_articles.push(article);
+        SERVER.save();
+    }
+}
 
 /*
  Interfaces...
 
- - delList(listId) done
- - getNewId() done
- - addList(list) done
- - addArticleToList(listId,article) done
- - getListById(listId) done
- - getLists(userId) done
- - updateList(list) done
- - delArticleInList(listId,articleId) done
- - updateArticleInList(listId, article) done
+ Done:
+ - delList(listId)
+ - getNewId()
+ - addList(list)
+ - addArticleToList(listId,article)
+ - getListById(listId)
+ - getLists(userId)
+ - updateList(list)
+ - delArticleInList(listId,articleId)
+ - updateArticleInList(listId, article)
+ - getKnownArticles()
+ - addArticleToKnownArticles(article)
 
  - getListItemsById(userId) unused
 
@@ -184,7 +204,7 @@ app.all('*', function (req, res, next) {
 // define REST resources
 app.get('/api/lists', function (req, res) {
     var decoded =  jwt.decode(req.headers.authorization.split(" ")[1]);
-    var userId = decoded.id
+    var userId = decoded.id;
 
     var lists = SERVER.getLists(userId);
     if (lists) {
@@ -299,6 +319,32 @@ app.put('/api/updateArticleInList/:listid', function (req, res) {
     }
 
 
+});
+
+app.get('/api/getKnownArticles', function(req, res){
+    var articles = {};
+    articles = SERVER.getKnownArticles();
+
+    //console.log('known articles: ' + articles.toString());
+
+    if(articles){
+        res.json(articles);
+    }
+    else{
+        res.statusCode = 404;
+        res.send('no known articles');
+    }
+});
+
+app.put('/api/addArticleToKnownArticles', function(req, res){
+    var article = SERVER.addArticleToKnownArticles(req.data);
+    if(article){
+        res.json(true);
+    }
+    else{
+        res.statusCode = 404;
+        res.send('article not found');
+    }
 });
 
 //app.get('/api/lists/article/:id', function (req, res) {
