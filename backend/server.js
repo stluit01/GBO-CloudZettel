@@ -35,7 +35,7 @@ SERVER._data = {}
  - getListById(listId)
  - addList(list)
  - addArticleToList(listId,article)
- - updateListById(listId,articleId)
+ - updateList(list)
  - updateArticleInList(listId, article)
  - delArticleInList(listId,articleId)
  - delList(listId)
@@ -158,16 +158,17 @@ SERVER.delList = function(listId){
 /*
  Interfaces...
 
+ - delList(listId) done
  - getNewId() done
- - getLists(userId) done
- - getListItemsById(userId) unused
- - getListById(listId) done
  - addList(list) done
  - addArticleToList(listId,article) done
- - updateListById(listId,articleId)
- - updateArticleInList(listId, article)
- - delArticleInList(listId,articleId)
- - delList(listId) done
+ - getListById(listId) done
+ - getLists(userId) done
+ - updateList(list) done
+ - delArticleInList(listId,articleId) done
+ - updateArticleInList(listId, article) done
+
+ - getListItemsById(userId) unused
 
  */
 
@@ -197,43 +198,49 @@ app.get('/api/lists', function (req, res) {
 
 app.delete('/api/list/:id', function (req, res) {
     SERVER.delList(req.params.id);
-    res.json(true);
-    //if (liste) { //FIXME:404?!?!?
-    //
-    //    res.json(true);
-    //}
-    //else {
-    //    res.statusCode = 404;
-    //    res.send('liste not found!');
-    //}
+    if (req.params.id) {
+        res.json(true);
+    }
+    else {
+        res.statusCode = 404;
+        res.send('no vaild list-id');
+    }
 });
 
-// untested,
+
 app.get('/api/newid', function(req, res) {
     var id = SERVER.getNewId();
-    res.json(id);
-
-    //if(id) {
-    //    res.json(id)
-    //}
-    //else{
-    //    res.statusCode = 404;
-    //    res.send('no valid id');
-    //}
+    if(id) {
+        res.json(id)
+    }
+    else{
+        res.statusCode = 404;
+        res.send('no valid id');
+    }
 });
 
-// untested
+
 app.put('/api/addlist', function (req, res) {
     SERVER.addList(req.data);
-    res.json(true);
-
+    if (req.data) {
+        res.json(true);
+    }
+    else {
+        res.statusCode = 404;
+        res.send('list not found');
+    }
 });
 
-// untested
+
 app.put('/api/addarticeltolist/:listid', function (req, res) {
     SERVER.addArticleToList(req.params.listid, req.data);
-    res.json(true);
-
+    if(req.params.listid && req.data) {
+        res.json(true);
+    }
+    else {
+        res.statusCode = 404;
+        res.send('no vaild list-id or article');
+    }
 });
 
 app.get('/api/list/:id', function(req, res) {
@@ -243,14 +250,54 @@ app.get('/api/list/:id', function(req, res) {
     }
     else {
         res.statusCode = 404;
-        res.send('list not found!');
+        res.send('no vaild list-id');
     }
 });
 
-//untested
+
 app.put('/api/updateList', function (req, res) {
     SERVER.updateList(req.body);
-    res.json(true);
+    if(req.body) {
+        res.json(true);
+    }
+    else {
+        res.statusCode = 404;
+        res.send('list not found');
+    }
+});
+
+
+app.delete('/api/delArticleInList/:listid:articleid', function (req, res) {
+    SERVER.delArticleInList(req.params.listid, req.params.articleid);
+
+    //console.log('listid:' +  req.params.listid);
+    //console.log('articleid:' +  req.params.articleid);
+
+    if(!req.params.listid) {
+        res.statusCode = 404;
+        res.send('no valid list-id');
+    }
+    else if(!req.params.articleid){
+        res.statusCode = 404;
+        res.send('no valid article-id');
+    }
+    else{
+        res.json(true);
+    }
+
+});
+
+
+app.put('/api/updateArticleInList/:listid', function (req, res) {
+    SERVER.updateArticleInList(req.params.listid, req.data);
+    if(req.params.listid){
+        res.json(true);
+    }
+    else{
+        res.statusCode = 404;
+        res.send('no valid list-id');
+    }
+
 
 });
 
@@ -267,7 +314,7 @@ app.put('/api/updateList', function (req, res) {
 
 
 
-//TODO REST!!!!!
+// Jens sein altes Zeug
 //
 //app.get('/api/list/:id', function (req, res) {
 //    var list = SERVER.getById(req.params.id);
