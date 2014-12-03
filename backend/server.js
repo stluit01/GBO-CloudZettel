@@ -18,7 +18,7 @@ var SERVER = {};
 var fs = require('fs');
 
 // We are going to protect /api routes with JWT
-//app.use('/api', expressJwt({secret: secret}));
+app.use('/api', expressJwt({secret: secret}));
 
 app.use(bodyParser.json());
 app.use('/', express.static(__dirname + '/../'));
