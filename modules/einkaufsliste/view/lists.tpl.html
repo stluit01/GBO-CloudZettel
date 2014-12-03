@@ -8,16 +8,16 @@
     </div>
 
     <div class="panel panel-default" ng-click="edit(list.id)">
-        <div class="pointer panel-heading">
+        <div class="pointer panel-heading colored">
             <h3 class="panel-title">{{list.title}} </h3>
         </div>
         <div class="pointer panel-body">
             <h4 ng-repeat="article in list.article|limitTo:2">
                 <div class="row">
-                    <div ng-class="{'del': article.purchased}"" class="col-md-10 col-xs-8">
+                    <div ng-class="{'purchased-simple': article.purchased}" class="col-md-10 col-xs-8">
                         {{article.name}}
                     </div>
-                    <div ng-class="{'del': article.purchased}"" class="col-md-2 col-xs-4">
+                    <div ng-class="{'purchased-simple': article.purchased}" class="col-md-2 col-xs-4">
                         Anzahl: {{article.count}}
                     </div>
                 </div>

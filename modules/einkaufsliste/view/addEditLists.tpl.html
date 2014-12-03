@@ -80,7 +80,7 @@
     <div ng-repeat="article in list.article">
         <!--head-->
         <div ng-hide="articleopen{{article.id}}" class="welljs  row pointer"
-             ng-class="{'panel-success':article.purchased=== 'true', 'panel-info':article.purchased=== 'false'}"
+             ng-class="{ 'purchased' : article.purchased }"
                 >
             <div ng-click="article.purchased=!article.purchased ; updateArticle(article.id)">
                 <div class="welljscontenticon col-md-1 col-xs-1">
@@ -90,10 +90,10 @@
                     }"></span>
                 </div>
                 <div class="welljscontent col-md-8 col-xs-5">
-                    <h3 ng-class="{'del': article.purchased}" class="panel-title">{{article.name}}</h3>
+                    <h3 ng-class="{ 'purchased' : article.purchased }" class="panel-title">{{article.name}}</h3>
                 </div>
                 <div class="welljscontent col-md-2 col-xs-4">
-                    <h3 ng-class="{'del': article.purchased }" class="panel-title"> Anzahl: {{article.count}}</h3>
+                    <h3 ng-class="{ 'purchased' : article.purchased }" class="panel-title"> Anzahl: {{article.count}}</h3>
                 </div>
             </div>
             <div class="welljscontenticon  col-md-1 col-xs-1" ng-click="articleopen{{article.id}}=true">
