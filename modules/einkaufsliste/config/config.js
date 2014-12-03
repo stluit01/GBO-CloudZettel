@@ -2,7 +2,7 @@
  * Created by Jens on 10.11.2014.
  */
 angular.module('einkaufsliste.config', [
-    'service.storage'
+    'service.listsDataService'
 ])
     .config(function ($routeProvider) {
         'use strict'
@@ -10,21 +10,14 @@ angular.module('einkaufsliste.config', [
         ;
 
         $routeProvider
-            .when('/listen', {
-                templateUrl: 'modules/einkaufsliste/view/listen.tpl.html',
-                controller: 'listenCtrl',
-                index: 'listen',
-                access: { requiredLogin: true },
-                resolve: {
-                    postPromise: ['storage', function (storage) {
-                        return storage.getLists();
-                    }]
-                }
+            .when('/lists', {
+                templateUrl: 'modules/einkaufsliste/view/lists.tpl.html',
+                controller: 'listsCtrl',
+                index: 'lists'
             })
-            .when('/editListe', {
-                templateUrl: 'modules/einkaufsliste/view/editListe.tpl.html',
-                controller: 'editListeCtrl',
-                index: 'editListe',
-                access: { requiredLogin: true }
+            .when('/addEditList', {
+                templateUrl: 'modules/einkaufsliste/view/addEditLists.tpl.html',
+                controller: 'addEditListCtrl',
+                index: 'editList'
             })
     })
