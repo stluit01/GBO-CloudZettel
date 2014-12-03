@@ -82,7 +82,7 @@
         <div ng-hide="articleopen{{article.id}}" class="welljs  row pointer"
              ng-class="{ 'purchased' : article.purchased }"
                 >
-            <div ng-click="article.purchased=!article.purchased ; updateArticle(article.id)">
+            <div ng-click="article.purchased=!article.purchased ; updateArticle(article)">
                 <div class="welljscontenticon col-md-1 col-xs-1">
                     <span ng-class=" {
                     'glyphicon glyphicon-check': article.purchased,
@@ -103,7 +103,7 @@
 
         <!--body-->
         <div ng-show="articleopen{{article.id}}" class="well row">
-            <input ng-change="updateArticle(article.id)"
+            <input ng-change="updateArticle(article)"
                    ng-model="article.name" type="text" class="form-control" placeholder="Artikel...">
 
             <div class="col-md-2 col-xs-2">
@@ -113,7 +113,7 @@
                 <h3 class="pointer glyphicon glyphicon-minus" ng-click="minus(article.id)"></h3>
             </div>
             <div class="col-md-4 col-xs-4">
-                <input ng-change="updateArticle(article.id)" ng-model="article.count" type="number"
+                <input ng-change="updateArticle(article)" ng-model="article.count" type="number"
                        class="form-control marg"
                        placeholder="1">
             </div>
@@ -130,7 +130,7 @@
 
     <!-- newArticle -->
     <div collapse="showNew||!isCollapsedHead" >
-        <button ng-click="showNew=true" type="button" class="btn btn-success btn-lg btn-block">
+        <button ng-click="showNew=true;getknown_articles()" type="button" class="btn btn-success btn-lg btn-block">
             <span class="glyphicon glyphicon-plus" aria-hidden="true" aria-label="Left Align"></span>Artikel hinzufügen
         </button>
     </div>
@@ -142,7 +142,7 @@
                    typeahead-template-url="customTemplate.html"
                    class="form-control">-->
 
-            <input type="text" ng-model="newArtikelName" typeahead="state for state in known_articles | filter:$viewValue | limitTo:8" class="form-control">
+            <input  type="text" ng-model="newArtikelName" typeahead="state for state in known_articles | filter:$viewValue | limitTo:8" class="form-control">
 
 <!--            <input ng-model="newArtikelName" type="text" class="form-control" placeholder="Artikel...">-->
 

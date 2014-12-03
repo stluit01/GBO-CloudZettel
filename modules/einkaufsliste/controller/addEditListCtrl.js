@@ -14,7 +14,7 @@ einkaufsliste.controller('addEditListCtrl', function ($scope, listsDataService, 
     };
 
     $scope.remList = function (id) {
-        listsDataService.removeList(id).then(function(){
+        listsDataService.removeList(id).then(function () {
             $location.path('/lists');
         });
 
@@ -66,7 +66,7 @@ einkaufsliste.controller('addEditListCtrl', function ($scope, listsDataService, 
                     $scope.isCollapsedHead = true;
                 }
                 , function (error) {
-                    console.log("updateListe ERROR: "+ error)
+                    console.log("updateListe ERROR: " + error)
                 }
             );
         }
@@ -75,33 +75,38 @@ einkaufsliste.controller('addEditListCtrl', function ($scope, listsDataService, 
     $scope.newArtikelName = "";
     $scope.newArtikelCount = 1;
 
-
-
     $scope.abortNewArtikel = function (name, count) {
         $scope.showNew = false;
         $scope.newArtikelName = "";
         $scope.newArtikelCount = 1;
-    }
+    };
 
-    $scope.updateArticle = function (articleId) {
-        listsDataService.updateList($scope.list)
+    $scope.updateArticle = function (article) {
+        console.log("article: " + article);
+        listsDataService.updateArticleInList($scope.list.id, article)
             .then(function (res) {
             }
             , function (error) {
             }
         );
-    }
+    };
 
-    $scope.remArticle = function (id) {
-        var i = $scope.list.article.length;
-        while (i--) {
-            //console.log(id + " : " +  $scope.list.article[i].id);
-            if (id === $scope.list.article[i].id) {
-                $scope.list.article.splice(i, 1);
-                break;
+    $scope.remArticle = function (articleId) {
+        //alert(articleId);
+        listsDataService.removeArticleInList($scope.list.id, articleId)
+            .then(function () {
+                var i = $scope.list.article.length;
+                while (i--) {
+                    //console.log(id + " : " +  $scope.list.article[i].id);
+                    if (articleId === $scope.list.article[i].id) {
+                        $scope.list.article.splice(i, 1);
+                        break;
+                    }
+                }
+            }, function (error) {
+                alert("remArticle ERROR")
             }
-        }
-        $scope.updateList();  //TODO: listsDataService.remArticle(id);
+        );
     };
 
     $scope.newArtikel = function () {
@@ -119,7 +124,7 @@ einkaufsliste.controller('addEditListCtrl', function ($scope, listsDataService, 
             $scope.newArtikelName = "";
             $scope.newArtikelCount = 1;
             $scope.list.article.push(newArticle);
-            $scope.updateArticle($scope.list.id);
+            listsDataService.addArticleToList($scope.list.id, newArticle);//TODO then??
         });
     };
 
@@ -129,10 +134,10 @@ einkaufsliste.controller('addEditListCtrl', function ($scope, listsDataService, 
             //console.log(id + " : " +  $scope.list.article[i].id);
             if (id === $scope.list.article[i].id) {
                 $scope.list.article[i].count++;
+                $scope.updateArticle($scope.list.article[i]);
                 break;
             }
         }
-        $scope.updateArticle(id);
     };
 
     $scope.minus = function (id) {
@@ -141,18 +146,17 @@ einkaufsliste.controller('addEditListCtrl', function ($scope, listsDataService, 
             //console.log(id + " : " +  $scope.list.article[i].id);
             if (id === $scope.list.article[i].id) {
                 $scope.list.article[i].count--;
+                $scope.updateArticle( $scope.list.article[i]);
                 break;
             }
         }
-        $scope.updateArticle(id);
     };
 
-    $scope.known_articles=  [ //TODO REST !!
-        "Tee",
-        "Wurst",
-        "Sahne 100ml",
-        "Axt",
-        "Hammer",
-        "Nägel"
-    ]
+    $scope.getknown_articles = function(){
+        return listsDataService.getKnownArticles()
+            .then(function(res){
+            $scope.known_articles=res.data;
+        });
+    }
+
 });

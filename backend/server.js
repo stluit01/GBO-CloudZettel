@@ -25,7 +25,7 @@ app.use('/', express.static(__dirname + '/../'));
 
 
 //list in code for better auto correct
-SERVER._data = {}
+SERVER._data = {};
 /*
  SERVER...
 
@@ -41,13 +41,13 @@ SERVER._data = {}
  - delList(listId)
  - createNewArticleInList(listId)
  - getKnownArticles()
- - addArticleToKnownArticles(article);
-*/
+ - addArticleToKnownArticles(articleName);
+ */
 
-SERVER.getLists = function(userId){
+SERVER.getLists = function (userId) {
     var visibleLists = [];
-    for(var i=0; i < SERVER._data.lists.length; i++){
-        if(SERVER._data.lists[i].owner === userId || SERVER._data.lists[i].shared_with.indexOf(userId) > -1){
+    for (var i = 0; i < SERVER._data.lists.length; i++) {
+        if (SERVER._data.lists[i].owner === userId || SERVER._data.lists[i].shared_with.indexOf(userId) > -1) {
             visibleLists.push(SERVER._data.lists[i]);
         }
     }
@@ -65,10 +65,10 @@ SERVER.getLists = function(userId){
 //    return article;
 //};
 
-SERVER.getListById = function(listId){
+SERVER.getListById = function (listId) {
     var list = {};
-    for(var i=0; i < SERVER._data.lists.length; i++){
-        if(SERVER._data.lists[i].id === parseInt(listId)){
+    for (var i = 0; i < SERVER._data.lists.length; i++) {
+        if (SERVER._data.lists[i].id === parseInt(listId)) {
             list = SERVER._data.lists[i];
             break;
         }
@@ -77,14 +77,16 @@ SERVER.getListById = function(listId){
 };
 
 
-SERVER.addList = function(list){
+SERVER.addList = function(list, ownerId){
+    list.id = parseInt(list.id);
+    list.owner = parseInt(ownerId);
     SERVER._data.lists.push(list);
     SERVER.save();
     return list.id;
 };
 
-SERVER.getNewId = function() {
-    console.log("kasjdhk");
+SERVER.getNewId = function () {
+    //console.log("getNewId");
     var articleId = SERVER._data.global_Id_Counter;
     SERVER._data.global_Id_Counter++;
     SERVER.save();
@@ -92,12 +94,11 @@ SERVER.getNewId = function() {
 
 };
 
-SERVER.addArticleToList = function(listId,article){
+SERVER.addArticleToList = function (listId, article) {
     //add article to known articles
-    SERVER.addArticleToKnownArticles(article);
-
-    for(var i=0; i < SERVER._data.lists.length; i++){
-        if(SERVER._data.lists[i].id === listId){
+    SERVER.addArticleToKnownArticles(article.name);
+    for (var i = 0; i < SERVER._data.lists.length; i++) {
+        if (SERVER._data.lists[i].id === listId) {
             SERVER._data.lists[i].article.push(article);
             SERVER.save();
             break;
@@ -105,11 +106,11 @@ SERVER.addArticleToList = function(listId,article){
     }
 };
 
-SERVER.updateList = function(list){ // ganze liste
-    console.log(list);
-    for(var i=0; i < SERVER._data.lists.length; i++){
-        console.log(SERVER._data.lists[i].id + " : "+ list.id);
-        if(SERVER._data.lists[i].id === list.id){
+SERVER.updateList = function (list) { // ganze liste
+    //console.log(list);
+    for (var i = 0; i < SERVER._data.lists.length; i++) {
+        //console.log(SERVER._data.lists[i].id + " : " + list.id);
+        if (SERVER._data.lists[i].id === list.id) {
 
             SERVER._data.lists[i] = list;
             SERVER.save();
@@ -118,42 +119,45 @@ SERVER.updateList = function(list){ // ganze liste
     }
 };
 
-SERVER.updateArticleInList = function(listId, article){
+SERVER.updateArticleInList = function (listId, article) {
     //add article to known articles
-    SERVER.addArticleToKnownArticles(article);
+    SERVER.addArticleToKnownArticles(article.name);
 
-    for(var i=0; i < SERVER._data.lists.length; i++){
-        if(SERVER._data.lists[i].id === listId){
-            for(var j = 0; j < SERVER._data.lists[i].article.length; j++){
-                if(SERVER._data.lists[i].article[j].id = article.id){
+    for (var i = 0; i < SERVER._data.lists.length; i++) {
+        if (SERVER._data.lists[i].id === listId) {
+            for (var j = 0; j < SERVER._data.lists[i].article.length; j++) {
+                if (SERVER._data.lists[i].article[j].id === article.id) {
                     SERVER._data.lists[i].article[j] = article;
+                    SERVER.save();
                     break;
                 }
             }
-            SERVER.save();
             break;
         }
     }
 };
 
-SERVER.delArticleInList = function(listId,articleId){
-    for(var i=0; i < SERVER._data.lists.length; i++){
-        if(SERVER._data.lists[i].id === listId){
-            for(var j = 0; j < SERVER._data.lists[i].article.length; j++){
-                if(SERVER._data.lists[i].article[j].id = articleId){
+SERVER.delArticleInList = function (listId, articleId) {
+    //console.log("löschen");
+    for (var i = 0; i < SERVER._data.lists.length; i++) {
+        if (SERVER._data.lists[i].id === listId) {
+            for (var j = 0; j < SERVER._data.lists[i].article.length; j++) {
+                //console.log(SERVER._data.lists[i].article[j].id +" : "+ articleId)
+                if (parseInt(SERVER._data.lists[i].article[j].id) == parseInt(articleId)) {
                     SERVER._data.lists[i].article.splice(j, 1);
+                    SERVER.save();
+                    //console.log("gelöscht");
                     break;
                 }
             }
-            SERVER.save();
             break;
         }
     }
 };
 
-SERVER.delList = function(listId){
-    for(var i=0; i < SERVER._data.lists.length; i++){
-        if(SERVER._data.lists[i].id === parseInt(listId)){
+SERVER.delList = function (listId) {
+    for (var i = 0; i < SERVER._data.lists.length; i++) {
+        if (SERVER._data.lists[i].id === parseInt(listId)) {
             SERVER._data.lists.splice(i, 1);
             SERVER.save();
             break;
@@ -161,13 +165,14 @@ SERVER.delList = function(listId){
     }
 };
 
-SERVER.getKnownArticles = function(){
+SERVER.getKnownArticles = function () {
     return SERVER._data.known_articles;
 }
 
-SERVER.addArticleToKnownArticles = function(article) {
-    if (SERVER._data.known_articles.indexOf(article.toString()) >= 0) {
-        SERVER._data.known_articles.push(article);
+SERVER.addArticleToKnownArticles = function (articleName) {
+    //console.log("test index of " + SERVER._data.known_articles.indexOf(articleName))
+    if (SERVER._data.known_articles.indexOf(articleName) < 0) {
+        SERVER._data.known_articles.push(articleName);
         SERVER.save();
     }
 }
@@ -203,7 +208,7 @@ app.all('*', function (req, res, next) {
 
 // define REST resources
 app.get('/api/lists', function (req, res) {
-    var decoded =  jwt.decode(req.headers.authorization.split(" ")[1]);
+    var decoded = jwt.decode(req.headers.authorization.split(" ")[1]);
     var userId = decoded.id;
 
     var lists = SERVER.getLists(userId);
@@ -217,7 +222,7 @@ app.get('/api/lists', function (req, res) {
 });
 
 app.delete('/api/list/:id', function (req, res) {
-    SERVER.delList(req.params.id);
+    SERVER.delList(parseInt(req.params.id));
     if (req.params.id) {
         res.json(true);
     }
@@ -228,12 +233,12 @@ app.delete('/api/list/:id', function (req, res) {
 });
 
 
-app.get('/api/newid', function(req, res) {
+app.get('/api/newid', function (req, res) {
     var id = SERVER.getNewId();
-    if(id) {
+    if (id) {
         res.json(id)
     }
-    else{
+    else {
         res.statusCode = 404;
         res.send('no valid id');
     }
@@ -241,8 +246,10 @@ app.get('/api/newid', function(req, res) {
 
 
 app.put('/api/addlist', function (req, res) {
-    SERVER.addList(req.data);
-    if (req.data) {
+    var decoded =  jwt.decode(req.headers.authorization.split(" ")[1]);
+    SERVER.addList(req.body, decoded.id );
+
+    if (req.body) {
         res.json(true);
     }
     else {
@@ -252,9 +259,10 @@ app.put('/api/addlist', function (req, res) {
 });
 
 
-app.put('/api/addarticeltolist/:listid', function (req, res) {
-    SERVER.addArticleToList(req.params.listid, req.data);
-    if(req.params.listid && req.data) {
+app.put('/api/addarticletolist/:listid', function (req, res) {
+    //console.log("articlename: " + req.body.name + "    listId: " + req.params.listid);
+    SERVER.addArticleToList(parseInt(req.params.listid), req.body);
+    if (req.params.listid && req.body) {
         res.json(true);
     }
     else {
@@ -263,8 +271,8 @@ app.put('/api/addarticeltolist/:listid', function (req, res) {
     }
 });
 
-app.get('/api/list/:id', function(req, res) {
-    var list = SERVER.getListById(req.params.id);
+app.get('/api/list/:id', function (req, res) {
+    var list = SERVER.getListById(parseInt(req.params.id));
     if (list) {
         res.json(list);
     }
@@ -277,7 +285,7 @@ app.get('/api/list/:id', function(req, res) {
 
 app.put('/api/updateList', function (req, res) {
     SERVER.updateList(req.body);
-    if(req.body) {
+    if (req.body) {
         res.json(true);
     }
     else {
@@ -288,20 +296,20 @@ app.put('/api/updateList', function (req, res) {
 
 
 app.delete('/api/delArticleInList/:listid:articleid', function (req, res) {
-    SERVER.delArticleInList(req.params.listid, req.params.articleid);
+    SERVER.delArticleInList(parseInt(req.params.listid), parseInt(req.params.articleid));
 
     //console.log('listid:' +  req.params.listid);
     //console.log('articleid:' +  req.params.articleid);
 
-    if(!req.params.listid) {
+    if (!req.params.listid) {
         res.statusCode = 404;
         res.send('no valid list-id');
     }
-    else if(!req.params.articleid){
+    else if (!req.params.articleid) {
         res.statusCode = 404;
         res.send('no valid article-id');
     }
-    else{
+    else {
         res.json(true);
     }
 
@@ -309,11 +317,11 @@ app.delete('/api/delArticleInList/:listid:articleid', function (req, res) {
 
 
 app.put('/api/updateArticleInList/:listid', function (req, res) {
-    SERVER.updateArticleInList(req.params.listid, req.data);
-    if(req.params.listid){
+    SERVER.updateArticleInList(parseInt(req.params.listid), req.body);
+    if (req.params.listid) {
         res.json(true);
     }
-    else{
+    else {
         res.statusCode = 404;
         res.send('no valid list-id');
     }
@@ -321,29 +329,18 @@ app.put('/api/updateArticleInList/:listid', function (req, res) {
 
 });
 
-app.get('/api/getKnownArticles', function(req, res){
+app.get('/api/getKnownArticles', function (req, res) {
     var articles = {};
     articles = SERVER.getKnownArticles();
 
     //console.log('known articles: ' + articles.toString());
 
-    if(articles){
+    if (articles) {
         res.json(articles);
     }
-    else{
+    else {
         res.statusCode = 404;
         res.send('no known articles');
-    }
-});
-
-app.put('/api/addArticleToKnownArticles', function(req, res){
-    var article = SERVER.addArticleToKnownArticles(req.data);
-    if(article){
-        res.json(true);
-    }
-    else{
-        res.statusCode = 404;
-        res.send('article not found');
     }
 });
 
@@ -357,7 +354,6 @@ app.put('/api/addArticleToKnownArticles', function(req, res){
 //        res.send('lists not found!');
 //    }
 //})
-
 
 
 // Jens sein altes Zeug
@@ -397,17 +393,18 @@ app.put('/api/addArticleToKnownArticles', function(req, res){
 /*
  Login
  */
-app.use(function(err, req, res, next){
+app.use(function (err, req, res, next) {
     if (err.constructor.name === 'UnauthorizedError') {
         res.status(401).send('Unauthorized');
     }
 });
 
 app.post('/login', function (req, res) {
-    console.log("login.. "+ "email: " + req.body.email + " : password: " + req.body.password);
-    for(var i=0; i < SERVER._data.user.length; i++){
+    SERVER.read();
+    console.log("login.. " + "email: " + req.body.email + " : password: " + req.body.password);
+    for (var i = 0; i < SERVER._data.user.length; i++) {
         //console.log(SERVER._data.user[i].email+" : "+req.body.email)
-        if(SERVER._data.user[i].email == req.body.email){
+        if (SERVER._data.user[i].email == req.body.email) {
             //console.log("user  gefunden");
             //if is invalid, return 401
             if (!(req.body.password === SERVER._data.user[i].passwort)) {
@@ -417,20 +414,21 @@ app.post('/login', function (req, res) {
             }
             // We are sending the profile inside the token
             //console.log("passwort richtig");
-            var token = jwt.sign(SERVER._data.user[i], secret, { expiresInMinutes: 60*5 });
-            return res.json({ token: token });
+            var token = jwt.sign(SERVER._data.user[i], secret, { expiresInMinutes: 60*24*100 });
+            return res.json({token: token});
         }
     }
     res.status(401).send('user not found');
 });
 
 //save
-SERVER.save = function() {
-    fs.writeFile(__dirname + '/zettel.json',JSON.stringify(SERVER._data))
+SERVER.save = function () {
+    fs.writeFile(__dirname + '/zettel.json', JSON.stringify(SERVER._data))
 };
 
 // read
-SERVER.read = function() {
+SERVER.read = function () {
+    //console.log("read")
     try {
         SERVER._data = require(__dirname + '/zettel.json');
     }
@@ -442,3 +440,4 @@ SERVER.read = function() {
 SERVER.read();
 // start listening
 app.listen(process.env.PORT || 8080);
+console.log("Server gestartet auf Port: " +(process.env.PORT || 8080 ));
