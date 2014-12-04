@@ -29,7 +29,6 @@ SERVER._data = {};
 /*
  SERVER...
 
- Done:
  - getLists(userId)
  - getListItemsById(userId)
  - getListById(listId)
@@ -42,6 +41,8 @@ SERVER._data = {};
  - createNewArticleInList(listId)
  - getKnownArticles()
  - addArticleToKnownArticles(articleName);
+ - addUser(user)
+
  */
 
 SERVER.getLists = function (userId) {
@@ -167,7 +168,7 @@ SERVER.delList = function (listId) {
 
 SERVER.getKnownArticles = function () {
     return SERVER._data.known_articles;
-}
+};
 
 SERVER.addArticleToKnownArticles = function (articleName) {
     //console.log("test index of " + SERVER._data.known_articles.indexOf(articleName))
@@ -175,7 +176,14 @@ SERVER.addArticleToKnownArticles = function (articleName) {
         SERVER._data.known_articles.push(articleName);
         SERVER.save();
     }
-}
+};
+
+SERVER.addUser = function(user){
+    if (SERVER._data.user.indexOf(user) < 0) {
+        SERVER._data.user.push(user);
+        SERVER.save();
+    }
+};
 
 /*
  Interfaces...
@@ -192,6 +200,7 @@ SERVER.addArticleToKnownArticles = function (articleName) {
  - updateArticleInList(listId, article)
  - getKnownArticles()
  - addArticleToKnownArticles(article)
+ - addUser(user)
 
  - getListItemsById(userId) unused
 
@@ -262,12 +271,16 @@ app.put('/api/addlist', function (req, res) {
 app.put('/api/addarticletolist/:listid', function (req, res) {
     //console.log("articlename: " + req.body.name + "    listId: " + req.params.listid);
     SERVER.addArticleToList(parseInt(req.params.listid), req.body);
-    if (req.params.listid && req.body) {
-        res.json(true);
+    if (!req.params.listid) {
+        res.statusCode = 404;
+        res.send('no valid list-id');
+    }
+    else if (!req.body) {
+        res.statusCode = 404;
+        res.send('article not found');
     }
     else {
-        res.statusCode = 404;
-        res.send('no vaild list-id or article');
+        res.json(true);
     }
 });
 
@@ -341,6 +354,16 @@ app.get('/api/getKnownArticles', function (req, res) {
     else {
         res.statusCode = 404;
         res.send('no known articles');
+    }
+});
+
+app.put('/api/addUser', function(req, res) {
+    if(req.data){
+       res.json(true);
+    }
+    else{
+        res.statusCode = 404;
+        res.send('no valid user data');
     }
 });
 
