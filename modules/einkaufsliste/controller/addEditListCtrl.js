@@ -128,29 +128,30 @@ einkaufsliste.controller('addEditListCtrl', function ($scope, listsDataService, 
         });
     };
 
-    $scope.plus = function (id) {
-        //alert("plus");
-        for (var i = 0, n = $scope.list.article.length; i < n; i++) {
-            //console.log(id + " : " +  $scope.list.article[i].id);
-            if (id === $scope.list.article[i].id) {
-                $scope.list.article[i].count++;
-                $scope.updateArticle($scope.list.article[i]);
-                break;
-            }
-        }
-    };
-
-    $scope.minus = function (id) {
-        //alert("minus");
-        for (var i = 0, n = $scope.list.article.length; i < n; i++) {
-            //console.log(id + " : " +  $scope.list.article[i].id);
-            if (id === $scope.list.article[i].id) {
-                $scope.list.article[i].count--;
-                $scope.updateArticle( $scope.list.article[i]);
-                break;
-            }
-        }
-    };
+    // @deprecated
+    //$scope.plus = function (id) {
+    //    //alert("plus");
+    //    for (var i = 0, n = $scope.list.article.length; i < n; i++) {
+    //        //console.log(id + " : " +  $scope.list.article[i].id);
+    //        if (id === $scope.list.article[i].id) {
+    //            $scope.list.article[i].count++;
+    //            $scope.updateArticle($scope.list.article[i]);
+    //            break;
+    //        }
+    //    }
+    //};
+    //
+    //$scope.minus = function (id) {
+    //    //alert("minus");
+    //    for (var i = 0, n = $scope.list.article.length; i < n; i++) {
+    //        //console.log(id + " : " +  $scope.list.article[i].id);
+    //        if (id === $scope.list.article[i].id) {
+    //            $scope.list.article[i].count--;
+    //            $scope.updateArticle( $scope.list.article[i]);
+    //            break;
+    //        }
+    //    }
+    //};
 
     $scope.getknown_articles = function(){
         return listsDataService.getKnownArticles()

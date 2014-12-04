@@ -18,7 +18,7 @@ var SERVER = {};
 var fs = require('fs');
 
 // We are going to protect /api routes with JWT
-app.use('/api', expressJwt({secret: secret}));
+//app.use('/api', expressJwt({secret: secret}));
 
 app.use(bodyParser.json());
 app.use('/', express.static(__dirname + '/../'));
@@ -310,7 +310,7 @@ app.put('/api/updateList', function (req, res) {
     }
 });
 
-app.delete('/api/delArticleInList/:listid:articleid', function (req, res) {
+app.delete('/api/delArticleInList/:listid-:articleid', function (req, res) {
     SERVER.delArticleInList(parseInt(req.params.listid), parseInt(req.params.articleid));
 
     //console.log('listid:' +  req.params.listid);
@@ -359,15 +359,14 @@ app.get('/api/getKnownArticles', function (req, res) {
 });
 
 app.put('/addUser', function(req, res) {
-    console.log("addUser");
-
+    //console.log("addUser");
     if(SERVER.userExists(req.body)){
-        console.log("User exists");
+        //console.log("User exists");
         res.statusCode = 404;
         res.send('user already exists');
     }
     else{
-        console.log("User do not exiists");
+        //console.log("User do not exiists");
         SERVER.addUser(req.body);
         res.json(true);
     }
@@ -384,7 +383,7 @@ app.use(function (err, req, res, next) {
 
 app.post('/login', function (req, res) {
     SERVER.read();
-    console.log("login.. " + "email: " + req.body.email + " : password: " + req.body.password);
+    //console.log("login.. " + "email: " + req.body.email + " : password: " + req.body.password);
     for (var i = 0; i < SERVER._data.user.length; i++) {
         //console.log(SERVER._data.user[i].email+" : "+req.body.email)
         if (SERVER._data.user[i].email == req.body.email) {

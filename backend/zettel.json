@@ -3,9 +3,7 @@
     {
       "id": 1,
       "email": "admin@admin.de",
-      "passwort": "adminadmin",
-      "iat": 1417639221,
-      "exp": 1426279221
+      "passwort": "adminadmin"
     },
     {
       "id": 2,
@@ -16,9 +14,16 @@
       "id": 3,
       "email": "luruit00@hs-esslingen.de",
       "passwort": "bulb"
+    },
+    {
+      "id": "72",
+      "email": "jens@de-schmid.de",
+      "passwort": "schmid",
+      "iat": 1417711110,
+      "exp": 1426351110
     }
   ],
-  "global_Id_Counter": 66,
+  "global_Id_Counter": 84,
   "lists": [
     {
       "id": 1,
@@ -28,7 +33,7 @@
       "article": [
         {
           "id": 1,
-          "name": "Tee 2",
+          "name": "Tee",
           "count": 126,
           "purchased": false
         },
@@ -97,6 +102,38 @@
           "purchased": false
         }
       ]
+    },
+    {
+      "id": 73,
+      "owner": 72,
+      "shared_with": [],
+      "title": "meine Liste",
+      "article": [
+        {
+          "id": "74",
+          "name": "Kaffee",
+          "count": 1,
+          "purchased": false
+        },
+        {
+          "id": "75",
+          "name": "BOSCHTA",
+          "count": 1,
+          "purchased": false
+        },
+        {
+          "id": "76",
+          "name": "Brezel",
+          "count": 1,
+          "purchased": false
+        },
+        {
+          "id": "83",
+          "name": "Handy",
+          "count": 1,
+          "purchased": true
+        }
+      ]
     }
   ],
   "known_articles": [
@@ -105,6 +142,11 @@
     "Sahne 100ml",
     "Axt",
     "Hammer",
-    "Nägel"
+    "Nägel",
+    "Kaffee",
+    "BOSCHTA",
+    "Brezel",
+    "Glühwein",
+    "Handy"
   ]
 }
