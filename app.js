@@ -58,7 +58,8 @@ angular.module('cloudEinkaufszettel', ['cloudEinkaufszettel.config'])
             //    console.log( $scope.isLogin);
             //}
             if (currentRoute.$$route.originalPath != "/registrate"
-                && currentRoute.$$route.originalPath != "/login") {
+                && currentRoute.$$route.originalPath != "/login"
+                && $window.localStorage.token) {
                 //console.log("else");
                 $scope.isLogin = true;
                 //console.log( $scope.isLogin);

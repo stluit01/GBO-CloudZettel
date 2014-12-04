@@ -25,28 +25,28 @@ login.controller('loginCtrl', function ($scope, $http, $window, $location) {
             $scope.error = 'Bitte alle Felder ausfüllen!';
         }
         //console.log($scope.user);
-    $http.post('/login', {email: $scope.email, password: $scope.password})
-        .success(function (data, status, headers, config) {
-            $window.localStorage.token = data.token;
-            //$window.sessionStorage.token = data.token;
-            $scope.isAuthenticated = true;
-            //var encodedProfile = data.token.split('.')[1];
-            //var profile = JSON.parse(url_base64_decode(encodedProfile));
-            $location.path("/lists")
-        })
-        .error(function (data, status, headers, config) {
-            // Erase the token if the user fails to log in
-            delete $window.localStorage.token;
-            $scope.isAuthenticated = false;
-            // Handle login errors here
-            if (data == "Passwort falsch!") {
-                $scope.pwerror = data;
-            }
-            else {
-                $scope.usererror = data;
-            }
+        $http.post('/login', {email: $scope.email, password: $scope.password})
+            .success(function (data, status, headers, config) {
+                $window.localStorage.token = data.token;
+                //$window.sessionStorage.token = data.token;
+                $scope.isAuthenticated = true;
+                //var encodedProfile = data.token.split('.')[1];
+                //var profile = JSON.parse(url_base64_decode(encodedProfile));
+                $location.path("/lists")
+            })
+            .error(function (data, status, headers, config) {
+                // Erase the token if the user fails to log in
+                delete $window.localStorage.token;
+                $scope.isAuthenticated = false;
+                // Handle login errors here
+                if (data == "Passwort falsch!") {
+                    $scope.pwerror = data;
+                }
+                else {
+                    $scope.usererror = data;
+                }
 
-        }
-    );
-};
+            }
+        );
+    };
 });
