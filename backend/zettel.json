@@ -1,45 +1,106 @@
 {
   "user": [
     {
-      "id": 1,
+      "id": "1",
+      "email": "jens@de-schmid.de",
+      "passwort": "$2a$10$qM5SGY8t4SvBjyUjX3qkYuAkDDX7dUWal/P9/eqGFk.kpx5ys.rVy",
+      "iat": 1417719953,
+      "exp": 1426359953
+    },
+    {
+      "id": "12",
       "email": "admin@admin.de",
-      "passwort": "adminadmin",
-      "iat": 1417639221,
-      "exp": 1426279221
-    },
-    {
-      "id": 2,
-      "email": "jescit02@hs-esslingen.de",
-      "passwort": "hsesws14"
-    },
-    {
-      "id": 3,
-      "email": "luruit00@hs-esslingen.de",
-      "passwort": "bulb"
+      "passwort": "$2a$10$qM5SGY8t4SvBjyUjX3qkYugiA.xw2iOh2KSvluS0g8UQF9kdPnRK.",
+      "iat": 1417720144,
+      "exp": 1426360144
     }
   ],
-  "global_Id_Counter": 66,
+  "global_Id_Counter": 22,
   "lists": [
     {
-      "id": 1,
+      "id": 2,
       "owner": 1,
+      "shared_with": [],
+      "title": "mein Zettel",
+      "article": [
+        {
+          "id": "3",
+          "name": "Kaffee",
+          "count": 1,
+          "purchased": false
+        },
+        {
+          "id": "4",
+          "name": "BOSCHTA",
+          "count": 1,
+          "purchased": false
+        },
+        {
+          "id": "10",
+          "name": "Brezel",
+          "count": 1,
+          "purchased": true
+        },
+        {
+          "id": "11",
+          "name": "Glühwein",
+          "count": 1,
+          "purchased": true
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "owner": 1,
+      "shared_with": [],
+      "title": "Technik Zeugs",
+      "article": [
+        {
+          "id": "6",
+          "name": "USB Stick",
+          "count": 1,
+          "purchased": false
+        },
+        {
+          "id": "7",
+          "name": "Taschenrechner",
+          "count": 1,
+          "purchased": false
+        },
+        {
+          "id": "8",
+          "name": "Maus",
+          "count": 1,
+          "purchased": true
+        },
+        {
+          "id": "9",
+          "name": "24 Zoll Monitor",
+          "count": 2,
+          "purchased": true
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "owner": 12,
       "shared_with": [],
       "title": "Lebensmittel",
       "article": [
         {
-          "id": 1,
-          "name": "Tee 2",
-          "count": 126,
+          "id": "14",
+          "name": "Tee",
+          "count": 5,
           "purchased": false
         },
         {
-          "id": 2,
+          "id": "15",
           "name": "Wurst",
           "count": 3,
-          "purchased": true
+          "purchased": false
         },
         {
-          "id": 3,
+          "id": "16",
           "name": "Sahne 100ml",
           "count": 2,
           "purchased": false
@@ -47,63 +108,52 @@
       ]
     },
     {
-      "id": 2,
-      "owner": 2,
-      "shared_with": [1],
+      "id": 17,
+      "owner": 12,
+      "shared_with": [],
       "title": "Baumarkt",
       "article": [
         {
-          "id": 4,
+          "id": "18",
           "name": "Axt",
           "count": 1,
-          "purchased": false
-        },
-        {
-          "id": 5,
-          "name": "Hammer",
-          "count": 2,
-          "purchased": false
-        },
-        {
-          "id": 6,
-          "name": "Nägel",
-          "count": "100",
           "purchased": true
-        }
-      ]
-    },
-    {
-      "id": 50,
-      "owner": 1,
-      "shared_with": [],
-      "title": "Getränke",
-      "article": [
+        },
         {
-          "id": "51",
-          "name": "Cola",
+          "id": "19",
+          "name": "Kettensäge",
           "count": 1,
           "purchased": false
         },
         {
-          "id": "52",
-          "name": "Fanta",
+          "id": "20",
+          "name": "Hammer",
           "count": 1,
           "purchased": false
         },
         {
-          "id": "54",
-          "name": "Bier",
-          "count": 5,
+          "id": "21",
+          "name": "Nägel",
+          "count": 15,
           "purchased": false
         }
       ]
     }
   ],
   "known_articles": [
+    "Kaffee",
+    "BOSCHTA",
+    "USB Stick",
+    "Taschenrechner",
+    "Maus",
+    "24 Zoll Monitor",
+    "Brezel",
+    "Glühwein",
     "Tee",
     "Wurst",
     "Sahne 100ml",
     "Axt",
+    "Kettensäge",
     "Hammer",
     "Nägel"
   ]

@@ -103,25 +103,24 @@
 
         <!--body-->
         <div ng-show="articleopen{{article.id}}" class="well row">
-            <input ng-change="updateArticle(article)"
-                   ng-model="article.name" type="text" class="form-control" placeholder="Artikel...">
+            <input ng-model="article.name" type="text" class="form-control" placeholder="Artikel...">
 
             <div class="col-md-2 col-xs-2">
                 <h3 class="pointer  glyphicon  glyphicon-trash" ng-click="remArticle(article.id)"></h3>
             </div>
             <div class="col-md-1 col-xs-1 col-xs-offset-1">
-                <h3 class="pointer glyphicon glyphicon-minus" ng-click="minus(article.id)"></h3>
+                <h3 class="pointer glyphicon glyphicon-minus" ng-click="article.count=article.count-1"></h3>
             </div>
             <div class="col-md-4 col-xs-4">
-                <input ng-change="updateArticle(article)" ng-model="article.count" type="number"
+                <input ng-model="article.count" type="number"
                        class="form-control marg"
                        placeholder="1">
             </div>
             <div class="col-md-1 col-xs-1">
-                <h3 class="pointer glyphicon glyphicon-plus" ng-click="plus(article.id)"></h3>
+                <h3 class="pointer glyphicon glyphicon-plus" ng-click="article.count=article.count+1"></h3>
             </div>
             <div class="col-md-1 col-md-offset-2 col-xs-1 col-xs-offset-1">
-                <h3 class="pointer glyphicon glyphicon-ok" ng-click="articleopen{{article.id}}=false"></h3>
+                <h3 class="pointer glyphicon glyphicon-ok" ng-click="articleopen{{article.id}}=false;updateArticle(article)"></h3>
             </div>
         </div>
 

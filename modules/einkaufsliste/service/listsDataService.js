@@ -37,7 +37,7 @@ angular.module('service.listsDataService', [])
         };
 
         o.removeArticleInList= function(listId,articleId) {
-            return $http.delete(o._baseUrl + '/api/delArticleInList/'+ listId + articleId);
+            return $http.delete(o._baseUrl + '/api/delArticleInList/'+ listId +"-"+ articleId);
         };
 
         o.updateArticleInList= function(listId,article) {
