@@ -8,6 +8,10 @@ var expressJwt = require('express-jwt'); //https://npmjs.org/package/express-jwt
 //secret
 var secret = 'this is the secret secret secret 12356';
 
+//bcrypt
+var bcrypt = require('bcrypt');
+var salt = bcrypt.genSaltSync(10);
+
 // init express app
 var app = express();
 
@@ -25,7 +29,15 @@ app.use('/', express.static(__dirname + '/../'));
 
 
 //list in code for better auto correct
-SERVER._data = {};
+SERVER._data = {
+    user: [
+    ],
+    global_Id_Counter: 0,
+    lists: [
+    ],
+    known_articles: [
+    ]
+};
 /*
  SERVER...
 
@@ -44,6 +56,16 @@ SERVER._data = {};
  - addUser(user)
 
  */
+
+
+//Password verification
+SERVER.comparePassword = function (password, cb) {
+    bcrypt.compare(password, this.password, function (err, isMatch) {
+        if (err) return cb(err);
+        cb(isMatch);
+    });
+};
+
 
 SERVER.getLists = function (userId) {
     var visibleLists = [];
@@ -78,7 +100,7 @@ SERVER.getListById = function (listId) {
 };
 
 
-SERVER.addList = function(list, ownerId){
+SERVER.addList = function (list, ownerId) {
     list.id = parseInt(list.id);
     list.owner = parseInt(ownerId);
     SERVER._data.lists.push(list);
@@ -178,14 +200,15 @@ SERVER.addArticleToKnownArticles = function (articleName) {
     }
 };
 
-SERVER.addUser = function(user){
+SERVER.addUser = function (user) {
+    user.passwort = bcrypt.hashSync(user.passwort, salt);
     SERVER._data.user.push(user);
     SERVER.save();
 };
 
-SERVER.userExists = function(user){
-    for(var i=0; i < SERVER._data.user.length; i++) {
-        console.log(SERVER._data.user[i].email + ' ' + user.email.toString())
+SERVER.userExists = function (user) {
+    for (var i = 0; i < SERVER._data.user.length; i++) {
+        //console.log(SERVER._data.user[i].email + ' ' + user.email.toString())
         if (SERVER._data.user[i].email === user.email.toString()) {
             return true;
         }
@@ -260,8 +283,8 @@ app.get('/newid', function (req, res) {
 });
 
 app.put('/api/addlist', function (req, res) {
-    var decoded =  jwt.decode(req.headers.authorization.split(" ")[1]);
-    SERVER.addList(req.body, decoded.id );
+    var decoded = jwt.decode(req.headers.authorization.split(" ")[1]);
+    SERVER.addList(req.body, decoded.id);
 
     if (req.body) {
         res.json(true);
@@ -358,14 +381,14 @@ app.get('/api/getKnownArticles', function (req, res) {
     }
 });
 
-app.put('/addUser', function(req, res) {
+app.put('/addUser', function (req, res) {
     //console.log("addUser");
-    if(SERVER.userExists(req.body)){
+    if (SERVER.userExists(req.body)) {
         //console.log("User exists");
         res.statusCode = 404;
         res.send('user already exists');
     }
-    else{
+    else {
         //console.log("User do not exiists");
         SERVER.addUser(req.body);
         res.json(true);
@@ -389,15 +412,18 @@ app.post('/login', function (req, res) {
         if (SERVER._data.user[i].email == req.body.email) {
             //console.log("user  gefunden");
             //if is invalid, return 401
-            if (!(req.body.password === SERVER._data.user[i].passwort)) {
+            if (!(bcrypt.compareSync(req.body.password, SERVER._data.user[i].passwort))) {
                 //console.log("passwort falsch");
                 res.status(401).send('Wrong user or password');
                 return;
             }
-            // We are sending the profile inside the token
-            //console.log("passwort richtig");
-            var token = jwt.sign(SERVER._data.user[i], secret, { expiresInMinutes: 60*24*100 });
-            return res.json({token: token});
+            else if(bcrypt.compareSync(req.body.password, SERVER._data.user[i].passwort))
+            {
+                // We are sending the profile inside the token
+                //console.log("passwort richtig");
+                var token = jwt.sign(SERVER._data.user[i], secret, {expiresInMinutes: 60 * 24 * 100});
+                return res.json({token: token});
+            }
         }
     }
     res.status(401).send('user not found');
@@ -405,7 +431,7 @@ app.post('/login', function (req, res) {
 
 //save
 SERVER.save = function () {
-    fs.writeFile(__dirname + '/zettel.json', JSON.stringify(SERVER._data))
+    fs.writeFile(__dirname + '/zettel.json', JSON.stringify(SERVER._data));
 };
 
 // read
@@ -422,4 +448,4 @@ SERVER.read = function () {
 SERVER.read();
 // start listening
 app.listen(process.env.PORT || 8080);
-console.log("Server gestartet auf Port: " +(process.env.PORT || 8080 ));
+console.log("Server gestartet auf Port: " + (process.env.PORT || 8080 ));
