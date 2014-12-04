@@ -58,11 +58,13 @@ body{
 .navbarCK {
     position: relative;
     min-height: 50px;
+    min-width: 50px;
+    margin-left: 10px;
     margin-bottom: 0px;
     border: 1px solid transparent;
 }
 .navbarCK:hover{
-background-color: #777777;
+    background-color: #777777;
 }
 
 
