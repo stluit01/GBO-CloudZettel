@@ -43,3 +43,4 @@ Temporary Items
 .apdisk
 .idea
 .gitignore
+backend/npm-debug.log
