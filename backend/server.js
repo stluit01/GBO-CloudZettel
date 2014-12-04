@@ -48,7 +48,7 @@ SERVER._data = {};
 SERVER.getLists = function (userId) {
     var visibleLists = [];
     for (var i = 0; i < SERVER._data.lists.length; i++) {
-        if (SERVER._data.lists[i].owner === userId || SERVER._data.lists[i].shared_with.indexOf(userId) > -1) {
+        if (SERVER._data.lists[i].owner === parseInt(userId) || SERVER._data.lists[i].shared_with.indexOf(parseInt(userId)) > -1) {
             visibleLists.push(SERVER._data.lists[i]);
         }
     }
@@ -99,7 +99,7 @@ SERVER.addArticleToList = function (listId, article) {
     //add article to known articles
     SERVER.addArticleToKnownArticles(article.name);
     for (var i = 0; i < SERVER._data.lists.length; i++) {
-        if (SERVER._data.lists[i].id === listId) {
+        if (SERVER._data.lists[i].id === parseInt(listId)) {
             SERVER._data.lists[i].article.push(article);
             SERVER.save();
             break;
@@ -358,7 +358,7 @@ app.get('/api/getKnownArticles', function (req, res) {
 });
 
 app.put('/api/addUser', function(req, res) {
-    if(req.data){
+    if(req.body){
        res.json(true);
     }
     else{
