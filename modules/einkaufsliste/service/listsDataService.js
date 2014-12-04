@@ -17,7 +17,7 @@ angular.module('service.listsDataService', [])
         };
 
         o.getNewId= function(){ // gibt neue ID zurück
-            return $http.get(o._baseUrl + '/api/newid/');
+            return $http.get(o._baseUrl + '/newid/');
         };
 
         o.addList= function(list){
@@ -48,6 +48,9 @@ angular.module('service.listsDataService', [])
             return $http.get(o._baseUrl + '/api/getKnownArticles/');
         };
 
+        o.addUser = function(user) {
+            return $http.put(o._baseUrl + '/addUser', user);
+        };
 
         // Reveal public API.
         return o;

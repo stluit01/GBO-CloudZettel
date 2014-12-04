@@ -179,10 +179,18 @@ SERVER.addArticleToKnownArticles = function (articleName) {
 };
 
 SERVER.addUser = function(user){
-    if (SERVER._data.user.indexOf(user) < 0) {
-        SERVER._data.user.push(user);
-        SERVER.save();
+    SERVER._data.user.push(user);
+    SERVER.save();
+};
+
+SERVER.userExists = function(user){
+    for(var i=0; i < SERVER._data.user.length; i++) {
+        console.log(SERVER._data.user[i].email + ' ' + user.email.toString())
+        if (SERVER._data.user[i].email === user.email.toString()) {
+            return true;
+        }
     }
+    return false;
 };
 
 /*
@@ -205,7 +213,6 @@ SERVER.addUser = function(user){
  - getListItemsById(userId) unused
 
  */
-
 
 // set cors headers for all requests
 app.all('*', function (req, res, next) {
@@ -241,8 +248,7 @@ app.delete('/api/list/:id', function (req, res) {
     }
 });
 
-
-app.get('/api/newid', function (req, res) {
+app.get('/newid', function (req, res) {
     var id = SERVER.getNewId();
     if (id) {
         res.json(id)
@@ -252,7 +258,6 @@ app.get('/api/newid', function (req, res) {
         res.send('no valid id');
     }
 });
-
 
 app.put('/api/addlist', function (req, res) {
     var decoded =  jwt.decode(req.headers.authorization.split(" ")[1]);
@@ -266,7 +271,6 @@ app.put('/api/addlist', function (req, res) {
         res.send('list not found');
     }
 });
-
 
 app.put('/api/addarticletolist/:listid', function (req, res) {
     //console.log("articlename: " + req.body.name + "    listId: " + req.params.listid);
@@ -295,7 +299,6 @@ app.get('/api/list/:id', function (req, res) {
     }
 });
 
-
 app.put('/api/updateList', function (req, res) {
     SERVER.updateList(req.body);
     if (req.body) {
@@ -306,7 +309,6 @@ app.put('/api/updateList', function (req, res) {
         res.send('list not found');
     }
 });
-
 
 app.delete('/api/delArticleInList/:listid:articleid', function (req, res) {
     SERVER.delArticleInList(parseInt(req.params.listid), parseInt(req.params.articleid));
@@ -327,7 +329,6 @@ app.delete('/api/delArticleInList/:listid:articleid', function (req, res) {
     }
 
 });
-
 
 app.put('/api/updateArticleInList/:listid', function (req, res) {
     SERVER.updateArticleInList(parseInt(req.params.listid), req.body);
@@ -357,61 +358,20 @@ app.get('/api/getKnownArticles', function (req, res) {
     }
 });
 
-app.put('/api/addUser', function(req, res) {
-    if(req.body){
-       res.json(true);
+app.put('/addUser', function(req, res) {
+    console.log("addUser");
+
+    if(SERVER.userExists(req.body)){
+        console.log("User exists");
+        res.statusCode = 404;
+        res.send('user already exists');
     }
     else{
-        res.statusCode = 404;
-        res.send('no valid user data');
+        console.log("User do not exiists");
+        SERVER.addUser(req.body);
+        res.json(true);
     }
 });
-
-//app.get('/api/lists/article/:id', function (req, res) {
-//    var listItems = SERVER.getListItemsById(req.params.id);
-//    if (listItems) {
-//        res.json(listItems);
-//    }
-//    else {
-//        res.statusCode = 404;
-//        res.send('lists not found!');
-//    }
-//})
-
-
-// Jens sein altes Zeug
-//
-//app.get('/api/list/:id', function (req, res) {
-//    var list = SERVER.getById(req.params.id);
-//
-//    if (list) {
-//        res.json(list);
-//    }
-//    else {
-//        res.statusCode = 404;
-//        res.send('list not found!');
-//    }
-//});
-//
-//app.post('/api/list', function (req, res) {
-//    SERVER._data.push(req.body);
-//    res.json(true);
-//});
-//
-//app.put('/api/list/:id', function (req, res) {
-//    var list = SERVER.updateList(req.body);
-//
-//    if (list) {
-//        res.json(true);
-//    }
-//    else {
-//        res.statusCode = 404;
-//        res.send('liste not found!');
-//    }
-//});
-//
-//
-
 
 /*
  Login
