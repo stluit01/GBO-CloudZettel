@@ -49,4 +49,4 @@ login.controller('loginCtrl', function ($scope, $http, $window, $location) {
             }
         );
     };
-})
+});
