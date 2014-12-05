@@ -3,7 +3,7 @@
  */
 angular.module('login.config', [
     'service.listsDataService'
-    ])
+])
     .config(function ($routeProvider) {
         'use strict'
 
@@ -20,4 +20,4 @@ angular.module('login.config', [
                 controller: 'registrateCtrl',
                 index: 'registrate'
             })
-    })
+    });

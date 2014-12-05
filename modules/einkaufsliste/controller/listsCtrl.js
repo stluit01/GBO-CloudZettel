@@ -16,12 +16,12 @@ einkaufsliste.controller('listsCtrl', function ($scope, listsDataService, $locat
         $scope.showConfirmDialog = true;
     };
 
-    $scope.deleteListConfirmed = function(){
-        if(idToBeDeleted > 0){
+    $scope.deleteListConfirmed = function () {
+        if (idToBeDeleted > 0) {
             listsDataService.removeList(idToBeDeleted).then(function () {
-                for(var i=0; i < $scope.lists.length; i++){
+                for (var i = 0; i < $scope.lists.length; i++) {
                     //console.log($scope.lists[i].id +" : "+ id);
-                    if($scope.lists[i].id === idToBeDeleted){
+                    if ($scope.lists[i].id === idToBeDeleted) {
                         $scope.lists.splice(i, 1);
                         break;
                     }
@@ -32,7 +32,7 @@ einkaufsliste.controller('listsCtrl', function ($scope, listsDataService, $locat
         $scope.showConfirmDialog = false;
     };
 
-    $scope.deleteListDeclined = function(){
+    $scope.deleteListDeclined = function () {
         idToBeDeleted = -1;
         $scope.showConfirmDialog = false;
     };

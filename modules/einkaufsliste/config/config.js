@@ -2,11 +2,11 @@
  * Created by Jens on 10.11.2014.
  */
 angular.module('einkaufsliste.config', [
-    'service.listsDataService'
+    'service.listsDataService',
+    'jens.showFocus'
 ])
     .config(function ($routeProvider) {
         'use strict'
-
         ;
 
         $routeProvider
@@ -20,4 +20,4 @@ angular.module('einkaufsliste.config', [
                 controller: 'addEditListCtrl',
                 index: 'editList'
             })
-    })
+    });

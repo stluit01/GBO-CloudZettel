@@ -82,7 +82,7 @@ einkaufsliste.controller('addEditListCtrl', function ($scope, listsDataService, 
     };
 
     $scope.updateArticle = function (article) {
-        console.log("article: " + article);
+        //console.log("article: " + article);
         listsDataService.updateArticleInList($scope.list.id, article)
             .then(function (res) {
             }
@@ -128,36 +128,11 @@ einkaufsliste.controller('addEditListCtrl', function ($scope, listsDataService, 
         });
     };
 
-    // @deprecated
-    //$scope.plus = function (id) {
-    //    //alert("plus");
-    //    for (var i = 0, n = $scope.list.article.length; i < n; i++) {
-    //        //console.log(id + " : " +  $scope.list.article[i].id);
-    //        if (id === $scope.list.article[i].id) {
-    //            $scope.list.article[i].count++;
-    //            $scope.updateArticle($scope.list.article[i]);
-    //            break;
-    //        }
-    //    }
-    //};
-    //
-    //$scope.minus = function (id) {
-    //    //alert("minus");
-    //    for (var i = 0, n = $scope.list.article.length; i < n; i++) {
-    //        //console.log(id + " : " +  $scope.list.article[i].id);
-    //        if (id === $scope.list.article[i].id) {
-    //            $scope.list.article[i].count--;
-    //            $scope.updateArticle( $scope.list.article[i]);
-    //            break;
-    //        }
-    //    }
-    //};
 
-    $scope.getknown_articles = function(){
+    $scope.getknown_articles = function () {
         return listsDataService.getKnownArticles()
-            .then(function(res){
-            $scope.known_articles=res.data;
-        });
+            .then(function (res) {
+                $scope.known_articles = res.data;
+            });
     }
-
 });

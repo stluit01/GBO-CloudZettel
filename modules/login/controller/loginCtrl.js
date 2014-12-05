@@ -45,7 +45,6 @@ login.controller('loginCtrl', function ($scope, $http, $window, $location) {
                 else {
                     $scope.usererror = data;
                 }
-
             }
         );
     };

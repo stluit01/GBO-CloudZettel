@@ -34,9 +34,7 @@ angular.module('cloudEinkaufszettel', ['cloudEinkaufszettel.config'])
         });
     })
 
-
     .controller('NavigationCtrl', function ($scope, $window, $location) { //anzeige navbar
-
         $scope.logout = function () {
             //alert("logout")
             delete  $window.localStorage.token;
@@ -46,17 +44,6 @@ angular.module('cloudEinkaufszettel', ['cloudEinkaufszettel.config'])
 
         $scope.isLogin = false;
         $scope.$on('$routeChangeSuccess', function (eOpts, currentRoute) {
-            //console.log(currentRoute.$$route.originalPath)
-            //if (currentRoute.$$route.originalPath == "/login") {
-            //    console.log("login");
-            //
-            //    console.log( $scope.isLogin);
-            //}
-            //if (currentRoute.$$route.originalPath == "/registrate") {
-            //    console.log("reg");
-            //    $scope.isLogin= false;
-            //    console.log( $scope.isLogin);
-            //}
             if (currentRoute.$$route.originalPath != "/registrate"
                 && currentRoute.$$route.originalPath != "/login"
                 && $window.localStorage.token) {

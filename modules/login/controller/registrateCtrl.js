@@ -21,15 +21,13 @@ login.controller('registrateCtrl', function ($scope, listsDataService, $http, $l
                 "id": "",
                 "email": $scope.emailreg,
                 "passwort": $scope.password
-            }
+            };
 
             listsDataService.getNewId().then(function (res) {
                 newUser.id = res.data;
-
                 listsDataService.addUser(newUser)
                     .then(function () {
                         //TODO regiser hinweis
-
                         //FIXME login refactorn
                         $http.post('/login', {email: $scope.emailreg, password: $scope.password})
                             .success(function (data, status, headers, config) {
@@ -68,14 +66,12 @@ login.controller('registrateCtrl', function ($scope, listsDataService, $http, $l
         else {
             $scope.errorpass = "";
         }
-
         $scope.error = "";
     };
 
     $scope.emailtrue = function () {
         //Vergleich für Email
         var EMAIL_REGEXP = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,6}$/;
-
         if ($scope.emailreg) {
             if (!$scope.emailreg.match(EMAIL_REGEXP)) {
                 $scope.erroremail = 'Keine richtige Email-adresse!';
@@ -84,11 +80,10 @@ login.controller('registrateCtrl', function ($scope, listsDataService, $http, $l
                 $scope.erroremail = "";
             }
         }
-
         $scope.error = "";
     };
 
-    $scope.back = function(){
+    $scope.back = function () {
         $location.path("/login");
     };
 });

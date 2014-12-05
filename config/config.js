@@ -7,8 +7,6 @@ angular.module('cloudEinkaufszettel.config', [
         'einkaufsliste',
         'login',
         'ui.bootstrap',
-        'jens.accordion',
-        'jens.accordion.tpls',
         'service.login',
         'jens.clickOutside'
     ]
