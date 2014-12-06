@@ -30,13 +30,10 @@ app.use('/', express.static(__dirname + '/../'));
 
 //list in code for better auto correct
 SERVER._data = {
-    user: [
-    ],
+    user: [],
     global_Id_Counter: 0,
-    lists: [
-    ],
-    known_articles: [
-    ]
+    lists: [],
+    known_articles: []
 };
 /*
  SERVER...
@@ -417,8 +414,7 @@ app.post('/login', function (req, res) {
                 res.status(401).send('Wrong user or password');
                 return;
             }
-            else if(bcrypt.compareSync(req.body.password, SERVER._data.user[i].passwort))
-            {
+            else if (bcrypt.compareSync(req.body.password, SERVER._data.user[i].passwort)) {
                 // We are sending the profile inside the token
                 //console.log("passwort richtig");
                 var token = jwt.sign(SERVER._data.user[i], secret, {expiresInMinutes: 60 * 24 * 100});
@@ -436,12 +432,13 @@ SERVER.save = function () {
 
 // read
 SERVER.read = function () {
-    //console.log("read")
+    console.log("read zettel.json")
     try {
         SERVER._data = require(__dirname + '/zettel.json');
     }
     catch (e) {
-        SERVER.save();
+        console.log("zettel.json nicht gefunden ")
+        //SERVER.save();
     }
 };
 

@@ -74,7 +74,7 @@
                     <div class="col-md-4 col-xs-4">
                         <input ng-model="article.count" type="number"
                                class="form-control marg"
-                               placeholder="1" required>
+                               value="1" required>
                     </div>
                     <div class="col-md-1 col-xs-1">
                         <h3 class="pointer glyphicon glyphicon-plus" ng-click="article.count=article.count+1"></h3>
@@ -83,7 +83,7 @@
                         <h3>
                             <button type="submit" class="btn-link pointer glyphicon glyphicon-ok"
                                     ng-click="articleopen{{article.id}}=false;updateArticle(article)"
-                                    ng-disabled="editArtikle.$pristine ||editArtikle.$invalid">
+                                    ng-disabled="editArtikle.$invalid">
                             </button>
                         </h3>
                     </div>
@@ -134,4 +134,4 @@
             </form>
         </div>
     </div>
-
+</div>
