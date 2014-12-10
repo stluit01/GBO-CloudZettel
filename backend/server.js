@@ -23,10 +23,29 @@ var fs = require('fs');
 
 // We are going to protect /api routes with JWT
 app.use('/api', expressJwt({secret: secret}));
-
 app.use(bodyParser.json());
 app.use('/', express.static(__dirname + '/../'));
 
+
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "X-Requested-With, Content-Type, X-XSRF-TOKEN");
+    res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+    if (req.method === 'OPTIONS') {
+        res.statusCode = 204;
+        return res.end();
+    } else {
+        return next();
+    }
+});
+
+// set cors headers for all requests
+//app.all('*', function (req, res, next) {
+//    res.header("Access-Control-Allow-Origin", "*");
+//    res.header("Access-Control-Allow-Headers", "X-Requested-With, Content-Type, X-XSRF-TOKEN");
+//    res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+//    next();
+//});
 
 //list in code for better auto correct
 SERVER._data = {
@@ -234,13 +253,7 @@ SERVER.userExists = function (user) {
 
  */
 
-// set cors headers for all requests
-app.all('*', function (req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "X-Requested-With, Content-Type, X-XSRF-TOKEN");
-    res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
-    next();
-});
+
 
 // define REST resources
 app.get('/api/lists', function (req, res) {

@@ -19,7 +19,7 @@
         <div collapse="isCollapsedHead" class="row">
             <form role="form" name="listTitel" novalidate>
                 <div class="col-xs-10">
-                    <input ng-model="list.title" type="text" class="editTitel form-control" placeholder="neue Liste"
+                    <input show-focus="!isCollapsedHead" ng-model="list.title" type="text" class="editTitel form-control" placeholder="neue Liste"
                            required>
                 </div>
                 <div class="col-xs-2">
