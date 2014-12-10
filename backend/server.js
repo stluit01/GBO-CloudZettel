@@ -424,7 +424,7 @@ app.post('/login', function (req, res) {
             //if is invalid, return 401
             if (!(bcrypt.compareSync(req.body.password, SERVER._data.user[i].passwort))) {
                 //console.log("passwort falsch");
-                res.status(401).send('Wrong user or password');
+                res.status(401).send('Passwort falsch!');
                 return;
             }
             else if (bcrypt.compareSync(req.body.password, SERVER._data.user[i].passwort)) {
@@ -435,7 +435,7 @@ app.post('/login', function (req, res) {
             }
         }
     }
-    res.status(401).send('user not found');
+    res.status(401).send('Benutzer nicht gefunden!');
 });
 
 //save

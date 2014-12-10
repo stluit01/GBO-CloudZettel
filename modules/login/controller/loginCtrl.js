@@ -41,9 +41,11 @@ login.controller('loginCtrl', function ($scope, $http, $window, $location) {
                 // Handle login errors here
                 if (data == "Passwort falsch!") {
                     $scope.pwerror = data;
+                    $scope.error = "";
                 }
                 else {
                     $scope.usererror = data;
+                    $scope.error = "";
                 }
             }
         );
