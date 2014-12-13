@@ -1,7 +1,7 @@
 /**
  * Created by Jens on 29.11.2014.
  */
-login.controller('registrateCtrl', function ($scope, listsDataService, $http, $location, $window) {
+login.controller('registrateCtrl', function ($scope, listsDataService, $http, $location, $window , PROPERTIES) {
     //email, passwort, passwortvalidate holen
     $scope.emailreg = "";
     $scope.password = "";
@@ -29,7 +29,7 @@ login.controller('registrateCtrl', function ($scope, listsDataService, $http, $l
                     .then(function () {
                         //TODO regiser hinweis
                         //FIXME login refactorn
-                        $http.post('/login', {email: $scope.emailreg, password: $scope.password})
+                        $http.post(PROPERTIES.serverurl+'/login', {email: $scope.emailreg, password: $scope.password})
                             .success(function (data, status, headers, config) {
                                 $window.localStorage.token = data.token;
                                 //$window.sessionStorage.token = data.token;

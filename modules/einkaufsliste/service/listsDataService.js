@@ -2,11 +2,11 @@
  * Created by Jens on 10.11.2014.
  */
 angular.module('service.listsDataService', [])
-    .factory('listsDataService', function ($http) {
+    .factory('listsDataService', function ($http , PROPERTIES) {
         'use strict';
 
-        var o = {};
-        o._baseUrl = '';
+        var o = { };
+        o._baseUrl = PROPERTIES.serverurl;
 
         o.getLists = function () {
             return $http.get(o._baseUrl + '/api/lists');

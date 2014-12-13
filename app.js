@@ -22,10 +22,8 @@ function url_base64_decode(str) {
 
 
 angular.module('cloudEinkaufszettel', ['cloudEinkaufszettel.config'])
-    .controller('home', function ($scope, NAV_ITEMS, $location) {
+    .controller('home', function ($scope, $location) {
         'use strict';
-
-        $scope.navItems = NAV_ITEMS;
 
         $scope.$on('$routeChangeSuccess', function (eOpts, currentRoute) {
             if (currentRoute.$$route) {

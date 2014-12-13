@@ -11,12 +11,12 @@ angular.module('cloudEinkaufszettel.config', [
         'jens.clickOutside'
     ]
 )
-    .constant('NAV_ITEMS', [
-        {title: 'lists', index: 'lists', hash: '#lists', icon: ''},
-        {title: 'editList', index: 'editList', hash: '#editList', icon: ''},
-        {title: 'login', index: 'login', hash: '#login', icon: ''},
-        {title: 'registrate', index: 'registrate', hash: '#registrate', icon: ''}
-    ])
+
+    .constant('PROPERTIES',
+        {
+            serverurl:'http://localhost:8080'
+        }
+    )
 
     .config(function ($routeProvider) {
         'use strict';
@@ -34,5 +34,7 @@ angular.module('cloudEinkaufszettel.config', [
     })
 
     .config(function ($httpProvider) {
+        $httpProvider.defaults.useXDomain = true;
+        delete $httpProvider.defaults.headers.common['X-Requested-With'];
         $httpProvider.interceptors.push('authInterceptor');
     });

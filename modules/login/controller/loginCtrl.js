@@ -1,7 +1,7 @@
 /**
  * Created by Jens on 29.11.2014.
  */
-login.controller('loginCtrl', function ($scope, $http, $window, $location) {
+login.controller('loginCtrl', function ($scope, $http, $window, $location , PROPERTIES) {
     $scope.isAuthenticated = false;
 
     $scope.emailtest = function () {
@@ -25,7 +25,7 @@ login.controller('loginCtrl', function ($scope, $http, $window, $location) {
             $scope.error = 'Bitte alle Felder ausfüllen!';
         }
         //console.log($scope.user);
-        $http.post('/login', {email: $scope.email, password: $scope.password})
+        $http.post(PROPERTIES.serverurl+'/login', {email: $scope.email, password: $scope.password})
             .success(function (data, status, headers, config) {
                 $window.localStorage.token = data.token;
                 //$window.sessionStorage.token = data.token;
