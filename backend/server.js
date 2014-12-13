@@ -446,5 +446,5 @@ SERVER.read = function () {
 
 SERVER.read();
 // start listening
-app.listen(process.env.PORT || 8080);
-console.log("Server gestartet auf Port: " + (process.env.PORT || 8080 ));
+app.listen(process.env.PORT || 4070);
+console.log("Server gestartet auf Port: " + (process.env.PORT || 4070 ));
