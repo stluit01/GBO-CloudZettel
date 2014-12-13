@@ -14,7 +14,7 @@ angular.module('cloudEinkaufszettel.config', [
 
     .constant('PROPERTIES',
         {
-            serverurl:'http://localhost:8080'
+            serverurl:'http://localhost:4070'
         }
     )
 
