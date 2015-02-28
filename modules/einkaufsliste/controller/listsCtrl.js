@@ -42,4 +42,8 @@ einkaufsliste.controller('listsCtrl', function ($scope, listsDataService, $locat
         $location.path('/addEditList');
     };
 
+    $scope.newList = function(){
+        $location.path('/addEditList');
+    };
+
 });
