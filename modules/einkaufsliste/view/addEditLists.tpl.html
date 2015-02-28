@@ -74,8 +74,17 @@
             <!--body-->
             <div ng-show="articleopen{{article.id}}" class="well row">
                 <form role="form" name="editArtikle" novalidate>
-                    <input show-focus="articleopen{{article.id}}" ng-model="article.name" type="text"
-                           class="form-control" placeholder="Artikel..." required>
+                    <div class="form-group">
+                        <div ng-show="cordova" class="input-group">
+                            <input show-focus="articleopen{{article.id}}" ng-model="article.name" type="text"
+                                   class="form-control" style="height: 42px;" required>
+                            <span ng-click="recognizeSpeechBearbeiten($index)" class="input-group-addon"><i
+                                    class="fa fa-microphone fa-2x"></i></span>
+                        </div>
+                        <input ng-show="!cordova" show-focus="articleopen{{article.id}}" ng-model="article.name"
+                               type="text"
+                               class="form-control" style="height: 42px;" required>
+                    </div>
 
                     <div class="col-md-2 col-xs-2">
                         <h3 class="pointer  glyphicon  glyphicon-trash" ng-click="remArticle(article.id)"></h3>
@@ -115,9 +124,18 @@
     <div collapse="!showNew" class="panel-body">
         <div class="panel-body">
             <form role="form" name="newArticle" novalidate>
-                <input show-focus="showNew" type="text" ng-model="newArtikelName"
-                       typeahead="state for state in known_articles | filter:$viewValue | limitTo:8"
-                       class="form-control" required>
+                <div class="form-group">
+                    <div ng-show="cordova" class="input-group">
+                        <input show-focus="showNew" type="text" ng-model="newArtikelName"
+                               typeahead="state for state in known_articles | filter:$viewValue | limitTo:8"
+                               class="form-control" style="height: 42px;" required>
+                        <span ng-click="recognizeSpeech()" class="input-group-addon"><i
+                                class="fa fa-microphone fa-2x"></i></span>
+                    </div>
+                    <input ng-show="!cordova" show-focus="showNew" type="text" ng-model="newArtikelName"
+                           typeahead="state for state in known_articles | filter:$viewValue | limitTo:8"
+                           class="form-control" style="height: 42px;" required>
+                </div>
 
                 <div class="row" style="display: block; padding-left: 19px; padding-right: 19px;">
                     <div class="col-md-2 col-xs-2">
@@ -136,7 +154,7 @@
                         <h3>
                             <button type="submit" class="btn-link pointer glyphicon glyphicon-ok"
                                     ng-click="newArtikel() ; status.open = !status.open"
-                                    ng-disabled="newArticle.$pristine ||newArticle.$invalid">
+                                    ng-disabled="newArticle.$invalid">
                             </button>
                         </h3>
                     </div>
