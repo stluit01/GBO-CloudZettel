@@ -277,11 +277,7 @@ button{
     border-radius: 25px !important;
 }
 
-.btn-material-add:hover{
-    background-color: #006064;
-}
-
-.btn-material-add:active{
+.btn-material-add:hover, .btn-material-add:active, .btn-material-add:focus{
     background-color: #006064;
 }
 
@@ -295,4 +291,12 @@ button{
 
 .panel{
     border-radius: 0;
+}
+
+button, button:hover, button:focus, button:active{
+    outline: none !important;
+}
+
+a, a:hover, a:focus, a:active{
+    outline: none !important;
 }
