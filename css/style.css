@@ -281,6 +281,10 @@ button{
     background-color: #006064;
 }
 
+.btn-material-add:active{
+    background-color: #006064;
+}
+
 .btn{
     border-radius: 0;
 }
