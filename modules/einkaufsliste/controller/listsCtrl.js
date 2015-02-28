@@ -1,7 +1,7 @@
 /**
  * Created by Jens on 29.11.2014.
  */
-einkaufsliste.controller('listsCtrl', function ($scope, listsDataService, $location) {
+einkaufsliste.controller('listsCtrl', function ($scope, ngDialog, listsDataService, $location) {
     'use strict';
 
     $scope.showConfirmDialog = false;
@@ -11,30 +11,20 @@ einkaufsliste.controller('listsCtrl', function ($scope, listsDataService, $locat
         $scope.lists = res.data;
     });
 
-    $scope.remListe = function (id) {
-        idToBeDeleted = id;
-        $scope.showConfirmDialog = true;
-    };
-
-    $scope.deleteListConfirmed = function () {
-        if (idToBeDeleted > 0) {
-            listsDataService.removeList(idToBeDeleted).then(function () {
+    $scope.remList = function (id) {
+        ngDialog.openConfirm({
+            template: 'modules/einkaufsliste/view/confirmDialogPopupTmpl.html'
+        }).then(function (value) {
+            listsDataService.removeList(id).then(function () {
                 for (var i = 0; i < $scope.lists.length; i++) {
                     //console.log($scope.lists[i].id +" : "+ id);
-                    if ($scope.lists[i].id === idToBeDeleted) {
+                    if ($scope.lists[i].id === id) {
                         $scope.lists.splice(i, 1);
                         break;
                     }
                 }
-                idToBeDeleted = -1;
             });
-        }
-        $scope.showConfirmDialog = false;
-    };
-
-    $scope.deleteListDeclined = function () {
-        idToBeDeleted = -1;
-        $scope.showConfirmDialog = false;
+        });
     };
 
     $scope.edit = function (id) {
@@ -42,8 +32,7 @@ einkaufsliste.controller('listsCtrl', function ($scope, listsDataService, $locat
         $location.path('/addEditList');
     };
 
-    $scope.newList = function(){
+    $scope.newList = function () {
         $location.url('/addEditList');
     };
-
 });

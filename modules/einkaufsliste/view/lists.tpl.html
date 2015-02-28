@@ -2,13 +2,13 @@
         ng-click="newList()">
     <span class="glyphicon glyphicon-plus" aria-hidden="true" aria-label="Left Align"></span>
 </button>
-        <!--
+<!--
 <a style="margin-bottom: 10px" href="#/addEditList" class="btn btn-default btn-material-cyan"><span
-        class="glyphicon glyphicon-plus"></span></a>-->
+class="glyphicon glyphicon-plus"></span></a>-->
 <div ng-repeat="list in lists" class="material-card">
 
     <div class="panel-heading-right">
-        <h3 class="panel-title glyphicon glyphicon-remove" ng-click="remListe(list.id)"></h3>
+        <h3 class="panel-title glyphicon glyphicon-remove" ng-click="remList(list.id)"></h3>
     </div>
 
     <div class="panel panel-default" ng-click="edit(list.id)">
@@ -27,20 +27,6 @@
                 </div>
             </h4>
             <h4>...</h4>
-        </div>
-    </div>
-
-    <div ng-show="showConfirmDialog" class="confirmDialogWrapper">
-        <div class="confirmDialog">
-            <div class="confirmDialogHeader" style="padding: 0.5em">
-                Wirklich löschen?
-            </div>
-            <div class="confirmDialogBody">
-                <div class="confirmDialogMessage">Gesamte Liste inclusive Artikel wird dann gelöscht</div>
-                <button class="btn btn-primary btn-confirm btn-confirm-yes" ng-click="deleteListConfirmed()">Ja</button>
-                <button class="btn btn-default btn-confirm btn-confirm-no" ng-click="deleteListDeclined()">Nein</button>
-                <div style="clear: both"></div>
-            </div>
         </div>
     </div>
 </div>

@@ -33,7 +33,7 @@ einkaufsliste.controller('addEditListCtrl', function ($rootScope, $scope, ngDial
         var language = "de-DE";                     // optional
         window.plugins.speechrecognizer.startRecognize(function (result) {
             ngDialog.openConfirm({
-                template: 'recognizeSpeechPopupTmpl.html',
+                template: 'modules/einkaufsliste/view/recognizeSpeechPopupTmpl.html',
                 controller: 'addEditListCtrl',
                 data: result
             }).then(function (value) {
@@ -55,14 +55,17 @@ einkaufsliste.controller('addEditListCtrl', function ($rootScope, $scope, ngDial
     $scope.isCollapsed = true;
 
     $scope.back = function () {
-        $location.path('/lists');
+        $location.url('/lists');
     };
 
     $scope.remList = function (id) {
-        listsDataService.removeList(id).then(function () {
-            $location.path('/lists');
+        ngDialog.openConfirm({
+            template: 'modules/einkaufsliste/view/confirmDialogPopupTmpl.html'
+        }).then(function (value) {
+            listsDataService.removeList(id).then(function () {
+                $location.path('/lists');
+            });
         });
-
     };
 
     $scope.cleanList = function (id) {
@@ -78,7 +81,7 @@ einkaufsliste.controller('addEditListCtrl', function ($rootScope, $scope, ngDial
         } else{
             $scope.isCollapsedHead = true;
         }
-    }
+    };
 
     if (!$routeParams.id) { //new List
         //alert("new List");

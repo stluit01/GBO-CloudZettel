@@ -15,7 +15,7 @@ angular.module('cloudEinkaufszettel.config', [
 
     .constant('PROPERTIES',
         {
-            cordova: true,
+            cordova: false,
             serverurl:'http://cloudkorb.de-schmid.de:4070'
         }
     )
