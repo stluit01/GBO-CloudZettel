@@ -20,6 +20,13 @@ einkaufsliste.controller('addEditListCtrl', function ($scope, listsDataService, 
 
     };
 
+    $scope.cleanList = function (id) {
+        $scope.list.article = _.filter($scope.list.article, function(articel){
+            return !articel.purchased;
+        });
+        listsDataService.updateList($scope.list);
+    }
+
     if (!$routeParams.id) { //new List
         //alert("new List");
         editMode = false;
