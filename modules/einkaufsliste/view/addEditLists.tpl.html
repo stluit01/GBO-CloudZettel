@@ -36,7 +36,7 @@
     <div class="panel-body">
         <div ng-repeat="article in list.article">
             <!--head-->
-            <div ng-hide="articleopen{{article.id}}" class="welljs  row pointer"
+            <div ng-hide="articleopen{{article.id}}" class="welljs row pointer list-view"
                  ng-class="{ 'purchased' : article.purchased }"
                     >
                 <div ng-click="article.purchased=!article.purchased ; updateArticle(article)">
@@ -68,16 +68,16 @@
                     <div class="col-md-2 col-xs-2">
                         <h3 class="pointer  glyphicon  glyphicon-trash" ng-click="remArticle(article.id)"></h3>
                     </div>
-                    <div class="col-md-1 col-xs-1 col-xs-offset-1">
-                        <h3 class="pointer glyphicon glyphicon-minus" ng-click="article.count=article.count-1"></h3>
+                    <div class="col-md-1 col-xs-1 col-xs-offset-1" style="padding-right: 0">
+                        <h3 class="pointer glyphicon glyphicon-minus" ng-click="article.count=article.count-1" style="float: right"></h3>
                     </div>
                     <div class="col-md-4 col-xs-4">
                         <input ng-model="article.count" type="number"
                                class="form-control marg"
                                value="1" required>
                     </div>
-                    <div class="col-md-1 col-xs-1">
-                        <h3 class="pointer glyphicon glyphicon-plus" ng-click="article.count=article.count+1"></h3>
+                    <div class="col-md-1 col-xs-1"  style="padding-left: 0">
+                        <h3 class="pointer glyphicon glyphicon-plus" ng-click="article.count=article.count+1" style="float: left"></h3>
                     </div>
                     <div class="col-md-1 col-md-offset-2 col-xs-1 col-xs-offset-1">
                         <h3>
@@ -94,9 +94,9 @@
     </div>
 
     <!-- newArticle -->
-    <div collapse="showNew||!isCollapsedHead">
-        <button ng-click="showNew=true;getknown_articles()" type="button" class="btn btn-success btn-lg btn-block">
-            <span class="glyphicon glyphicon-plus" aria-hidden="true" aria-label="Left Align"></span>Artikel hinzufügen
+    <div collapse="showNew || !isCollapsedHead" ng-show="!showNew">
+        <button ng-click="showNew=true;getknown_articles()" type="button" class="btn btn-success btn-lg btn-block btn-material-add">
+            <span class="glyphicon glyphicon-plus" aria-hidden="true" aria-label="Left Align"></span>
         </button>
     </div>
 
@@ -107,21 +107,20 @@
                        typeahead="state for state in known_articles | filter:$viewValue | limitTo:8"
                        class="form-control" required>
 
-                <div class="row">
-                    <div class="col-xs-3">
+                <div class="row" style="display: block; padding-left: 19px; padding-right: 19px;">
+                    <div class="col-md-2 col-xs-2">
                         <h3 class="pointer  glyphicon glyphicon-remove" ng-click="abortNewArtikel()"></h3>
                     </div>
-                    <div class="col-xs-1">
-                        <h3 class="pointer glyphicon glyphicon-minus" ng-click="newArtikelCount=newArtikelCount-1"></h3>
+                    <div class="col-xs-2" style="padding-right: 0">
+                        <h3 class="pointer glyphicon glyphicon-minus" ng-click="newArtikelCount=newArtikelCount-1" style="float: right"></h3>
                     </div>
                     <div class="col-xs-4">
                         <input ng-model="newArtikelCount" type="number" value="1" class="form-control marg" required>
                     </div>
-                    <div class="col-xs-2">
-                        <h3 class="pointer glyphicon glyphicon-plus" ng-click="newArtikelCount=newArtikelCount+1"></h3>
+                    <div class="col-xs-2" style="padding-left: 0">
+                        <h3 class="pointer glyphicon glyphicon-plus" ng-click="newArtikelCount=newArtikelCount+1" style="float: left;"></h3>
                     </div>
-                    <div class="col-xs-1"></div>
-                    <div class="col-xs-1">
+                    <div class="col-xs-2" style="float: right;">
                         <h3>
                             <button type="submit" class="btn-link pointer glyphicon glyphicon-ok"
                                     ng-click="newArtikel() ; status.open = !status.open"

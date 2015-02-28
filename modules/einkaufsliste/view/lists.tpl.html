@@ -1,6 +1,12 @@
-<a style="margin-bottom: 10px" href="#/addEditList" class="btn btn-default"><span
-        class="glyphicon glyphicon-plus"></span> neue Einkaufsliste</a>
-<div ng-repeat="list in lists">
+<form action="#/addEditList">
+    <button class="btn btn-success btn-lg btn-block btn-material-add">
+        <span class="glyphicon glyphicon-plus" aria-hidden="true" aria-label="Left Align"></span>
+    </button>
+</form>
+        <!--
+<a style="margin-bottom: 10px" href="#/addEditList" class="btn btn-default btn-material-cyan"><span
+        class="glyphicon glyphicon-plus"></span></a>-->
+<div ng-repeat="list in lists" class="material-card">
 
     <div class="panel-heading-right">
         <h3 class="panel-title glyphicon glyphicon-remove" ng-click="remListe(list.id)"></h3>
