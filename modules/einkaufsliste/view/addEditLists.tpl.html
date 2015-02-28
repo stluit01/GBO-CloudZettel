@@ -115,13 +115,13 @@
     </div>
 
     <!-- newArticle -->
-    <div collapse="showNew || !isCollapsedHead" ng-show="!showNew">
+    <div  ng-show="!showNew"> <!-- collapse="showNew || !isCollapsedHead" -->
         <button ng-click="showNew=true;getknown_articles()" type="button" class="btn btn-success btn-lg btn-block btn-material-add">
             <span class="glyphicon glyphicon-plus" aria-hidden="true" aria-label="Left Align"></span>
         </button>
     </div>
 
-    <div collapse="!showNew" class="panel-body">
+    <div ng-show="showNew"  class="panel-body"> <!-- collapse="!showNew" -->
         <div class="panel-body">
             <form role="form" name="newArticle" novalidate>
                 <div class="form-group">
