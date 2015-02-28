@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app="cloudEinkaufszettel">
+<html ng-app="cloudEinkaufszettel" style="height: 100%">
 <head lang="de">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
@@ -20,11 +20,11 @@
     </style>
 
 </head>
-<body>
+<body style="height: 100%">
 <div ng-include="'view/navbar.tpl.html'"></div>
-<div class="container main">
-    <div ng-controller="home" class="row main-content">
-        <div ng-view=""></div>
+<div style="height: 80%" class="container main">
+    <div style="height: 100%" ng-controller="home" class="row main-content">
+        <div style="height: 100%" ng-view=""></div>
     </div>
 </div>
 
