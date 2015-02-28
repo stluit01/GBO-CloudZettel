@@ -277,6 +277,10 @@ button{
     border-radius: 25px !important;
 }
 
+.btn-material-add:hover{
+    background-color: #006064;
+}
+
 .btn{
     border-radius: 0;
 }
