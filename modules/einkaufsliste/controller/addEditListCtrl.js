@@ -27,6 +27,14 @@ einkaufsliste.controller('addEditListCtrl', function ($scope, listsDataService, 
         listsDataService.updateList($scope.list);
     }
 
+    $scope.cancelChanges = function () {
+        if(!editMode){
+            $location.path('/lists');
+        } else{
+            $scope.isCollapsedHead = true;
+        }
+    }
+
     if (!$routeParams.id) { //new List
         //alert("new List");
         editMode = false;
