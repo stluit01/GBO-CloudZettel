@@ -1,8 +1,53 @@
 /**
  * Created by Jens on 29.11.2014.
  */
-einkaufsliste.controller('addEditListCtrl', function ($scope, listsDataService, $routeParams, $location) {
+einkaufsliste.controller('addEditListCtrl', function ($rootScope, $scope, ngDialog, $routeParams, $location, listsDataService, PROPERTIES) {
     'use strict';
+    $scope.cordova = PROPERTIES.cordova;
+
+    $scope.recognizeSpeech = function () {
+        var maxMatches = 5;
+        var promptString = "Speak now"; // optional
+        var language = "de-DE";                     // optional
+        window.plugins.speechrecognizer.startRecognize(function (result) {
+            ngDialog.openConfirm({
+                template: 'modules/einkaufsliste/view/recognizeSpeechPopupTmpl.html',
+                controller: 'addEditListCtrl',
+                data: result
+            }).then(function (value) {
+                if (value===-1){
+                    $scope.recognizeSpeech();
+                }
+                else{
+                    $scope.newArtikelName = value;
+                }
+            });
+        }, function (errorMessage) {
+            alert("Error message: " + errorMessage);
+        }, maxMatches, promptString, language);
+    };
+
+    $scope.recognizeSpeechBearbeiten = function (index) {
+        var maxMatches = 5;
+        var promptString = "Speak now"; // optional
+        var language = "de-DE";                     // optional
+        window.plugins.speechrecognizer.startRecognize(function (result) {
+            ngDialog.openConfirm({
+                template: 'recognizeSpeechPopupTmpl.html',
+                controller: 'addEditListCtrl',
+                data: result
+            }).then(function (value) {
+                if (value===-1){
+                    $scope.recognizeSpeechBearbeiten(index);
+                }
+                else{
+                    $scope.list.article[index].name = value;
+                }
+            });
+        }, function (errorMessage) {
+            alert("Error message: " + errorMessage);
+        }, maxMatches, promptString, language);
+    };
 
     var editMode = true;
     $scope.showNew = false;
@@ -25,7 +70,7 @@ einkaufsliste.controller('addEditListCtrl', function ($scope, listsDataService, 
             return !articel.purchased;
         });
         listsDataService.updateList($scope.list);
-    }
+    };
 
     $scope.cancelChanges = function () {
         if(!editMode){

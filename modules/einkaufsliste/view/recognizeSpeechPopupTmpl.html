@@ -1,0 +1,10 @@
+<div class="ngdialog-message">
+    <h2>Was meinten Sie?</h2>
+    <button style="width: 100%" ng-repeat="data in ngDialogData" ng-click="confirm(data);closeThisDialog('closing')"
+            type="button" class="btn btn-default">
+        {{data}}
+    </button>
+
+
+    <button style=" display: block; margin-left: auto;margin-right: auto" ng-click="confirm(-1)" class="btn-link"><i class="fa fa-microphone fa-3x"></i> </button>
+    </div>

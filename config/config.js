@@ -8,13 +8,15 @@ angular.module('cloudEinkaufszettel.config', [
         'login',
         'ui.bootstrap',
         'service.login',
-        'jens.clickOutside'
+        'jens.clickOutside',
+        'ngDialog'
     ]
 )
 
     .constant('PROPERTIES',
         {
-            serverurl:'http://localhost:4070'
+            cordova: true,
+            serverurl:'http://cloudkorb.de-schmid.de:4070'
         }
     )
 
