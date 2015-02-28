@@ -96,7 +96,7 @@ z-index: 10;
 }
 
 .editTitel{
-    margin-top: 25px;
+    margin-top: 10px;
 }
 
 .editbutton{
@@ -246,6 +246,7 @@ h1
 
 .material-card {
     box-shadow: 0 2px 5px rgba(0,0,0,0.26);
+    border-radius: 0;
 }
 
 button{
@@ -281,4 +282,8 @@ button{
 
 .btn-confirm-yes{
     background-color: #006064;
+}
+
+.panel{
+    border-radius: 0;
 }
