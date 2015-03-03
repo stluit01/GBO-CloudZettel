@@ -5,6 +5,10 @@ einkaufsliste.controller('addEditListCtrl', function ($rootScope, $scope, ngDial
     'use strict';
     $scope.cordova = PROPERTIES.cordova;
 
+    $scope.alert = function (text) {
+        alert(text);
+    };
+
     $scope.recognizeSpeech = function () {
         var maxMatches = 5;
         var promptString = "Speak now"; // optional
@@ -75,18 +79,25 @@ einkaufsliste.controller('addEditListCtrl', function ($rootScope, $scope, ngDial
         listsDataService.updateList($scope.list);
     };
 
+    var oldTitle="";
+    $scope.saveOldTitle = function(){
+        oldTitle = $scope.list.title
+    };
+
     $scope.cancelChanges = function () {
         if(!editMode){
             $location.path('/lists');
         } else{
-            $scope.isCollapsedHead = true;
+            $scope.list.title= oldTitle;
         }
     };
 
     if (!$routeParams.id) { //new List
+        $rootScope.$broadcast('bissyStart', [1, 2, 3]);
         //alert("new List");
         editMode = false;
         $scope.isCollapsedHead = false;
+
         listsDataService.getNewId().then(function (res) {
             var id = res.data;
             //console.log("id: " + id);
@@ -98,14 +109,17 @@ einkaufsliste.controller('addEditListCtrl', function ($rootScope, $scope, ngDial
                 "title": "",
                 "article": []
             };
+            $rootScope.$broadcast('bissyEnd', [1, 2, 3]);
         });
     }
 
     else { //edit List
+        $rootScope.$broadcast('bissyStart', [1, 2, 3]);
         //alert("edit list");
         $scope.list = {};
         listsDataService.getList($routeParams.id).then(function (res) {
             $scope.list = res.data;
+            $rootScope.$broadcast('bissyEnd', [1, 2, 3]);
         });
         $scope.isCollapsedHead = true;
     }
@@ -139,7 +153,6 @@ einkaufsliste.controller('addEditListCtrl', function ($rootScope, $scope, ngDial
     $scope.newArtikelCount = 1;
 
     $scope.abortNewArtikel = function (name, count) {
-        $scope.showNew = false;
         $scope.newArtikelName = "";
         $scope.newArtikelCount = 1;
     };
@@ -174,20 +187,24 @@ einkaufsliste.controller('addEditListCtrl', function ($rootScope, $scope, ngDial
 
     $scope.newArtikel = function () {
         listsDataService.getNewId().then(function (res) {
-            $scope.showNew = false;
-            var artivleId = res.data;
-            //console.log("id: " + id);
-
-            var newArticle = {
-                "id": artivleId,
-                "name": $scope.newArtikelName,
-                "count": $scope.newArtikelCount,
-                "purchased": false
-            };
-            $scope.newArtikelName = "";
-            $scope.newArtikelCount = 1;
-            $scope.list.article.push(newArticle);
-            listsDataService.addArticleToList($scope.list.id, newArticle);//TODO then??
+            var articleId = res.data;
+            if(articleId!=null){ // ACHTUNG Artikel mit id==null dürfen nicht angelegt werden können (Server?)
+                //console.log("id: " + id);
+                var newArticle = {
+                    "id": articleId,
+                    "name": $scope.newArtikelName,
+                    "count": $scope.newArtikelCount,
+                    "purchased": false
+                };
+                $scope.newArtikelName = "";
+                $scope.newArtikelCount = 1;
+                listsDataService.addArticleToList($scope.list.id, newArticle).then(function(){
+                    $scope.list.article.push(newArticle);
+                });
+            }
+            else{
+                alert("newArticleID==null")
+            }
         });
     };
 

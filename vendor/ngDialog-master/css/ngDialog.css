@@ -59,6 +59,7 @@
 }
 
 .ngdialog-overlay {
+	z-index: 10020;
   position: fixed;
   background: rgba(0, 0, 0, 0.4);
   top: 0;
@@ -77,6 +78,7 @@
 }
 
 .ngdialog-content {
+	z-index: 10050;
   background: white;
   -webkit-backface-visibility: hidden;
   -webkit-animation: ngdialog-fadein 0.5s;

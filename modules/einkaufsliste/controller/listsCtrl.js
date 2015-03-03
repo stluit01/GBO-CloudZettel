@@ -1,13 +1,12 @@
 /**
  * Created by Jens on 29.11.2014.
  */
-einkaufsliste.controller('listsCtrl', function ($scope, ngDialog, listsDataService, $location) {
+einkaufsliste.controller('listsCtrl', function ($rootScope, $scope, ngDialog, listsDataService, $location) {
     'use strict';
 
-    $scope.showConfirmDialog = false;
-    var idToBeDeleted = -1;
-
+    $rootScope.$broadcast('bissyStart', [1, 2, 3]);
     listsDataService.getLists().then(function (res) {
+        $rootScope.$broadcast('bissyEnd', [1, 2, 3]);
         $scope.lists = res.data;
     });
 

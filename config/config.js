@@ -9,16 +9,18 @@ angular.module('cloudEinkaufszettel.config', [
         'ui.bootstrap',
         'service.login',
         'jens.clickOutside',
-        'ngDialog'
+        'jens.routeLoadingIndicator',
+        'ngDialog',
+        'angular-spinkit'
     ]
 )
 
     .constant('PROPERTIES',
-        {
-            cordova: false,
-            serverurl:'http://cloudkorb.de-schmid.de:4070'
-        }
-    )
+    {
+        cordova: false, //Sreacheingabe und andere Phongapp Funktionen aktivieren oder deaktivieren (default Web: false)
+        serverurl: 'http://cloudkorb.de-schmid.de:4070'
+    }
+)
 
     .config(function ($routeProvider) {
         'use strict';
@@ -34,6 +36,7 @@ angular.module('cloudEinkaufszettel.config', [
                 redirectTo: '/404'
             });
     })
+
 
     .config(function ($httpProvider) {
         $httpProvider.defaults.useXDomain = true;

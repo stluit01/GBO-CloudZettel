@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="vendor/ngDialog-master/css/ngDialog.css">
     <link rel="stylesheet" href="vendor/ngDialog-master/css/ngDialog-theme-default.css">
     <link rel="stylesheet" href="vendor/font-awesome-4.3.0/css/font-awesome.css">
+    <link rel="stylesheet" href="vendor/angular-spinkit/angular-spinkit.css">
 
     <!-- ng-cloak -->
     <style>
@@ -21,6 +22,7 @@
 
 </head>
 <body style="height: 100%">
+<route-loading-indicator></route-loading-indicator>
 <div ng-include="'view/navbar.tpl.html'"></div>
 <div style="height: 80%" class="container main">
     <div style="height: 100%" ng-controller="home" class="row main-content">
@@ -40,7 +42,6 @@
 <script type="text/javascript" src="config/config.js"></script>
 <script type="text/javascript" src="app.js"></script>
 
-
 <script type="text/javascript" src="modules/einkaufsliste/config/config.js"></script>
 <script type="text/javascript" src="modules/einkaufsliste/einkaufsliste.js"></script>
 <script type="text/javascript" src="modules/einkaufsliste/controller/addEditListCtrl.js"></script>
@@ -53,12 +54,15 @@
 <script type="text/javascript" src="modules/login/controller/registrateCtrl.js"></script>
 <script type="text/javascript" src="modules/login/service/authentication.js"></script>
 
-<script type="text/javascript" src="directive/clickoutside.js"></script>
+<script type="text/javascript" src="directive/otherDirectives.js"></script>
 <script type="text/javascript" src="directive/shownFocus.js"></script>
+<script type="text/javascript" src="directive/routeLoadingIndicator.js"></script>
 
 
 <script type="text/javascript" src="vendor/ngDialog-master/js/ngDialog.js"></script>
+<script type="text/javascript" src="vendor/angular-spinkit/angular-spinkit.js"></script>
 
+<!-- nicht auskommentieren wir von cordova benötigt -->
 <script src="cordova.js"></script>
 <script type="text/javascript" src="../plugins/com.phonegap.plugins.speech/SpeechRecognizer.js"></script>
 
