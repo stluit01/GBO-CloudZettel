@@ -5,7 +5,7 @@
 <!--
 <a style="margin-bottom: 10px" href="#/addEditList" class="btn btn-default btn-material-cyan"><span
 class="glyphicon glyphicon-plus"></span></a>-->
-<div ng-repeat="list in lists" class="material-card">
+<div ng-repeat="list in lists" ng-class="list.color">
 
     <div class="panel-heading-right">
         <h3 class="panel-title glyphicon glyphicon-remove" ng-click="remList(list.id)"></h3>
@@ -15,7 +15,7 @@ class="glyphicon glyphicon-plus"></span></a>-->
         <div class="pointer panel-heading colored">
             <h3 class="panel-title">{{list.title}} </h3>
         </div>
-        <div class="pointer panel-body">
+        <div style=" box-shadow: 0 2px 5px rgba(0, 0, 0, 0.26);" class="pointer panel-body">
             <h4 ng-repeat="article in list.article|limitTo:2">
                 <div class="row">
                     <div ng-class="{'purchased-simple': article.purchased}" class="col-md-10 col-xs-8">

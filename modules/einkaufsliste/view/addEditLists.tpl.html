@@ -1,4 +1,7 @@
-<div ng-swipe-right="back()" class="touch"> <!-- touch  -- >
+<div ng-swipe-right="back()" class="touch"> <!-- touch  -->
+    <div ng-class="list.color">
+        <div class="background"> </div>
+    </div>
     <!-- List title -->
     <div class="panel-body">
         <div on-long-press="isCollapsedHead=!isCollapsedHead;saveOldTitle()" ng-Dblclick="isCollapsedHead=!isCollapsedHead;saveOldTitle()"
@@ -27,6 +30,14 @@
                 <div class="col-xs-8">
                     <input show-focus="!isCollapsedHead" ng-model="list.title" type="text" class="editTitel form-control" placeholder="neue Liste"
                            required>
+                    <div style="width: 100%" class="btn-group">
+                        <label style="width: 16.66%;height: 40px; background-color: #ffffff" class="btn"  ng-click="list.color='material-card';setRootColor('material-card')" uncheckable></label>
+                        <label style="width: 16.66%;height: 40px; background-color: rgba(51, 181, 229,0.5)"class="btn"ng-click="list.color='material-card-blue';setRootColor('material-card-blue')" uncheckable></label>
+                        <label style="width: 16.66%;height: 40px; background-color: rgba(170, 102, 204,0.5)"class="btn" ng-click="list.color='material-card-violet';setRootColor('material-card-violet')" uncheckable></label>
+                        <label style="width: 16.66%;height: 40px; background-color: rgba(153, 204, 0,0.5)"class="btn" ng-click="list.color='material-card-green';setRootColor('material-card-green')" uncheckable></label>
+                        <label style="width: 16.66%;height: 40px; background-color: rgba(255, 187, 51,0.5)"class="btn" ng-click="list.color='material-card-orange';setRootColor('material-card-orange')" uncheckable></label>
+                        <label style="width: 16.67%;height: 40px; background-color: rgba(255, 68, 68,0.5)"class="btn" ng-click="list.color='material-card-red';setRootColor('material-card-red')" uncheckable></label>
+                    </div>
                 </div>
                 <div class="col-xs-2">
                     <h1 style="margin-bottom: 0;">
@@ -43,6 +54,7 @@
                     </h1>
                 </div>
             </form>
+
         </div>
     </div>
 

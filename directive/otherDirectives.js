@@ -41,7 +41,7 @@ app.directive('sglclick', ['$parse', function($parse) {
             });
         }
     };
-}])
+}]);
 
 
 app.directive('onLongPress', function($timeout) {

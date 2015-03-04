@@ -1,11 +1,11 @@
 <div ng-controller="NavigationCtrl">
-    <nav ng-show="isLogin" class="navbar navbar-default navbar-material-cayn" role="navigation">
+    <nav ng-show="isLogin" ng-class="color" class="navbar navbar-default navbar-material-cayn navbar-fixed-top" role="navigation">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">Cloud Korb</a>
 
             <div class="navbar-rightCK">
                 <span>{{user}}</span>
-                <button ng-click="logout()" type="button" class="navbarCK"><span
+                <button ng-class="color" ng-click="logout()" type="button" class="navbarCK"><span
                         class="glyphicon glyphicon-log-out"></span></button>
             </div>
         </div>

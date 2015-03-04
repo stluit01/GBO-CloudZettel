@@ -9,6 +9,10 @@ einkaufsliste.controller('addEditListCtrl', function ($rootScope, $scope, ngDial
         alert(text);
     };
 
+    $scope.setRootColor = function (color) {
+        $rootScope.color =  color;
+    };
+
     $scope.recognizeSpeech = function () {
         var maxMatches = 5;
         var promptString = "Speak now"; // optional
@@ -64,7 +68,7 @@ einkaufsliste.controller('addEditListCtrl', function ($rootScope, $scope, ngDial
 
     $scope.remList = function (id) {
         ngDialog.openConfirm({
-            template: 'modules/einkaufsliste/view/confirmDialogPopupTmpl.html'
+            template: 'modules/einkaufsliste/view/confirmDeleteListPopupTmpl.html'
         }).then(function (value) {
             listsDataService.removeList(id).then(function () {
                 $location.path('/lists');
@@ -73,15 +77,21 @@ einkaufsliste.controller('addEditListCtrl', function ($rootScope, $scope, ngDial
     };
 
     $scope.cleanList = function (id) {
-        $scope.list.article = _.filter($scope.list.article, function(articel){
-            return !articel.purchased;
+        ngDialog.openConfirm({
+            template: 'modules/einkaufsliste/view/confirmClearPopupTmpl.html'
+        }).then(function (value) {
+            $scope.list.article = _.filter($scope.list.article, function(articel){
+                return !articel.purchased;
+            });
+            listsDataService.updateList($scope.list);
         });
-        listsDataService.updateList($scope.list);
     };
 
     var oldTitle="";
+    var oldColor="";
     $scope.saveOldTitle = function(){
-        oldTitle = $scope.list.title
+        oldTitle = $scope.list.title;
+        oldColor = $scope.list.color;
     };
 
     $scope.cancelChanges = function () {
@@ -89,6 +99,8 @@ einkaufsliste.controller('addEditListCtrl', function ($rootScope, $scope, ngDial
             $location.path('/lists');
         } else{
             $scope.list.title= oldTitle;
+            $scope.list.color= oldColor;
+            $rootScope.color= oldColor;
         }
     };
 
@@ -101,13 +113,14 @@ einkaufsliste.controller('addEditListCtrl', function ($rootScope, $scope, ngDial
         listsDataService.getNewId().then(function (res) {
             var id = res.data;
             //console.log("id: " + id);
-
+            $rootScope.color = "";
             $scope.list = {
                 "id": id,
                 "owner": "",
                 "shared_with": [],
                 "title": "",
-                "article": []
+                "article": [],
+                "color": "material-card"
             };
             $rootScope.$broadcast('bissyEnd', [1, 2, 3]);
         });
@@ -119,6 +132,7 @@ einkaufsliste.controller('addEditListCtrl', function ($rootScope, $scope, ngDial
         $scope.list = {};
         listsDataService.getList($routeParams.id).then(function (res) {
             $scope.list = res.data;
+            $rootScope.color =  $scope.list.color;
             $rootScope.$broadcast('bissyEnd', [1, 2, 3]);
         });
         $scope.isCollapsedHead = true;
@@ -129,18 +143,23 @@ einkaufsliste.controller('addEditListCtrl', function ($rootScope, $scope, ngDial
         if (!editMode) { //new List
             //alert("add list");
             //console.log("list: " + $scope.list);
+            $rootScope.$broadcast('bissyStart', [1, 2, 3]);
             listsDataService.addList($scope.list).then(function (res) {
+                $rootScope.$broadcast('bissyEnd', [1, 2, 3]);
                 editMode = true;
                 $scope.isCollapsedHead = true;
                 $location.search('id', $scope.list.id);
                 $location.path('/addEditList');
             })
         }
-        else {
+        else {  //edit List
             //alert("updateList list");
+            $rootScope.$broadcast('bissyStart', [1, 2, 3]);
             listsDataService.updateList($scope.list)
                 .then(function (res) {
+                    $rootScope.color = $scope.list.color;
                     $scope.isCollapsedHead = true;
+                    $rootScope.$broadcast('bissyEnd', [1, 2, 3]);
                 }
                 , function (error) {
                     console.log("updateListe ERROR: " + error)

@@ -36,7 +36,7 @@ angular.module('cloudEinkaufszettel', ['cloudEinkaufszettel.config'])
         $scope.logout = function () {
             //alert("logout")
             delete  $window.localStorage.token;
-            $location.path("/login")
+            $location.path("/login");
 
         };
 
@@ -48,8 +48,8 @@ angular.module('cloudEinkaufszettel', ['cloudEinkaufszettel.config'])
                 //console.log("else");
                 $scope.isLogin = true;
                 //console.log( $scope.isLogin);
-                $scope.user = JSON.parse(url_base64_decode($window.localStorage.token.split('.')[1])).email
-                return
+                $scope.user = JSON.parse(url_base64_decode($window.localStorage.token.split('.')[1])).email;
+                return;
             }
             $scope.isLogin = false;
         });

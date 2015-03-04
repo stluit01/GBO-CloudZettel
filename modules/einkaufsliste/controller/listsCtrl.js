@@ -3,7 +3,7 @@
  */
 einkaufsliste.controller('listsCtrl', function ($rootScope, $scope, ngDialog, listsDataService, $location) {
     'use strict';
-
+    $rootScope.color = "material-card";
     $rootScope.$broadcast('bissyStart', [1, 2, 3]);
     listsDataService.getLists().then(function (res) {
         $rootScope.$broadcast('bissyEnd', [1, 2, 3]);
@@ -12,7 +12,7 @@ einkaufsliste.controller('listsCtrl', function ($rootScope, $scope, ngDialog, li
 
     $scope.remList = function (id) {
         ngDialog.openConfirm({
-            template: 'modules/einkaufsliste/view/confirmDialogPopupTmpl.html'
+            template: 'modules/einkaufsliste/view/confirmDeleteListPopupTmpl.html'
         }).then(function (value) {
             listsDataService.removeList(id).then(function () {
                 for (var i = 0; i < $scope.lists.length; i++) {
