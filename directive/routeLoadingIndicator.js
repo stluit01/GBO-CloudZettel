@@ -30,7 +30,6 @@ angular.module('jens.routeLoadingIndicator', [])
                     scope.bissy = true;
                 });
 
-
                 $rootScope.$on('bissyEnd', function () {
                     //console.log("bissyEnd");
                     scope.bissy = false;

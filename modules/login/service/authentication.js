@@ -16,6 +16,7 @@ angular.module('service.login', [])
                 if (rejection.status === 401) {
                     // handle the case where the user is not authenticated
                     $location.path("/login")
+                    $rootScope.$broadcast('bissyEnd', [1, 2, 3]);
                 }
                 return $q.reject(rejection);
             }

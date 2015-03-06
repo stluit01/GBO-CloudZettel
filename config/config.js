@@ -18,7 +18,7 @@ angular.module('cloudEinkaufszettel.config', [
     .constant('PROPERTIES',
     {
         cordova: false, //Sreacheingabe und andere Phongapp Funktionen aktivieren oder deaktivieren (default Web: false)
-        serverurl: 'http://cloudkorb.de-schmid.de:4070'
+        serverurl: 'http://cloudkorb.de-schmid.de/cloudkorbbackend'
     }
 )
 
